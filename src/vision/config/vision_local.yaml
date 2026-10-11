@@ -1,0 +1,8 @@
+camera:
+  color_topic: /rgbd_camera/rgb/image_compressed
+  depth_topic: /rgbd_camera/depth/image_raw
+  intrin_topic: /rgbd_camera/rgb/camera_info
+detection_model:
+  model_path: ./src/vision/model/sim_data_det_0126.onnx
+segmentation_model:
+  model_path: ./src/vision/model/sim_data_seg_0126.onnx

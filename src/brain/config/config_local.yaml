@@ -1,0 +1,14 @@
+brain_node:
+  ros__parameters:
+    game:
+      team_id: 1
+      player_id: 1
+      player_role: striker
+      number_of_players: 3
+    strategy:
+      cooperation:
+        enable_role_switch: false
+    vision:
+      image_camera_info_topic: /rgbd_camera/rgb/camera_info
+      depth_image_topic: /rgbd_camera/depth/image_raw
+      depth_camera_info_topic: /rgbd_camera/depth/camera_info
