@@ -28,8 +28,16 @@ import time
 from core.physics_transport import PhysicsTransportConfig, PhysicsCommand
 from transport.websocket.physics_ws import PhysicsWebSocketClient
 c = PhysicsWebSocketClient(PhysicsTransportConfig(port=8788), owner='soccer-initialize')
+world = []
+c.subscribe_game_control_world(lambda frame: world.append(frame))
 c.connect()
 time.sleep(1)
+if not world:
+    raise RuntimeError('No live world; reset was not attempted')
+robot = next(r for r in world[-1]['world']['robots'] if r['name'] == 'robot1')
+# Release any referee penalty hold before resetting the motion controller.
+c.send_command(PhysicsCommand.SET_BODY_POSITION,
+               {'body_id': robot['bodyId'], 'is_dragging': False, 'zero_velocity': True})
 c.send_command(PhysicsCommand.RESET_ROBOT, {'robot_name': 'robot1'})
 time.sleep(3)
 c.disconnect()
