@@ -8,7 +8,7 @@ echo "[STOP EXISTING NODES (IF ANY), TO AVOID CONFILICT]"
 
 source /opt/ros/humble/setup.bash
 source ./install/setup.bash
-export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/booster/BoosterRos2/fastdds_profile_udp_only.xml
+export FASTRTPS_DEFAULT_PROFILES_FILE="${SIM_DDS_PROFILE:-/opt/booster/BoosterRos2/fastdds_profile_udp_only.xml}"
 
 echo "[START ROBOCUP NODES]"
 echo "[START VISION]"

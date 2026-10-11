@@ -2,7 +2,8 @@
 
 # Install ONNX Runtime C++ library quickly
 
-cd /usr/local/booster_robot/third_party
+set -e
+cd "$(dirname "$0")"
 
 echo "Extracting..."
 tar -xzf "onnxruntime-linux-x64-1.23.2.tgz"
