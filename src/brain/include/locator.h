@@ -94,6 +94,7 @@ public:
     {
         return {
             InputPort<string>("mode", "enter_field", "must be one of [trust_direction, face_forward, fall_recovery]"),
+            InputPort<double>("direction_tolerance", 0.01745329252, "Heading search half-width for trust_direction, radians"),
             InputPort<double>("msecs_interval", 10000, "Prevent overly frequent calibration; if last calibration was within this interval, do not recalibrate."),
         };
     };

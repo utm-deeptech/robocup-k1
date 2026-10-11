@@ -1,4 +1,5 @@
 #pragma once
+#include "utils/kick_alignment_gate.h"
 
 #include <tuple>
 #include <behaviortree_cpp/behavior_tree.h>
@@ -78,6 +79,10 @@ public:
             InputPort<double>("chase_threshold", 1.0, "If the distance exceeds this value, execute the chase action"),
             InputPort<string>("decision_in", "", "Used to read the previous decision"),
             InputPort<string>("position", "offense", "offense | defense, determines the direction to kick the ball"),
+            InputPort<bool>("require_kick_alignment", false, "Require a fresh ball and stable goal alignment before kicking"),
+            InputPort<double>("kick_alignment_tolerance", 0.20, "Maximum ball-to-target alignment error in radians"),
+            InputPort<double>("kick_stable_msec", 300.0, "Hold good alignment before activating a kick"),
+            InputPort<double>("kick_cooldown_msec", 1500.0, "Delay before restarting automatic visual kick"),
             OutputPort<string>("decision_out")};
     }
 
@@ -85,8 +90,9 @@ public:
 
 private:
     Brain *brain;
-    double lastDeltaDir; 
-    rclcpp::Time timeLastTick; 
+    double lastDeltaDir = 0.0;
+    rclcpp::Time timeLastTick;
+    KickAlignmentGate _kickAlignmentGate;
 };
 
 

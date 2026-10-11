@@ -3612,6 +3612,25 @@ NodeStatus StrikerDecide::tick() {
     timeLastTick = now;
     lastDeltaDir = deltaDir;
 
+    // Optional precision profile: line up before giving control to the kick skill.
+    const bool preciseKick = getInput<bool>("require_kick_alignment").value();
+    const double alignmentTolerance = getInput<double>("kick_alignment_tolerance").value();
+    const double nowMs = now.seconds() * 1000.0;
+    const bool alignmentGood = brain->data->ballDetected
+        && brain->tree->getEntry<bool>("odom_calibrated")
+        && fabs(deltaDir) <= alignmentTolerance
+        && fabs(toPInPI(kickDir - brain->data->robotPoseToField.theta)) <= alignmentTolerance
+        && fabs(ballYaw) <= alignmentTolerance;
+    const bool alignmentStable = _kickAlignmentGate.update(nowMs, alignmentGood,
+        ballRange <= chaseRangeThreshold, getInput<double>("kick_stable_msec").value());
+    const bool kickCoolingDown = preciseKick
+        && brain->msecsSince(RLVisionKick::getLastExitTime())
+           < getInput<double>("kick_cooldown_msec").value();
+    // The motion skill owns alignment after activation; do not interrupt it just
+    // because it is moving. The action's exit checks and timeout still apply.
+    const bool continuingVisualKick = lastDecision == "auto_visual_kick" && !kickCoolingDown;
+    const bool kickReady = !preciseKick || alignmentStable;
+
     string newDecision;
     bool iKnowBallPos = brain->tree->getEntry<bool>("ball_location_known");
     bool tmBallPosReliable = brain->tree->getEntry<bool>("tm_ball_pos_reliable");
@@ -3620,6 +3639,7 @@ NodeStatus StrikerDecide::tick() {
         newDecision = "find";
     } else if (
                 brain->config->get_enable_auto_visual_kick() &&
+                (kickReady || continuingVisualKick) && !kickCoolingDown &&
                 brain->data->tmImLead && 
                 brain->data->tmMyCostRank == 0 && 
                 !brain->tree->getEntry<bool>("ball_out") && 
@@ -3640,7 +3660,10 @@ NodeStatus StrikerDecide::tick() {
     } else if (ballRange > chaseRangeThreshold * (lastDecision == "chase" ? 0.9 : 1.0))
     {
         newDecision = "chase";
+    } else if (preciseKick && alignmentGood && (!alignmentStable || kickCoolingDown)) {
+        newDecision = "settle";
     } else if (
+        kickReady && !kickCoolingDown &&
         (
             (angleGoodForKick && !brain->data->isFreekickKickingOff) 
             || reachedKickDir
@@ -3659,6 +3682,12 @@ NodeStatus StrikerDecide::tick() {
         newDecision = "adjust";
     }
 
+    if (preciseKick && newDecision != lastDecision) {
+        RCLCPP_INFO(brain->get_logger(),
+            "Precision striker: %s -> %s range=%.2f alignment=%.2f stable=%d cooldown=%d",
+            lastDecision.c_str(), newDecision.c_str(), ballRange, deltaDir,
+            alignmentStable, kickCoolingDown);
+    }
     setOutput("decision_out", newDecision);
     
     // Publish player_decide message
@@ -3945,7 +3974,18 @@ NodeStatus RLVisionKick::onRunning()
     // Check exit conditions
     double elapsed = brain->msecsSince(_startTime);
     double minMsecKick = getInput<double>("min_msec_kick").value();
-    
+    const double maxMsecKick = getInput<double>("max_msec_kick").value();
+
+    // Enforce the BT's duration bound, even when perception keeps a stale target.
+    if (elapsed >= maxMsecKick) {
+        brain->data->tmImInVisualKick = false;
+        brain->client->setVelocity(0.0, 0.0, 0.0);
+        brain->client->robocupWalk();
+        recordExitTime();
+        RCLCPP_INFO(brain->get_logger(), "RLVisionKick duration limit reached (%.0f ms)", elapsed);
+        return NodeStatus::SUCCESS;
+    }
+
     // Check if ball is too far or cost is too high
     bool ballTooFar = brain->data->ballDetected && brain->data->ball.range > 5.0;
     bool shouldExit = (((ballTooFar || brain->data->tmMyCost > 8.0) && (elapsed > minMsecKick)) || brain->data->lose_ball || brain->tree->getEntry<bool>("ball_out"));

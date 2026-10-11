@@ -373,8 +373,9 @@ NodeStatus SelfLocate::tick()
         xMax = min(brain->config->fieldDimensions.length / 2 + 2, brain->data->robotPoseToField.x + maxDrift);
         yMin = max(-brain->config->fieldDimensions.width / 2 - 2, brain->data->robotPoseToField.y - maxDrift);
         yMax = min(brain->config->fieldDimensions.width / 2 + 2, brain->data->robotPoseToField.y + maxDrift);
-        thetaMin = brain->data->robotPoseToField.theta - M_PI / 180;
-        thetaMax = brain->data->robotPoseToField.theta + M_PI / 180;
+        const double directionTolerance = getInput<double>("direction_tolerance").value();
+        thetaMin = brain->data->robotPoseToField.theta - directionTolerance;
+        thetaMax = brain->data->robotPoseToField.theta + directionTolerance;
     }
     else if (mode == "fall_recovery")
     {
