@@ -59,6 +59,23 @@ class FailureAnalysisTest(unittest.TestCase):
         self.assertFalse(result['first_action_contact_within_8s'])
         self.assertEqual(result['category'],'kick started but no contact')
 
+    def test_fixed_window_excludes_later_cleanup_contacts(self):
+        frames=[self.world(10),self.world(11),self.world(12),
+                self.world(13),self.world(14,'kick',True)]
+        row=dict(trial=1,start_sim_time=10,ball_start_x=0,ball_start_y=0,
+                 result='missed_contact',contact_observed=False,
+                 observation_window_sim_s=3,observation_end_sim_time=13)
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder)
+            (base/'trial-01-events.json').write_text(json.dumps([
+                {'type':'match_finished','simTime':15}]))
+            (base/'trial-01-brain.log').write_text('')
+            (base/'trial-01.jsonl').write_text('\n'.join(json.dumps(f) for f in frames))
+            result,_=analyze_trial(base,row,'upstream')
+        self.assertEqual(result['observed_play_duration_s'],3)
+        self.assertFalse(result['contact_anywhere_in_trial'])
+        self.assertFalse(result['Kick_node_ever_started'])
+
 
 if __name__=='__main__':
     unittest.main()
