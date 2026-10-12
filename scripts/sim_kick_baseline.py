@@ -68,7 +68,13 @@ class Recorder:
             self.node.create_subscription(Kick, '/kick_ball', self.kick, qos_profile_sensor_data),
             self.node.create_subscription(RpcReqMsg, '/LocoApiTopicReq', self.rpc, qos_profile_sensor_data),
         ]
-        self.spin_thread = threading.Thread(target=rclpy.spin, args=(self.node,), daemon=True)
+        def spin():
+            from rclpy.executors import ExternalShutdownException
+            try:
+                rclpy.spin(self.node)
+            except ExternalShutdownException:
+                pass
+        self.spin_thread = threading.Thread(target=spin, daemon=True)
         self.spin_thread.start()
         self.worker_log = (output / 'physics-worker.log').open('w')
         self.worker = subprocess.Popen([SIM_PYTHON, '-u', 'scripts/sim_kick_physics_worker.py'],
@@ -159,7 +165,8 @@ class Recorder:
         self.worker.wait(timeout=10)
         self.reader.join(timeout=2)
         self.worker_log.close()
-        self.rclpy.shutdown()
+        if self.rclpy.ok():
+            self.rclpy.shutdown()
         self.spin_thread.join(timeout=3)
         self.node.destroy_node()
         if self.raw:
@@ -169,6 +176,15 @@ class Recorder:
 def state_at(event, key):
     sample = event['state'].get(key)
     return sample['value'] if sample else None
+
+
+def stop_motion(client):
+    # A walking RPC may be rejected while the skill changes modes or after END.
+    # The brain's LT+X / END handling is the primary stop; preserve the result.
+    try:
+        client.Move(0, 0, 0)
+    except RuntimeError as error:
+        print(json.dumps({'stage': 'cleanup_move_rejected', 'error': str(error)}), flush=True)
 
 
 def add_snapshot(row, prefix, event):
@@ -291,7 +307,7 @@ def run_trial(rec, client, sdk, folder, trial, repeat, position, timeout):
                         # Prevent later attempts from contaminating the first shot.
                         if not stopped and dist > 1.0 and math.dist(ball[:2], robot['position'][:2]) > 1.2:
                             rec.buttons(lt=True, x=True)
-                            client.Move(0, 0, 0)
+                            stop_motion(client)
                             stopped = True
                 result = boundary_result(ball)
                 if result:
@@ -358,7 +374,7 @@ def run_trial(rec, client, sdk, folder, trial, repeat, position, timeout):
         row['goal_center_error_deg'] = math.degrees(wrap(actual - row['true_goal_dir_rad']))
     http('/match/end', True)
     rec.buttons(lt=True, x=True)
-    client.Move(0, 0, 0)
+    stop_motion(client)
     print(json.dumps({'stage': 'trial_result', **row}), flush=True)
     return row
 
@@ -425,7 +441,7 @@ def main():
     finally:
         try:
             http('/match/end', True)
-            client.Move(0, 0, 0)
+            stop_motion(client)
         finally:
             rec.close()
 
