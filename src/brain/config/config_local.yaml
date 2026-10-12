@@ -13,5 +13,6 @@ brain_node:
       depth_image_topic: /rgbd_camera/depth/image_raw
       depth_camera_info_topic: /rgbd_camera/depth/camera_info
     RLVisionKick:
+      enableAutoVisualKick: false
       autoVisualKickEnableDistMax: 1.0
       autoVisualKickEnableAngle: 0.2
