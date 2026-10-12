@@ -1,0 +1,28 @@
+{
+  "behavior_tag": "v0-two-robot-working",
+  "behavior_tag_commit": "d9fce8710f05e3c8e603f1f2dbfe668b79b4a5fc",
+  "recorder_first_run_commit": "02b5ca9",
+  "recorder_resumed_commit": "a15a5b3",
+  "measurement_test_commit": "5944eec",
+  "branch": "local/sim-autonomy",
+  "agent_source_diff_from_tag": "",
+  "raw_archive": "/home/anas-alanqar/robocup_demo/.cache/kick-baseline-v0-open-play.tar.gz",
+  "raw_archive_bytes": 54772655,
+  "raw_archive_sha256": "414041c1d644d7b47163065a915469d911c8491149f373f2bf1166789ad98075",
+  "files_sha256": {
+    "protocol.json": "48e44bc2dc0872785cb3dbf39be64e553845bba23386a70e4e4c51a61f03b578",
+    "results.json": "7bc5bd85531e53c5fb84354004e57849b813075b00460073e9ec658020ae4ba5",
+    "trials.csv": "c7718f1e7bba61f2e8155dea946387b90497e37fa159be7ba73e881e32f666ed",
+    "measurement-audit.json": "adea175c1a9a1fde99f4cd340c1934ec4acf309b54edc45934a6a9f260111dc7",
+    "summary.json": "279e2ff2ba04138e1d9c7fb71fb5caf1f26910f5bcb11c38072c237b1036d282"
+  },
+  "installed_this_phase": [],
+  "final_state": {
+    "normal_defender_referee_restored": true,
+    "referee_state": "initial",
+    "demo_nodes_stopped": true,
+    "two_robot_scene_retained": true
+  },
+  "ground_truth_subscription_check": "brain_node subscribes to vision output and odometry, not soccer/sim/localization/robot_pose or physics world",
+  "scope": "20 ordinary-play first-attempt trials; no agent behavior changes or Step 2\u20134 work"
+}

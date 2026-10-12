@@ -1,0 +1,49 @@
+{
+  "trials": 20,
+  "positions_repeated_four_times": true,
+  "frozen_hashes_match": true,
+  "reason_counts": {
+    "no_shot_after_first_activation": 16,
+    "no_kick_activation_before_timeout": 3,
+    "ball_stopped_inside_field": 1
+  },
+  "activation_trials": 17,
+  "contact_trials": 1,
+  "trajectory_quality": [
+    {
+      "trial": 8,
+      "direction_fit_reproduced": true,
+      "fit_samples": 66,
+      "contact_sim_time": 1915.2439999685344,
+      "last_kick_command_at_contact": {
+        "start": false,
+        "version": 1
+      },
+      "last_kick_command_sim_time": 1913.711999968,
+      "seconds_since_last_kick_command_at_contact": 1.5320000005342536,
+      "note": "Contact after a start=false command is not proof of a clean active RLVisionKick strike."
+    }
+  ],
+  "raw_sample_counts": {
+    "1": 6172,
+    "2": 11972,
+    "3": 16192,
+    "4": 7881,
+    "5": 9700,
+    "6": 6942,
+    "7": 14466,
+    "8": 6697,
+    "9": 14166,
+    "10": 6351,
+    "11": 5098,
+    "12": 6306,
+    "13": 6131,
+    "14": 6282,
+    "15": 6433,
+    "16": 5043,
+    "17": 15211,
+    "18": 5724,
+    "19": 9681,
+    "20": 13564
+  }
+}
