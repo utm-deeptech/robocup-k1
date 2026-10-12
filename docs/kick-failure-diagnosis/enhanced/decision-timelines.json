@@ -1,0 +1,4144 @@
+[
+  {
+    "trial": 1,
+    "decision_intervals": [
+      [
+        1078.5839999883187,
+        1078.8839999883116,
+        "unknown"
+      ],
+      [
+        1078.8839999883116,
+        1081.1699999882576,
+        "chase"
+      ],
+      [
+        1081.1699999882576,
+        1083.7599999881963,
+        "adjust"
+      ],
+      [
+        1083.7599999881963,
+        1083.8099999881952,
+        "settle"
+      ],
+      [
+        1083.8099999881952,
+        1083.8699999881937,
+        "adjust"
+      ],
+      [
+        1083.8699999881937,
+        1083.9159999881927,
+        "settle"
+      ],
+      [
+        1083.9159999881927,
+        1083.9279999881924,
+        "adjust"
+      ],
+      [
+        1083.9279999881924,
+        1083.943999988192,
+        "settle"
+      ],
+      [
+        1083.943999988192,
+        1087.8339999881,
+        "adjust"
+      ],
+      [
+        1087.8339999881,
+        1088.9879999880727,
+        "find"
+      ],
+      [
+        1088.9879999880727,
+        1089.0699999880708,
+        "adjust"
+      ],
+      [
+        1089.0699999880708,
+        1089.1259999880695,
+        "settle"
+      ],
+      [
+        1089.1259999880695,
+        1089.2239999880671,
+        "adjust"
+      ],
+      [
+        1089.2239999880671,
+        1089.269999988066,
+        "settle"
+      ],
+      [
+        1089.269999988066,
+        1090.7319999880315,
+        "adjust"
+      ],
+      [
+        1090.7319999880315,
+        1091.2419999880194,
+        "settle"
+      ],
+      [
+        1091.2419999880194,
+        1094.4679999879431,
+        "auto_visual_kick"
+      ],
+      [
+        1094.4679999879431,
+        1095.6459999879153,
+        "find"
+      ],
+      [
+        1095.6459999879153,
+        1096.1439999879035,
+        "settle"
+      ],
+      [
+        1096.1439999879035,
+        1099.3639999878274,
+        "auto_visual_kick"
+      ],
+      [
+        1099.3639999878274,
+        1100.7419999877948,
+        "find"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1094.467999987,
+        1095.967999987
+      ],
+      [
+        1099.353999987,
+        1100.7419999877948
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1091.743999988,
+        "stop_sim_time": 1094.467999987,
+        "rpc_active_s": 2.7239999989999433,
+        "truth_start_distance_m": 0.3114837766140586,
+        "truth_end_distance_m": 0.31287778677043004,
+        "robot_displacement_m": 0.0025741593349532465,
+        "maximum_kick_target_age_s": 2.5299999999433567,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2751896754682829,
+        "activation_truth_heading_error_deg": 6.722891677538446
+      },
+      {
+        "start_sim_time": 1096.647999987,
+        "stop_sim_time": 1099.353999987,
+        "rpc_active_s": 2.7059999999999036,
+        "truth_start_distance_m": 0.3142596783198517,
+        "truth_end_distance_m": 0.3161521112965381,
+        "robot_displacement_m": 0.002072857711035363,
+        "maximum_kick_target_age_s": 2.5060000008277257,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2613737297555563,
+        "activation_truth_heading_error_deg": 7.789599182484039
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      1087.2999999881126,
+      1087.3119999881123,
+      1087.3159999881123,
+      1087.321999988112,
+      1087.327999988112,
+      1087.3379999881117
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768113.899540205] [brain_node]: Precision striker:  -> chase range=1.82 alignment=-0.41 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768116.523768298] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-0.54 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.420913870] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.476343769] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.542540808] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.586778637] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.608864571] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768119.631529549] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768124.168404186] [brain_node]: Precision striker: adjust -> find range=0.27 alignment=-0.36 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768125.555736066] [brain_node]: Precision striker: find -> adjust range=0.35 alignment=-0.18 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768125.644825709] [brain_node]: Precision striker: adjust -> settle range=0.39 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768125.711837556] [brain_node]: Precision striker: settle -> adjust range=0.38 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768125.823501039] [brain_node]: Precision striker: adjust -> settle range=0.36 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768125.889917989] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768127.610185077] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768128.192087693] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.28 alignment=0.03 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768131.967702504] [brain_node]: Precision striker: auto_visual_kick -> find range=0.27 alignment=-0.03 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791768133.333245474] [brain_node]: Precision striker: find -> settle range=0.33 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768133.903953148] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768137.596260544] [brain_node]: Precision striker: auto_visual_kick -> find range=0.26 alignment=-0.01 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 2,
+    "decision_intervals": [
+      [
+        1304.1299999829853,
+        1304.1599999829846,
+        "unknown"
+      ],
+      [
+        1304.1599999829846,
+        1306.0179999829406,
+        "chase"
+      ],
+      [
+        1306.0179999829406,
+        1315.2779999827217,
+        "find"
+      ],
+      [
+        1315.2779999827217,
+        1319.5879999826197,
+        "chase"
+      ],
+      [
+        1319.5879999826197,
+        1319.8179999826143,
+        "find"
+      ],
+      [
+        1319.8179999826143,
+        1320.1939999826054,
+        "chase"
+      ],
+      [
+        1320.1939999826054,
+        1320.503999982598,
+        "adjust"
+      ],
+      [
+        1320.503999982598,
+        1321.4999999825745,
+        "chase"
+      ],
+      [
+        1321.4999999825745,
+        1321.5599999825731,
+        "adjust"
+      ],
+      [
+        1321.5599999825731,
+        1326.34799998246,
+        "chase"
+      ],
+      [
+        1326.34799998246,
+        1328.2319999824153,
+        "adjust"
+      ],
+      [
+        1328.2319999824153,
+        1328.8139999824016,
+        "find"
+      ],
+      [
+        1328.8139999824016,
+        1330.9319999823515,
+        "chase"
+      ],
+      [
+        1330.9319999823515,
+        1331.4479999823393,
+        "find"
+      ],
+      [
+        1331.4479999823393,
+        1337.7779999821896,
+        "chase"
+      ],
+      [
+        1337.7779999821896,
+        1341.9359999820913,
+        "find"
+      ],
+      [
+        1341.9359999820913,
+        1359.161999981684,
+        "chase"
+      ],
+      [
+        1359.161999981684,
+        1363.1459999815897,
+        "adjust"
+      ],
+      [
+        1363.1459999815897,
+        1363.3659999815845,
+        "settle"
+      ],
+      [
+        1363.3659999815845,
+        1363.7879999815746,
+        "adjust"
+      ],
+      [
+        1363.7879999815746,
+        1363.8339999815735,
+        "settle"
+      ],
+      [
+        1363.8339999815735,
+        1365.1719999815418,
+        "adjust"
+      ],
+      [
+        1365.1719999815418,
+        1365.2239999815406,
+        "settle"
+      ],
+      [
+        1365.2239999815406,
+        1365.2399999815402,
+        "adjust"
+      ],
+      [
+        1365.2399999815402,
+        1365.4239999815359,
+        "settle"
+      ],
+      [
+        1365.4239999815359,
+        1365.7719999815276,
+        "adjust"
+      ],
+      [
+        1365.7719999815276,
+        1366.1899999815178,
+        "settle"
+      ],
+      [
+        1366.1899999815178,
+        1366.3539999815139,
+        "adjust"
+      ],
+      [
+        1366.3539999815139,
+        1366.645999981507,
+        "settle"
+      ],
+      [
+        1366.645999981507,
+        1367.0539999814973,
+        "adjust"
+      ],
+      [
+        1367.0539999814973,
+        1367.155999981495,
+        "settle"
+      ],
+      [
+        1367.155999981495,
+        1367.6339999814836,
+        "adjust"
+      ],
+      [
+        1367.6339999814836,
+        1368.1319999814718,
+        "settle"
+      ],
+      [
+        1368.1319999814718,
+        1375.1539999813058,
+        "auto_visual_kick"
+      ],
+      [
+        1375.1539999813058,
+        1376.6419999812706,
+        "settle"
+      ],
+      [
+        1376.6419999812706,
+        1378.5159999812263,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1375.139999981,
+        1376.639999981
+      ],
+      [
+        1376.711999981,
+        1378.211999981
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1368.641999981,
+        "stop_sim_time": 1375.139999981,
+        "rpc_active_s": 6.498000000000047,
+        "truth_start_distance_m": 0.32902636439991373,
+        "truth_end_distance_m": 0.3339822621399836,
+        "robot_displacement_m": 0.005214290832452352,
+        "maximum_kick_target_age_s": 2.01600000040753,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2762591542719515,
+        "activation_truth_heading_error_deg": 1.979033073312077
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      1361.3899999816313,
+      1361.399999981631,
+      1361.4099999816308,
+      1361.4179999816306
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768374.630782943] [brain_node]: Precision striker:  -> chase range=1.48 alignment=-0.51 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768376.815024566] [brain_node]: Precision striker: chase -> find range=1.13 alignment=-0.69 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768387.690049758] [brain_node]: Precision striker: find -> chase range=8.30 alignment=-2.51 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768393.057024165] [brain_node]: Precision striker: chase -> find range=8.72 alignment=-2.25 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768393.326775711] [brain_node]: Precision striker: find -> chase range=9.65 alignment=-2.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768393.763330282] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-2.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768394.141195032] [brain_node]: Precision striker: adjust -> chase range=8.81 alignment=-2.66 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768395.336043943] [brain_node]: Precision striker: chase -> adjust range=0.85 alignment=-2.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768395.414654775] [brain_node]: Precision striker: adjust -> chase range=6.53 alignment=-2.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768401.117500709] [brain_node]: Precision striker: chase -> adjust range=0.81 alignment=3.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768403.379685145] [brain_node]: Precision striker: adjust -> find range=0.64 alignment=1.94 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768404.054345943] [brain_node]: Precision striker: find -> chase range=7.59 alignment=2.66 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768406.508887712] [brain_node]: Precision striker: chase -> find range=8.16 alignment=2.69 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768407.120358650] [brain_node]: Precision striker: find -> chase range=6.52 alignment=2.64 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768414.595281846] [brain_node]: Precision striker: chase -> find range=3.65 alignment=2.55 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768419.487171494] [brain_node]: Precision striker: find -> chase range=15.81 alignment=2.23 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768440.339620763] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=0.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768445.118641030] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768445.389656268] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768445.875245736] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768445.942596441] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768447.557128171] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768447.613882386] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768447.625018567] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768447.863979103] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.18 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768448.308658886] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768448.846483270] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768449.052218065] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768449.413497563] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768449.907560695] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768450.021128291] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768450.568636978] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768451.175933288] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.29 alignment=-0.11 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768459.543219509] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=-0.09 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791768461.447523553] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.10 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 3,
+    "decision_intervals": [
+      [
+        1412.1999999804298,
+        1412.2879999804277,
+        "unknown"
+      ],
+      [
+        1412.2879999804277,
+        1417.8339999802965,
+        "chase"
+      ],
+      [
+        1417.8339999802965,
+        1425.935999980105,
+        "adjust"
+      ],
+      [
+        1425.935999980105,
+        1426.0959999801012,
+        "settle"
+      ],
+      [
+        1426.0959999801012,
+        1426.9559999800808,
+        "adjust"
+      ],
+      [
+        1426.9559999800808,
+        1428.007999980056,
+        "chase"
+      ],
+      [
+        1428.007999980056,
+        1439.425999979786,
+        "adjust"
+      ],
+      [
+        1439.425999979786,
+        1440.8839999797515,
+        "find"
+      ],
+      [
+        1440.8839999797515,
+        1442.471999979714,
+        "adjust"
+      ],
+      [
+        1442.471999979714,
+        1446.1299999796274,
+        "find"
+      ],
+      [
+        1446.1299999796274,
+        1451.0319999795115,
+        "adjust"
+      ],
+      [
+        1451.0319999795115,
+        1451.2459999795065,
+        "settle"
+      ],
+      [
+        1451.2459999795065,
+        1458.7859999793282,
+        "adjust"
+      ],
+      [
+        1458.7859999793282,
+        1461.539999979263,
+        "chase"
+      ],
+      [
+        1461.539999979263,
+        1470.9199999790412,
+        "adjust"
+      ],
+      [
+        1470.9199999790412,
+        1471.221999979034,
+        "find"
+      ],
+      [
+        1471.221999979034,
+        1472.9359999789936,
+        "adjust"
+      ],
+      [
+        1472.9359999789936,
+        1477.439999978887,
+        "find"
+      ],
+      [
+        1477.439999978887,
+        1482.4999999787674,
+        "adjust"
+      ],
+      [
+        1482.4999999787674,
+        1484.2159999787268,
+        "chase"
+      ],
+      [
+        1484.2159999787268,
+        1490.9099999785685,
+        "adjust"
+      ],
+      [
+        1490.9099999785685,
+        1492.7219999785257,
+        "find"
+      ],
+      [
+        1492.7219999785257,
+        1497.8499999784044,
+        "adjust"
+      ],
+      [
+        1497.8499999784044,
+        1498.1479999783974,
+        "find"
+      ],
+      [
+        1498.1479999783974,
+        1504.6259999782442,
+        "adjust"
+      ],
+      [
+        1504.6259999782442,
+        1506.409999978202,
+        "find"
+      ],
+      [
+        1506.409999978202,
+        1506.4939999782,
+        "chase"
+      ],
+      [
+        1506.4939999782,
+        1509.2259999781354,
+        "adjust"
+      ],
+      [
+        1509.2259999781354,
+        1512.0159999780694,
+        "find"
+      ]
+    ],
+    "cooldown_intervals": [],
+    "visual_skill_intervals": [],
+    "responses": [],
+    "contact_sim_times": [
+      1422.0119999801977,
+      1422.0219999801975,
+      1422.0279999801974,
+      1422.0379999801971,
+      1422.043999980197,
+      1422.0539999801967,
+      1424.409999980141,
+      1424.413999980141,
+      1424.4259999801407,
+      1424.4379999801404,
+      1425.043999980126,
+      1425.047999980126,
+      1425.0599999801257,
+      1425.0679999801255,
+      1425.0759999801253,
+      1425.0799999801252,
+      1430.123999980006,
+      1430.1379999800056,
+      1430.1419999800055,
+      1430.1479999800054,
+      1430.1539999800052,
+      1438.9799999797965,
+      1438.9899999797963,
+      1439.001999979796,
+      1439.0119999797957,
+      1439.0179999797956,
+      1465.4459999791707,
+      1465.4519999791705,
+      1465.4639999791702,
+      1465.47199997917,
+      1465.47799997917,
+      1494.4779999784841,
+      1494.487999978484,
+      1494.5059999784835,
+      1495.0579999784704,
+      1495.07399997847,
+      1496.7959999784293,
+      1496.7999999784292,
+      1496.805999978429,
+      1497.3439999784164,
+      1497.355999978416,
+      1497.3659999784159,
+      1497.3719999784157,
+      1497.3779999784156,
+      1504.341999978251,
+      1504.3539999782506,
+      1504.3639999782504,
+      1504.3699999782502,
+      1504.38199997825
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768502.193637349] [brain_node]: Precision striker:  -> chase range=1.63 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768508.598942727] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=-0.98 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768517.826029294] [brain_node]: Precision striker: adjust -> settle range=0.46 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768518.003123650] [brain_node]: Precision striker: settle -> adjust range=0.62 alignment=0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768518.961370582] [brain_node]: Precision striker: adjust -> chase range=1.09 alignment=0.59 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768520.105114244] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=0.51 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768533.351461029] [brain_node]: Precision striker: adjust -> find range=0.35 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768534.965335213] [brain_node]: Precision striker: find -> adjust range=0.33 alignment=1.75 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768537.146979437] [brain_node]: Precision striker: adjust -> find range=0.20 alignment=1.44 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768541.634230498] [brain_node]: Precision striker: find -> adjust range=0.57 alignment=-2.46 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768547.688139870] [brain_node]: Precision striker: adjust -> settle range=0.41 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768547.952723904] [brain_node]: Precision striker: settle -> adjust range=0.41 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768557.161419367] [brain_node]: Precision striker: adjust -> chase range=1.49 alignment=-0.37 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768560.494317916] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768562.328182063] [brain_node]: Precision striker: adjust -> settle range=0.38 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768562.339493501] [brain_node]: Precision striker: settle -> adjust range=0.38 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768572.091904270] [brain_node]: Precision striker: adjust -> find range=0.32 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768572.747191052] [brain_node]: Precision striker: find -> adjust range=0.28 alignment=1.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768575.095714484] [brain_node]: Precision striker: adjust -> find range=0.16 alignment=0.90 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768581.109004611] [brain_node]: Precision striker: find -> adjust range=0.47 alignment=-1.73 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768587.774996702] [brain_node]: Precision striker: adjust -> chase range=1.32 alignment=-1.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768589.989331046] [brain_node]: Precision striker: chase -> adjust range=0.87 alignment=-0.80 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768597.935832774] [brain_node]: Precision striker: adjust -> find range=0.27 alignment=0.56 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768600.347006116] [brain_node]: Precision striker: find -> adjust range=0.37 alignment=-0.30 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768606.812470811] [brain_node]: Precision striker: adjust -> find range=0.35 alignment=-0.46 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768607.269035621] [brain_node]: Precision striker: find -> adjust range=0.47 alignment=-0.68 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768615.325525823] [brain_node]: Precision striker: adjust -> find range=0.33 alignment=-0.33 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768617.709710385] [brain_node]: Precision striker: find -> chase range=1.97 alignment=0.32 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768617.928536054] [brain_node]: Precision striker: chase -> adjust range=0.36 alignment=-0.97 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768621.283993970] [brain_node]: Precision striker: adjust -> find range=0.20 alignment=-0.53 stable=0 cooldown=0"
+    ]
+  },
+  {
+    "trial": 4,
+    "decision_intervals": [
+      [
+        1546.4719999772547,
+        1546.5939999772518,
+        "unknown"
+      ],
+      [
+        1546.5939999772518,
+        1553.7939999770815,
+        "chase"
+      ],
+      [
+        1553.7939999770815,
+        1558.8119999769629,
+        "adjust"
+      ],
+      [
+        1558.8119999769629,
+        1558.8299999769624,
+        "settle"
+      ],
+      [
+        1558.8299999769624,
+        1558.8539999769619,
+        "adjust"
+      ],
+      [
+        1558.8539999769619,
+        1559.097999976956,
+        "settle"
+      ],
+      [
+        1559.097999976956,
+        1559.1119999769558,
+        "adjust"
+      ],
+      [
+        1559.1119999769558,
+        1559.1559999769547,
+        "settle"
+      ],
+      [
+        1559.1559999769547,
+        1561.3739999769023,
+        "adjust"
+      ],
+      [
+        1561.3739999769023,
+        1561.429999976901,
+        "settle"
+      ],
+      [
+        1561.429999976901,
+        1561.7859999768925,
+        "adjust"
+      ],
+      [
+        1561.7859999768925,
+        1561.8799999768903,
+        "settle"
+      ],
+      [
+        1561.8799999768903,
+        1561.9059999768897,
+        "adjust"
+      ],
+      [
+        1561.9059999768897,
+        1561.9179999768894,
+        "settle"
+      ],
+      [
+        1561.9179999768894,
+        1562.7619999768694,
+        "adjust"
+      ],
+      [
+        1562.7619999768694,
+        1562.9759999768644,
+        "settle"
+      ],
+      [
+        1562.9759999768644,
+        1564.051999976839,
+        "adjust"
+      ],
+      [
+        1564.051999976839,
+        1564.2339999768346,
+        "settle"
+      ],
+      [
+        1564.2339999768346,
+        1564.3299999768324,
+        "adjust"
+      ],
+      [
+        1564.3299999768324,
+        1564.5199999768279,
+        "settle"
+      ],
+      [
+        1564.5199999768279,
+        1568.9719999767226,
+        "adjust"
+      ],
+      [
+        1568.9719999767226,
+        1569.4139999767121,
+        "settle"
+      ],
+      [
+        1569.4139999767121,
+        1569.4739999767107,
+        "adjust"
+      ],
+      [
+        1569.4739999767107,
+        1569.7099999767051,
+        "settle"
+      ],
+      [
+        1569.7099999767051,
+        1570.9159999766766,
+        "chase"
+      ],
+      [
+        1570.9159999766766,
+        1570.9659999766754,
+        "adjust"
+      ],
+      [
+        1570.9659999766754,
+        1571.0819999766727,
+        "settle"
+      ],
+      [
+        1571.0819999766727,
+        1571.1379999766714,
+        "adjust"
+      ],
+      [
+        1571.1379999766714,
+        1571.6459999766594,
+        "settle"
+      ],
+      [
+        1571.6459999766594,
+        1578.6579999764936,
+        "auto_visual_kick"
+      ],
+      [
+        1578.6579999764936,
+        1579.1179999764827,
+        "adjust"
+      ],
+      [
+        1579.1179999764827,
+        1580.0199999764613,
+        "settle"
+      ],
+      [
+        1580.0199999764613,
+        1580.1859999764574,
+        "adjust"
+      ],
+      [
+        1580.1859999764574,
+        1582.0479999764134,
+        "settle"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1578.651999976,
+        1580.151999976
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1572.149999976,
+        "stop_sim_time": 1578.651999976,
+        "rpc_active_s": 6.50200000000018,
+        "truth_start_distance_m": 0.6252072430408925,
+        "truth_end_distance_m": 0.620313582236925,
+        "robot_displacement_m": 0.018916553776071408,
+        "maximum_kick_target_age_s": 0.058000000629135684,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.5319405738588733,
+        "activation_truth_heading_error_deg": 9.025288882066171
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      1555.8219999770336,
+      1555.8379999770332,
+      1555.841999977033,
+      1555.8519999770328,
+      1556.139999977026,
+      1556.143999977026,
+      1556.1559999770257,
+      1556.1679999770254,
+      1556.1719999770253,
+      1565.8479999767965,
+      1565.8559999767963,
+      1568.2919999767387,
+      1568.2939999767386,
+      1568.2959999767386,
+      1568.3019999767384,
+      1568.3139999767382,
+      1568.3279999767378,
+      1568.3339999767377
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768665.683790983] [brain_node]: Precision striker:  -> chase range=4.22 alignment=0.81 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768674.534475596] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=0.65 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.581332198] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.615391379] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.649704374] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.917357744] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.928757811] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768680.985207307] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768683.602914092] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768683.670456130] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768684.127706912] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768684.239308229] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768684.262071802] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768684.284885726] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768685.255546085] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768685.504094305] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768686.809911764] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768687.012279768] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768687.148482355] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768687.375611043] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768693.177537956] [brain_node]: Precision striker: adjust -> settle range=0.56 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768693.719019728] [brain_node]: Precision striker: settle -> adjust range=0.88 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768693.774471813] [brain_node]: Precision striker: adjust -> settle range=0.89 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768694.057339227] [brain_node]: Precision striker: settle -> chase range=1.00 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768695.555680630] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768695.612269069] [brain_node]: Precision striker: adjust -> settle range=0.87 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768695.761173938] [brain_node]: Precision striker: settle -> adjust range=0.85 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768695.828735963] [brain_node]: Precision striker: adjust -> settle range=0.82 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768696.563276779] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.58 alignment=-0.07 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768705.995234718] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.53 alignment=-0.03 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791768706.692081661] [brain_node]: Precision striker: adjust -> settle range=0.51 alignment=-0.02 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791768707.782823284] [brain_node]: Precision striker: settle -> adjust range=0.51 alignment=-0.05 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 5,
+    "decision_intervals": [
+      [
+        1614.455999975647,
+        1614.5099999756458,
+        "unknown"
+      ],
+      [
+        1614.5099999756458,
+        1621.9159999754706,
+        "chase"
+      ],
+      [
+        1621.9159999754706,
+        1625.8059999753787,
+        "adjust"
+      ],
+      [
+        1625.8059999753787,
+        1626.17599997537,
+        "settle"
+      ],
+      [
+        1626.17599997537,
+        1631.9779999752327,
+        "adjust"
+      ],
+      [
+        1631.9779999752327,
+        1632.0419999752312,
+        "settle"
+      ],
+      [
+        1632.0419999752312,
+        1632.1979999752275,
+        "adjust"
+      ],
+      [
+        1632.1979999752275,
+        1632.4179999752223,
+        "settle"
+      ],
+      [
+        1632.4179999752223,
+        1633.613999975194,
+        "adjust"
+      ],
+      [
+        1633.613999975194,
+        1633.8519999751884,
+        "settle"
+      ],
+      [
+        1633.8519999751884,
+        1634.0619999751834,
+        "adjust"
+      ],
+      [
+        1634.0619999751834,
+        1634.2699999751785,
+        "settle"
+      ],
+      [
+        1634.2699999751785,
+        1634.4459999751743,
+        "adjust"
+      ],
+      [
+        1634.4459999751743,
+        1634.459999975174,
+        "settle"
+      ],
+      [
+        1634.459999975174,
+        1634.5399999751721,
+        "adjust"
+      ],
+      [
+        1634.5399999751721,
+        1635.0019999751612,
+        "settle"
+      ],
+      [
+        1635.0019999751612,
+        1636.193999975133,
+        "adjust"
+      ],
+      [
+        1636.193999975133,
+        1636.275999975131,
+        "settle"
+      ],
+      [
+        1636.275999975131,
+        1636.6019999751234,
+        "adjust"
+      ],
+      [
+        1636.6019999751234,
+        1636.6479999751223,
+        "settle"
+      ],
+      [
+        1636.6479999751223,
+        1639.7139999750498,
+        "adjust"
+      ],
+      [
+        1639.7139999750498,
+        1642.1739999749916,
+        "chase"
+      ],
+      [
+        1642.1739999749916,
+        1649.6179999748156,
+        "adjust"
+      ],
+      [
+        1649.6179999748156,
+        1649.7819999748117,
+        "settle"
+      ],
+      [
+        1649.7819999748117,
+        1649.8819999748093,
+        "adjust"
+      ],
+      [
+        1649.8819999748093,
+        1649.9639999748074,
+        "settle"
+      ],
+      [
+        1649.9639999748074,
+        1650.5399999747938,
+        "adjust"
+      ],
+      [
+        1650.5399999747938,
+        1650.8379999747867,
+        "settle"
+      ],
+      [
+        1650.8379999747867,
+        1650.8479999747865,
+        "adjust"
+      ],
+      [
+        1650.8479999747865,
+        1650.8919999747854,
+        "settle"
+      ],
+      [
+        1650.8919999747854,
+        1650.8959999747854,
+        "adjust"
+      ],
+      [
+        1650.8959999747854,
+        1651.2799999747763,
+        "settle"
+      ],
+      [
+        1651.2799999747763,
+        1651.4439999747724,
+        "adjust"
+      ],
+      [
+        1651.4439999747724,
+        1651.463999974772,
+        "settle"
+      ],
+      [
+        1651.463999974772,
+        1651.54799997477,
+        "adjust"
+      ],
+      [
+        1651.54799997477,
+        1651.9179999747612,
+        "settle"
+      ],
+      [
+        1651.9179999747612,
+        1652.1739999747551,
+        "adjust"
+      ],
+      [
+        1652.1739999747551,
+        1652.217999974754,
+        "settle"
+      ],
+      [
+        1652.217999974754,
+        1652.267999974753,
+        "adjust"
+      ],
+      [
+        1652.267999974753,
+        1652.3299999747514,
+        "settle"
+      ],
+      [
+        1652.3299999747514,
+        1652.7859999747407,
+        "adjust"
+      ],
+      [
+        1652.7859999747407,
+        1652.8659999747388,
+        "settle"
+      ],
+      [
+        1652.8659999747388,
+        1652.8839999747383,
+        "adjust"
+      ],
+      [
+        1652.8839999747383,
+        1652.9059999747378,
+        "settle"
+      ],
+      [
+        1652.9059999747378,
+        1653.0059999747355,
+        "adjust"
+      ],
+      [
+        1653.0059999747355,
+        1653.113999974733,
+        "settle"
+      ],
+      [
+        1653.113999974733,
+        1654.6919999746956,
+        "adjust"
+      ],
+      [
+        1654.6919999746956,
+        1654.7819999746935,
+        "settle"
+      ],
+      [
+        1654.7819999746935,
+        1655.0179999746879,
+        "adjust"
+      ],
+      [
+        1655.0179999746879,
+        1655.0719999746866,
+        "settle"
+      ],
+      [
+        1655.0719999746866,
+        1655.0899999746862,
+        "adjust"
+      ],
+      [
+        1655.0899999746862,
+        1655.5339999746757,
+        "settle"
+      ],
+      [
+        1655.5339999746757,
+        1655.5759999746747,
+        "adjust"
+      ],
+      [
+        1655.5759999746747,
+        1655.5879999746744,
+        "settle"
+      ],
+      [
+        1655.5879999746744,
+        1655.9179999746666,
+        "adjust"
+      ],
+      [
+        1655.9179999746666,
+        1656.4239999746546,
+        "settle"
+      ],
+      [
+        1656.4239999746546,
+        1663.4359999744888,
+        "auto_visual_kick"
+      ],
+      [
+        1663.4359999744888,
+        1664.9359999744534,
+        "settle"
+      ],
+      [
+        1664.9359999744534,
+        1666.6959999744117,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1663.429999974,
+        1664.929999974
+      ],
+      [
+        1665.009999974,
+        1666.509999974
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1656.931999974,
+        "stop_sim_time": 1663.429999974,
+        "rpc_active_s": 6.498000000000047,
+        "truth_start_distance_m": 0.31534552616793315,
+        "truth_end_distance_m": 0.32714826161261673,
+        "robot_displacement_m": 0.011997209045381315,
+        "maximum_kick_target_age_s": 1.950000000590535,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.26870821474855905,
+        "activation_truth_heading_error_deg": 5.969321539697085
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      1628.0999999753244,
+      1628.1099999753242,
+      1628.121999975324,
+      1628.1259999753238,
+      1638.7639999750722,
+      1638.7799999750719,
+      1638.7839999750718,
+      1638.7879999750717,
+      1638.7959999750715,
+      1638.7999999750714,
+      1644.2599999749423,
+      1644.2639999749422,
+      1644.273999974942,
+      1644.2799999749418,
+      1644.2879999749416,
+      1644.2939999749415,
+      1644.2979999749414,
+      1644.5579999749352,
+      1644.563999974935,
+      1644.5759999749348,
+      1644.5799999749347,
+      1644.5899999749345,
+      1644.5939999749344,
+      1653.4279999747255,
+      1653.4359999747253,
+      1653.447999974725,
+      1653.4539999747249,
+      1653.4659999747246
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768749.346504986] [brain_node]: Precision striker:  -> chase range=1.82 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768758.469974495] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-0.87 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768763.244950990] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768763.662273502] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=-0.22 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768770.311663698] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768770.391164256] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768770.569550983] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768770.852025948] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=0.17 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768772.216889443] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768772.474187348] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768772.733385284] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768772.957814808] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768773.159500962] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768773.170560006] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768773.274636519] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768773.796020222] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768775.175755734] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768775.278253436] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768775.633051331] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768775.690766331] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768779.546408011] [brain_node]: Precision striker: adjust -> chase range=1.06 alignment=0.48 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768782.595764277] [brain_node]: Precision striker: chase -> adjust range=0.88 alignment=0.59 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768792.201299395] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768792.409360472] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768792.905980869] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768793.017511610] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768793.798753008] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.117692645] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.128963135] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.174776754] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.185826755] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.241532060] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.252866277] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.728177503] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.920620661] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768794.943584673] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768795.057814961] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768795.495746832] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.17 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768795.826553167] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768795.881919759] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768795.949715275] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.018130006] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.547034667] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.647358302] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.669540239] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.702544596] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.802532721] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768796.927393625] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768799.149751315] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768799.252139433] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768799.522464645] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768799.579073868] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768799.603512619] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.206877682] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.251931453] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.274673772] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.610639226] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.621706517] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768800.690241952] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768801.386475610] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.27 alignment=0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768810.288175261] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=-0.09 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791768812.537430196] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.09 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 6,
+    "decision_intervals": [
+      [
+        1699.3379999736399,
+        1699.5139999736357,
+        "unknown"
+      ],
+      [
+        1699.5139999736357,
+        1701.737999973583,
+        "chase"
+      ],
+      [
+        1701.737999973583,
+        1704.1879999735252,
+        "adjust"
+      ],
+      [
+        1704.1879999735252,
+        1704.6819999735135,
+        "settle"
+      ],
+      [
+        1704.6819999735135,
+        1705.163999973502,
+        "adjust"
+      ],
+      [
+        1705.163999973502,
+        1705.417999973496,
+        "settle"
+      ],
+      [
+        1705.417999973496,
+        1705.717999973489,
+        "adjust"
+      ],
+      [
+        1705.717999973489,
+        1706.0739999734806,
+        "settle"
+      ],
+      [
+        1706.0739999734806,
+        1706.1259999734793,
+        "adjust"
+      ],
+      [
+        1706.1259999734793,
+        1706.1299999734792,
+        "settle"
+      ],
+      [
+        1706.1299999734792,
+        1706.6999999734658,
+        "adjust"
+      ],
+      [
+        1706.6999999734658,
+        1706.7259999734652,
+        "settle"
+      ],
+      [
+        1706.7259999734652,
+        1706.8819999734615,
+        "adjust"
+      ],
+      [
+        1706.8819999734615,
+        1707.025999973458,
+        "settle"
+      ],
+      [
+        1707.025999973458,
+        1708.3539999734267,
+        "adjust"
+      ],
+      [
+        1708.3539999734267,
+        1708.8279999734154,
+        "settle"
+      ],
+      [
+        1708.8279999734154,
+        1708.8619999734146,
+        "adjust"
+      ],
+      [
+        1708.8619999734146,
+        1708.9579999734124,
+        "settle"
+      ],
+      [
+        1708.9579999734124,
+        1709.3819999734023,
+        "adjust"
+      ],
+      [
+        1709.3819999734023,
+        1709.7699999733932,
+        "settle"
+      ],
+      [
+        1709.7699999733932,
+        1710.75199997337,
+        "adjust"
+      ],
+      [
+        1710.75199997337,
+        1710.8599999733674,
+        "settle"
+      ],
+      [
+        1710.8599999733674,
+        1712.5939999733264,
+        "adjust"
+      ],
+      [
+        1712.5939999733264,
+        1712.8519999733203,
+        "settle"
+      ],
+      [
+        1712.8519999733203,
+        1713.371999973308,
+        "adjust"
+      ],
+      [
+        1713.371999973308,
+        1713.6919999733004,
+        "settle"
+      ],
+      [
+        1713.6919999733004,
+        1714.0839999732912,
+        "adjust"
+      ],
+      [
+        1714.0839999732912,
+        1714.511999973281,
+        "settle"
+      ],
+      [
+        1714.511999973281,
+        1716.0919999732437,
+        "adjust"
+      ],
+      [
+        1716.0919999732437,
+        1716.1799999732416,
+        "settle"
+      ],
+      [
+        1716.1799999732416,
+        1717.5299999732097,
+        "adjust"
+      ],
+      [
+        1717.5299999732097,
+        1717.8219999732028,
+        "settle"
+      ],
+      [
+        1717.8219999732028,
+        1718.9819999731753,
+        "adjust"
+      ],
+      [
+        1718.9819999731753,
+        1719.4859999731634,
+        "settle"
+      ],
+      [
+        1719.4859999731634,
+        1726.5039999729975,
+        "auto_visual_kick"
+      ],
+      [
+        1726.5039999729975,
+        1727.9939999729622,
+        "settle"
+      ],
+      [
+        1727.9939999729622,
+        1729.8579999729182,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1726.495999972,
+        1727.995999972
+      ],
+      [
+        1728.089999972,
+        1729.589999972
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1719.995999973,
+        "stop_sim_time": 1726.495999972,
+        "rpc_active_s": 6.499999999000011,
+        "truth_start_distance_m": 0.29534390283293666,
+        "truth_end_distance_m": 0.2998473293817474,
+        "robot_displacement_m": 0.004718625053898629,
+        "maximum_kick_target_age_s": 1.9320000001016524,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.28492491251888263,
+        "activation_truth_heading_error_deg": 5.23322122034882
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768854.384177010] [brain_node]: Precision striker:  -> chase range=1.81 alignment=-0.36 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768857.026247981] [brain_node]: Precision striker: chase -> adjust range=0.88 alignment=-0.43 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768859.929851279] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768860.503851588] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768861.094619946] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768861.384126713] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768861.728750351] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768862.152335508] [brain_node]: Precision striker: settle -> adjust range=0.35 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768862.208487577] [brain_node]: Precision striker: adjust -> settle range=0.35 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768862.219819359] [brain_node]: Precision striker: settle -> adjust range=0.36 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768862.864219612] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768862.899210356] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768863.065957574] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768863.244291011] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768864.747075897] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768865.294856457] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768865.339541270] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768865.452168549] [brain_node]: Precision striker: settle -> adjust range=0.35 alignment=-0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768865.953603431] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768866.421408620] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768867.576716626] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768867.758181678] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768869.745743796] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768870.070500545] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768870.708952670] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768871.100853363] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768871.549133715] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768872.056576938] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768873.857257815] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768873.957292186] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768875.529784297] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768875.869626911] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=0.21 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768877.270963800] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768877.885395468] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.31 alignment=-0.08 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791768886.880645877] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=-0.11 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791768888.763264323] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.11 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 7,
+    "decision_intervals": [
+      [
+        1762.5799999721444,
+        1765.3579999720787,
+        "chase"
+      ],
+      [
+        1765.3579999720787,
+        1766.4239999720535,
+        "find"
+      ],
+      [
+        1766.4239999720535,
+        1768.307999972009,
+        "chase"
+      ],
+      [
+        1768.307999972009,
+        1769.0839999719906,
+        "find"
+      ],
+      [
+        1769.0839999719906,
+        1769.193999971988,
+        "adjust"
+      ],
+      [
+        1769.193999971988,
+        1775.5079999718387,
+        "chase"
+      ],
+      [
+        1775.5079999718387,
+        1775.5519999718376,
+        "adjust"
+      ],
+      [
+        1775.5519999718376,
+        1777.397999971794,
+        "chase"
+      ],
+      [
+        1777.397999971794,
+        1778.7299999717625,
+        "adjust"
+      ],
+      [
+        1778.7299999717625,
+        1782.2759999716786,
+        "find"
+      ],
+      [
+        1782.2759999716786,
+        1863.5979999697556,
+        "adjust"
+      ]
+    ],
+    "cooldown_intervals": [],
+    "visual_skill_intervals": [],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791768931.566275458] [brain_node]: Precision striker:  -> chase range=1.72 alignment=-0.41 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768935.075511149] [brain_node]: Precision striker: chase -> find range=16.95 alignment=-2.74 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768936.441051435] [brain_node]: Precision striker: find -> chase range=18.32 alignment=-2.84 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768938.682312872] [brain_node]: Precision striker: chase -> find range=18.11 alignment=-2.86 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768939.610040293] [brain_node]: Precision striker: find -> adjust range=0.88 alignment=-2.89 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768939.745165089] [brain_node]: Precision striker: adjust -> chase range=8.05 alignment=-2.34 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768947.353917835] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-2.23 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768947.411556387] [brain_node]: Precision striker: adjust -> chase range=5.09 alignment=-2.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768949.660502579] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-2.44 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768951.258430307] [brain_node]: Precision striker: adjust -> find range=0.66 alignment=-2.66 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791768955.372736064] [brain_node]: Precision striker: find -> adjust range=0.55 alignment=0.66 stable=0 cooldown=0"
+    ]
+  },
+  {
+    "trial": 8,
+    "decision_intervals": [
+      [
+        1896.9579999689668,
+        1897.1419999689624,
+        "unknown"
+      ],
+      [
+        1897.1419999689624,
+        1903.125999968821,
+        "chase"
+      ],
+      [
+        1903.125999968821,
+        1906.1919999687484,
+        "adjust"
+      ],
+      [
+        1906.1919999687484,
+        1906.2299999687475,
+        "settle"
+      ],
+      [
+        1906.2299999687475,
+        1906.4459999687424,
+        "adjust"
+      ],
+      [
+        1906.4459999687424,
+        1906.5999999687388,
+        "settle"
+      ],
+      [
+        1906.5999999687388,
+        1906.633999968738,
+        "adjust"
+      ],
+      [
+        1906.633999968738,
+        1906.669999968737,
+        "settle"
+      ],
+      [
+        1906.669999968737,
+        1906.711999968736,
+        "adjust"
+      ],
+      [
+        1906.711999968736,
+        1906.7239999687358,
+        "settle"
+      ],
+      [
+        1906.7239999687358,
+        1906.7819999687345,
+        "adjust"
+      ],
+      [
+        1906.7819999687345,
+        1906.8099999687338,
+        "settle"
+      ],
+      [
+        1906.8099999687338,
+        1906.8339999687332,
+        "adjust"
+      ],
+      [
+        1906.8339999687332,
+        1906.8499999687328,
+        "settle"
+      ],
+      [
+        1906.8499999687328,
+        1906.885999968732,
+        "adjust"
+      ],
+      [
+        1906.885999968732,
+        1906.929999968731,
+        "settle"
+      ],
+      [
+        1906.929999968731,
+        1907.9759999687062,
+        "adjust"
+      ],
+      [
+        1907.9759999687062,
+        1908.0879999687036,
+        "settle"
+      ],
+      [
+        1908.0879999687036,
+        1909.3159999686745,
+        "adjust"
+      ],
+      [
+        1909.3159999686745,
+        1909.6199999686673,
+        "settle"
+      ],
+      [
+        1909.6199999686673,
+        1909.7699999686638,
+        "adjust"
+      ],
+      [
+        1909.7699999686638,
+        1910.0319999686576,
+        "settle"
+      ],
+      [
+        1910.0319999686576,
+        1910.0779999686565,
+        "adjust"
+      ],
+      [
+        1910.0779999686565,
+        1910.5899999686444,
+        "settle"
+      ],
+      [
+        1910.5899999686444,
+        1913.7179999685704,
+        "auto_visual_kick"
+      ],
+      [
+        1913.7179999685704,
+        1916.2479999685106,
+        "adjust"
+      ],
+      [
+        1916.2479999685106,
+        1917.5479999684799,
+        "chase"
+      ],
+      [
+        1917.5479999684799,
+        1917.7759999684745,
+        "settle"
+      ],
+      [
+        1917.7759999684745,
+        1922.7379999683571,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        1913.711999968,
+        1915.211999968
+      ],
+      [
+        1920.887999968,
+        1922.387999968
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 1911.091999968,
+        "stop_sim_time": 1913.711999968,
+        "rpc_active_s": 2.6200000000001182,
+        "truth_start_distance_m": 0.2746227623851927,
+        "truth_end_distance_m": 0.279693253580592,
+        "robot_displacement_m": 0.005039265214767414,
+        "maximum_kick_target_age_s": 2.0620000005799284,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2656417332554649,
+        "activation_truth_heading_error_deg": 18.611298105540225
+      },
+      {
+        "start_sim_time": 1918.289999968,
+        "stop_sim_time": 1920.887999968,
+        "rpc_active_s": 2.5979999999999563,
+        "truth_start_distance_m": 0.7656380880780445,
+        "truth_end_distance_m": 0.7425356064868517,
+        "robot_displacement_m": 0.06935239764714514,
+        "maximum_kick_target_age_s": 0.04400000045211527,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.6816561675118864,
+        "activation_truth_heading_error_deg": 2.1936732595579387
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      1915.2439999685344,
+      1915.2539999685341,
+      1915.2659999685338,
+      1915.2699999685337,
+      1915.2759999685336
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769094.520508518] [brain_node]: Precision striker:  -> chase range=4.37 alignment=-0.70 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769101.599863238] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=-0.68 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.161546273] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.207364791] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.465255397] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.709303915] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.753888074] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.776195703] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.820315091] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.842655730] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.898699425] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.942959474] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.965010069] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769105.987908927] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769106.021726648] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769106.077485736] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769107.327251545] [brain_node]: Precision striker: adjust -> settle range=0.25 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769107.463883619] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769108.914975050] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769109.242138358] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769109.421658868] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769109.726975907] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769109.782248894] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769110.375714135] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.28 alignment=-0.05 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769114.011983924] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.25 alignment=-0.40 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769116.870856121] [brain_node]: Precision striker: adjust -> chase range=1.01 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769118.331684642] [brain_node]: Precision striker: chase -> settle range=0.90 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769118.590623837] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.77 alignment=0.07 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 9,
+    "decision_intervals": [
+      [
+        1955.727999967577,
+        1955.7779999675759,
+        "unknown"
+      ],
+      [
+        1955.7779999675759,
+        1957.6519999675315,
+        "chase"
+      ],
+      [
+        1957.6519999675315,
+        1962.1479999674252,
+        "find"
+      ],
+      [
+        1962.1479999674252,
+        1965.6779999673417,
+        "chase"
+      ],
+      [
+        1965.6779999673417,
+        1966.2479999673283,
+        "find"
+      ],
+      [
+        1966.2479999673283,
+        1968.3839999672778,
+        "chase"
+      ],
+      [
+        1968.3839999672778,
+        1968.503999967275,
+        "adjust"
+      ],
+      [
+        1968.503999967275,
+        1969.3939999672539,
+        "chase"
+      ],
+      [
+        1969.3939999672539,
+        1969.4359999672529,
+        "adjust"
+      ],
+      [
+        1969.4359999672529,
+        1973.5099999671565,
+        "chase"
+      ],
+      [
+        1973.5099999671565,
+        1973.5959999671545,
+        "adjust"
+      ],
+      [
+        1973.5959999671545,
+        1975.4559999671105,
+        "chase"
+      ],
+      [
+        1975.4559999671105,
+        1979.6859999670105,
+        "find"
+      ],
+      [
+        1979.6859999670105,
+        1988.0719999668122,
+        "chase"
+      ],
+      [
+        1988.0719999668122,
+        1989.2899999667834,
+        "adjust"
+      ],
+      [
+        1989.2899999667834,
+        1995.8039999666294,
+        "find"
+      ],
+      [
+        1995.8039999666294,
+        1997.9439999665788,
+        "chase"
+      ],
+      [
+        1997.9439999665788,
+        2003.2319999664537,
+        "find"
+      ],
+      [
+        2003.2319999664537,
+        2007.1419999663613,
+        "chase"
+      ],
+      [
+        2007.1419999663613,
+        2010.6379999662786,
+        "find"
+      ],
+      [
+        2010.6379999662786,
+        2012.527999966234,
+        "chase"
+      ],
+      [
+        2012.527999966234,
+        2016.0459999661507,
+        "find"
+      ],
+      [
+        2016.0459999661507,
+        2017.9259999661062,
+        "adjust"
+      ],
+      [
+        2017.9259999661062,
+        2018.7259999660873,
+        "find"
+      ],
+      [
+        2018.7259999660873,
+        2037.0199999656547,
+        "chase"
+      ],
+      [
+        2037.0199999656547,
+        2039.9819999655847,
+        "adjust"
+      ],
+      [
+        2039.9819999655847,
+        2040.1859999655799,
+        "settle"
+      ],
+      [
+        2040.1859999655799,
+        2040.305999965577,
+        "adjust"
+      ],
+      [
+        2040.305999965577,
+        2040.3439999655761,
+        "settle"
+      ],
+      [
+        2040.3439999655761,
+        2040.389999965575,
+        "adjust"
+      ],
+      [
+        2040.389999965575,
+        2040.7899999655656,
+        "settle"
+      ],
+      [
+        2040.7899999655656,
+        2041.2559999655546,
+        "adjust"
+      ],
+      [
+        2041.2559999655546,
+        2041.409999965551,
+        "settle"
+      ],
+      [
+        2041.409999965551,
+        2041.8039999655416,
+        "adjust"
+      ],
+      [
+        2041.8039999655416,
+        2042.29799996553,
+        "settle"
+      ],
+      [
+        2042.29799996553,
+        2049.305999965364,
+        "auto_visual_kick"
+      ],
+      [
+        2049.305999965364,
+        2049.8879999653504,
+        "adjust"
+      ],
+      [
+        2049.8879999653504,
+        2050.4839999653364,
+        "settle"
+      ],
+      [
+        2050.4839999653364,
+        2050.497999965336,
+        "adjust"
+      ],
+      [
+        2050.497999965336,
+        2050.5199999653355,
+        "settle"
+      ],
+      [
+        2050.5199999653355,
+        2050.589999965334,
+        "adjust"
+      ],
+      [
+        2050.589999965334,
+        2050.6959999653313,
+        "settle"
+      ],
+      [
+        2050.6959999653313,
+        2050.785999965329,
+        "adjust"
+      ],
+      [
+        2050.785999965329,
+        2052.495999965289,
+        "settle"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2049.303999965,
+        2050.803999965
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2042.803999965,
+        "stop_sim_time": 2049.303999965,
+        "rpc_active_s": 6.5,
+        "truth_start_distance_m": 0.44987177561636577,
+        "truth_end_distance_m": 0.41492638778357677,
+        "robot_displacement_m": 0.037236302694909046,
+        "maximum_kick_target_age_s": 0.3340000005055117,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.370938039583777,
+        "activation_truth_heading_error_deg": 9.872096564692097
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2039.3699999655992,
+      2039.5819999655942,
+      2039.5939999655939,
+      2039.5999999655937,
+      2039.6059999655936,
+      2039.6159999655933,
+      2039.6519999655925,
+      2039.6619999655923,
+      2039.673999965592
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769164.411425028] [brain_node]: Precision striker:  -> chase range=1.69 alignment=-0.41 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769166.598099950] [brain_node]: Precision striker: chase -> find range=1.33 alignment=-0.55 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769171.741469899] [brain_node]: Precision striker: find -> chase range=8.80 alignment=-2.59 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769176.069657243] [brain_node]: Precision striker: chase -> find range=8.35 alignment=-2.19 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769176.722984447] [brain_node]: Precision striker: find -> chase range=8.55 alignment=-2.21 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769179.392989715] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=-2.46 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769179.538330369] [brain_node]: Precision striker: adjust -> chase range=6.64 alignment=-2.48 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769180.553223591] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-2.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769180.608245977] [brain_node]: Precision striker: adjust -> chase range=7.55 alignment=-2.49 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769185.376510233] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-2.89 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769185.476343714] [brain_node]: Precision striker: adjust -> chase range=4.02 alignment=-2.46 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769187.587285092] [brain_node]: Precision striker: chase -> find range=3.32 alignment=-2.45 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769192.471368898] [brain_node]: Precision striker: find -> chase range=8.40 alignment=2.82 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769202.980942212] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=2.25 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769204.480151584] [brain_node]: Precision striker: adjust -> find range=0.70 alignment=1.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769212.186390762] [brain_node]: Precision striker: find -> chase range=5.35 alignment=-1.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769214.801239897] [brain_node]: Precision striker: chase -> find range=4.96 alignment=-1.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769221.054015060] [brain_node]: Precision striker: find -> chase range=5.65 alignment=2.68 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769225.810076928] [brain_node]: Precision striker: chase -> find range=3.75 alignment=2.62 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769229.842133710] [brain_node]: Precision striker: find -> chase range=3.39 alignment=2.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769232.154589807] [brain_node]: Precision striker: chase -> find range=3.18 alignment=2.63 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769236.322235207] [brain_node]: Precision striker: find -> adjust range=0.89 alignment=0.75 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769238.653787228] [brain_node]: Precision striker: adjust -> find range=0.83 alignment=0.66 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769239.638440704] [brain_node]: Precision striker: find -> chase range=15.78 alignment=2.39 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769261.614865941] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=0.59 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769265.196917709] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769265.420459484] [brain_node]: Precision striker: settle -> adjust range=0.23 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769265.565386203] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769265.611598751] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769265.667114443] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769266.100153462] [brain_node]: Precision striker: settle -> adjust range=0.39 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769266.607294332] [brain_node]: Precision striker: adjust -> settle range=0.41 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769266.799029983] [brain_node]: Precision striker: settle -> adjust range=0.42 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769267.272060267] [brain_node]: Precision striker: adjust -> settle range=0.41 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769267.857645114] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.37 alignment=0.03 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769276.028650334] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.32 alignment=0.12 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769276.698631998] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769277.617227619] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769277.639754115] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769277.663405839] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769277.755311350] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.00 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769277.910218913] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769278.010973140] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.01 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 10,
+    "decision_intervals": [
+      [
+        2084.8159999645245,
+        2084.925999964522,
+        "unknown"
+      ],
+      [
+        2084.925999964522,
+        2091.7039999643616,
+        "chase"
+      ],
+      [
+        2091.7039999643616,
+        2097.2379999642308,
+        "adjust"
+      ],
+      [
+        2097.2379999642308,
+        2097.2959999642294,
+        "settle"
+      ],
+      [
+        2097.2959999642294,
+        2097.531999964224,
+        "adjust"
+      ],
+      [
+        2097.531999964224,
+        2097.5919999642224,
+        "settle"
+      ],
+      [
+        2097.5919999642224,
+        2097.6199999642217,
+        "adjust"
+      ],
+      [
+        2097.6199999642217,
+        2097.6759999642204,
+        "settle"
+      ],
+      [
+        2097.6759999642204,
+        2098.2139999642077,
+        "adjust"
+      ],
+      [
+        2098.2139999642077,
+        2098.3059999642055,
+        "settle"
+      ],
+      [
+        2098.3059999642055,
+        2098.571999964199,
+        "adjust"
+      ],
+      [
+        2098.571999964199,
+        2098.7819999641943,
+        "settle"
+      ],
+      [
+        2098.7819999641943,
+        2099.121999964186,
+        "adjust"
+      ],
+      [
+        2099.121999964186,
+        2099.169999964185,
+        "settle"
+      ],
+      [
+        2099.169999964185,
+        2099.1859999641847,
+        "adjust"
+      ],
+      [
+        2099.1859999641847,
+        2099.6959999641726,
+        "settle"
+      ],
+      [
+        2099.6959999641726,
+        2106.705999964007,
+        "auto_visual_kick"
+      ],
+      [
+        2106.705999964007,
+        2107.465999963989,
+        "adjust"
+      ],
+      [
+        2107.465999963989,
+        2107.7879999639813,
+        "settle"
+      ],
+      [
+        2107.7879999639813,
+        2108.051999963975,
+        "adjust"
+      ],
+      [
+        2108.051999963975,
+        2108.059999963975,
+        "settle"
+      ],
+      [
+        2108.059999963975,
+        2108.101999963974,
+        "adjust"
+      ],
+      [
+        2108.101999963974,
+        2108.2439999639705,
+        "settle"
+      ],
+      [
+        2108.2439999639705,
+        2109.907999963931,
+        "adjust"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2106.701999964,
+        2108.201999964
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2100.201999964,
+        "stop_sim_time": 2106.701999964,
+        "rpc_active_s": 6.5,
+        "truth_start_distance_m": 0.43307513775000644,
+        "truth_end_distance_m": 0.4345598316419939,
+        "robot_displacement_m": 0.01006729849271281,
+        "maximum_kick_target_age_s": 0.22000000014986654,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.3619736024513367,
+        "activation_truth_heading_error_deg": -0.31415561579722123
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2096.967999964237,
+      2096.971999964237,
+      2096.977999964237,
+      2096.9919999642366,
+      2096.9959999642365,
+      2097.0019999642363
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769320.651087293] [brain_node]: Precision striker:  -> chase range=5.04 alignment=-0.96 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769328.950789285] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=-0.93 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769335.620689637] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769335.690253021] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.17 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769335.971415955] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769336.039055333] [brain_node]: Precision striker: settle -> adjust range=0.38 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769336.072139879] [brain_node]: Precision striker: adjust -> settle range=0.39 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769336.141025412] [brain_node]: Precision striker: settle -> adjust range=0.40 alignment=0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769336.748840493] [brain_node]: Precision striker: adjust -> settle range=0.51 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769336.860391887] [brain_node]: Precision striker: settle -> adjust range=0.51 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769337.164334751] [brain_node]: Precision striker: adjust -> settle range=0.46 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769337.410239932] [brain_node]: Precision striker: settle -> adjust range=0.43 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769337.803828494] [brain_node]: Precision striker: adjust -> settle range=0.36 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769337.848184389] [brain_node]: Precision striker: settle -> adjust range=0.35 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769337.870918050] [brain_node]: Precision striker: adjust -> settle range=0.37 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769338.469713038] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.35 alignment=-0.03 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769346.663915232] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.33 alignment=0.25 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769347.596387519] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=0.08 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769348.149926424] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=-0.07 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769348.478262538] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=-0.12 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769348.492584588] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=-0.12 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769348.548161040] [brain_node]: Precision striker: adjust -> settle range=0.35 alignment=-0.08 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 11,
+    "decision_intervals": [
+      [
+        2142.4199999631624,
+        2142.651999963157,
+        "unknown"
+      ],
+      [
+        2142.651999963157,
+        2145.1279999630983,
+        "chase"
+      ],
+      [
+        2145.1279999630983,
+        2145.301999963094,
+        "settle"
+      ],
+      [
+        2145.301999963094,
+        2145.3639999630927,
+        "adjust"
+      ],
+      [
+        2145.3639999630927,
+        2145.867999963081,
+        "settle"
+      ],
+      [
+        2145.867999963081,
+        2152.881999962915,
+        "auto_visual_kick"
+      ],
+      [
+        2152.881999962915,
+        2153.1439999629088,
+        "adjust"
+      ],
+      [
+        2153.1439999629088,
+        2154.0859999628865,
+        "settle"
+      ],
+      [
+        2154.0859999628865,
+        2154.107999962886,
+        "adjust"
+      ],
+      [
+        2154.107999962886,
+        2154.1239999628856,
+        "settle"
+      ],
+      [
+        2154.1239999628856,
+        2154.321999962881,
+        "adjust"
+      ],
+      [
+        2154.321999962881,
+        2156.267999962835,
+        "settle"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2152.877999962,
+        2154.377999962
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2146.371999963,
+        "stop_sim_time": 2152.877999962,
+        "rpc_active_s": 6.505999999000323,
+        "truth_start_distance_m": 0.6254208837094631,
+        "truth_end_distance_m": 0.6062873987104909,
+        "robot_displacement_m": 0.018418266295440307,
+        "maximum_kick_target_age_s": 0.04400000005853144,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.5391059523641907,
+        "activation_truth_heading_error_deg": 1.06746178913745
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769390.873177996] [brain_node]: Precision striker:  -> chase range=1.99 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769393.933635557] [brain_node]: Precision striker: chase -> settle range=0.89 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769394.157079514] [brain_node]: Precision striker: settle -> adjust range=0.77 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769394.223570426] [brain_node]: Precision striker: adjust -> settle range=0.81 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769394.849311412] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.58 alignment=-0.04 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769403.406540028] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.50 alignment=0.05 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769403.730856743] [brain_node]: Precision striker: adjust -> settle range=0.51 alignment=0.06 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769404.897726724] [brain_node]: Precision striker: settle -> adjust range=0.49 alignment=0.04 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769404.931812559] [brain_node]: Precision striker: adjust -> settle range=0.49 alignment=0.04 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769404.953764660] [brain_node]: Precision striker: settle -> adjust range=0.49 alignment=0.04 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769405.191149335] [brain_node]: Precision striker: adjust -> settle range=0.50 alignment=0.06 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 12,
+    "decision_intervals": [
+      [
+        2188.323999962077,
+        2188.5819999620708,
+        "unknown"
+      ],
+      [
+        2188.5819999620708,
+        2193.389999961957,
+        "chase"
+      ],
+      [
+        2193.389999961957,
+        2196.725999961878,
+        "adjust"
+      ],
+      [
+        2196.725999961878,
+        2196.8719999618747,
+        "settle"
+      ],
+      [
+        2196.8719999618747,
+        2197.119999961869,
+        "adjust"
+      ],
+      [
+        2197.119999961869,
+        2197.3839999618626,
+        "settle"
+      ],
+      [
+        2197.3839999618626,
+        2197.7639999618536,
+        "adjust"
+      ],
+      [
+        2197.7639999618536,
+        2197.8099999618526,
+        "settle"
+      ],
+      [
+        2197.8099999618526,
+        2197.8619999618513,
+        "adjust"
+      ],
+      [
+        2197.8619999618513,
+        2198.261999961842,
+        "settle"
+      ],
+      [
+        2198.261999961842,
+        2198.389999961839,
+        "adjust"
+      ],
+      [
+        2198.389999961839,
+        2198.851999961828,
+        "settle"
+      ],
+      [
+        2198.851999961828,
+        2199.009999961824,
+        "adjust"
+      ],
+      [
+        2199.009999961824,
+        2199.403999961815,
+        "settle"
+      ],
+      [
+        2199.403999961815,
+        2199.435999961814,
+        "adjust"
+      ],
+      [
+        2199.435999961814,
+        2199.5019999618125,
+        "settle"
+      ],
+      [
+        2199.5019999618125,
+        2199.5399999618116,
+        "adjust"
+      ],
+      [
+        2199.5399999618116,
+        2200.0439999617997,
+        "settle"
+      ],
+      [
+        2200.0439999617997,
+        2207.0659999616337,
+        "auto_visual_kick"
+      ],
+      [
+        2207.0659999616337,
+        2208.5639999615983,
+        "settle"
+      ],
+      [
+        2208.5639999615983,
+        2210.5399999615515,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2207.057999961,
+        2208.557999961
+      ],
+      [
+        2208.649999961,
+        2210.149999961
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2200.551999961,
+        "stop_sim_time": 2207.057999961,
+        "rpc_active_s": 6.505999999999858,
+        "truth_start_distance_m": 0.4638844622618853,
+        "truth_end_distance_m": 0.4675354975400937,
+        "robot_displacement_m": 0.003993140221122088,
+        "maximum_kick_target_age_s": 0.31800000077555524,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.37038536272856687,
+        "activation_truth_heading_error_deg": 4.0578288041126465
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2195.717999961902,
+      2195.7299999619017,
+      2195.7399999619015,
+      2195.751999961901,
+      2195.761999961901
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769459.480744950] [brain_node]: Precision striker:  -> chase range=3.32 alignment=0.75 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769464.948623360] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=0.75 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769468.627220530] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769468.798038565] [brain_node]: Precision striker: settle -> adjust range=0.34 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769469.068430004] [brain_node]: Precision striker: adjust -> settle range=0.36 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769469.380016313] [brain_node]: Precision striker: settle -> adjust range=0.36 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769469.791295237] [brain_node]: Precision striker: adjust -> settle range=0.36 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769469.846129084] [brain_node]: Precision striker: settle -> adjust range=0.37 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769469.903525654] [brain_node]: Precision striker: adjust -> settle range=0.37 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769470.336886127] [brain_node]: Precision striker: settle -> adjust range=0.38 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769470.482359050] [brain_node]: Precision striker: adjust -> settle range=0.39 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769470.980543156] [brain_node]: Precision striker: settle -> adjust range=0.39 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769471.158538607] [brain_node]: Precision striker: adjust -> settle range=0.38 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769471.607257120] [brain_node]: Precision striker: settle -> adjust range=0.37 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769471.641288259] [brain_node]: Precision striker: adjust -> settle range=0.37 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769471.706945401] [brain_node]: Precision striker: settle -> adjust range=0.37 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769471.739932304] [brain_node]: Precision striker: adjust -> settle range=0.36 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769472.294038121] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.37 alignment=-0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769479.914796529] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.37 alignment=0.01 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791769481.603791611] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.37 alignment=0.02 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 13,
+    "decision_intervals": [
+      [
+        2243.969999960761,
+        2244.2099999607553,
+        "unknown"
+      ],
+      [
+        2244.2099999607553,
+        2249.671999960626,
+        "chase"
+      ],
+      [
+        2249.671999960626,
+        2253.1739999605434,
+        "adjust"
+      ],
+      [
+        2253.1739999605434,
+        2253.4139999605377,
+        "settle"
+      ],
+      [
+        2253.4139999605377,
+        2253.535999960535,
+        "adjust"
+      ],
+      [
+        2253.535999960535,
+        2254.0459999605227,
+        "settle"
+      ],
+      [
+        2254.0459999605227,
+        2261.053999960357,
+        "auto_visual_kick"
+      ],
+      [
+        2261.053999960357,
+        2262.5539999603216,
+        "settle"
+      ],
+      [
+        2262.5539999603216,
+        2264.4099999602777,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2261.04599996,
+        2262.54599996
+      ],
+      [
+        2262.61799996,
+        2264.11799996
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2254.54399996,
+        "stop_sim_time": 2261.04599996,
+        "rpc_active_s": 6.501999999999953,
+        "truth_start_distance_m": 0.30801724238657463,
+        "truth_end_distance_m": 0.31222466993604775,
+        "robot_displacement_m": 0.005436941346821808,
+        "maximum_kick_target_age_s": 1.9720000004585927,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2796543690636758,
+        "activation_truth_heading_error_deg": 4.465367299941691
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769523.652526812] [brain_node]: Precision striker:  -> chase range=2.02 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769530.336931990] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-0.77 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769534.459681534] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769534.743139140] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769534.878629077] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769535.465939231] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769543.740505928] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=-0.04 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791769545.514862682] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.04 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 14,
+    "decision_intervals": [
+      [
+        2296.9299999595087,
+        2297.0999999595047,
+        "unknown"
+      ],
+      [
+        2297.0999999595047,
+        2304.017999959341,
+        "chase"
+      ],
+      [
+        2304.017999959341,
+        2309.479999959212,
+        "adjust"
+      ],
+      [
+        2309.479999959212,
+        2309.635999959208,
+        "settle"
+      ],
+      [
+        2309.635999959208,
+        2309.775999959205,
+        "adjust"
+      ],
+      [
+        2309.775999959205,
+        2309.7999999592043,
+        "settle"
+      ],
+      [
+        2309.7999999592043,
+        2309.8279999592037,
+        "adjust"
+      ],
+      [
+        2309.8279999592037,
+        2310.063999959198,
+        "settle"
+      ],
+      [
+        2310.063999959198,
+        2310.1319999591965,
+        "adjust"
+      ],
+      [
+        2310.1319999591965,
+        2310.3899999591904,
+        "settle"
+      ],
+      [
+        2310.3899999591904,
+        2310.487999959188,
+        "adjust"
+      ],
+      [
+        2310.487999959188,
+        2310.5859999591858,
+        "settle"
+      ],
+      [
+        2310.5859999591858,
+        2310.613999959185,
+        "adjust"
+      ],
+      [
+        2310.613999959185,
+        2311.121999959173,
+        "settle"
+      ],
+      [
+        2311.121999959173,
+        2318.1279999590074,
+        "auto_visual_kick"
+      ],
+      [
+        2318.1279999590074,
+        2318.4719999589993,
+        "adjust"
+      ],
+      [
+        2318.4719999589993,
+        2319.6119999589723,
+        "settle"
+      ],
+      [
+        2319.6119999589723,
+        2321.5119999589274,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2318.117999959,
+        2319.617999959
+      ],
+      [
+        2319.723999958,
+        2321.223999958
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2311.619999959,
+        "stop_sim_time": 2318.117999959,
+        "rpc_active_s": 6.498000000000047,
+        "truth_start_distance_m": 0.3946698479581806,
+        "truth_end_distance_m": 0.40053768208639845,
+        "robot_displacement_m": 0.005992716110770465,
+        "maximum_kick_target_age_s": 0.3000000001497938,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.31413944993466675,
+        "activation_truth_heading_error_deg": 6.553609728416525
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2306.343999959286,
+      2306.353999959286,
+      2306.3659999592855,
+      2306.3779999592853
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769588.549934523] [brain_node]: Precision striker:  -> chase range=4.37 alignment=0.85 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769596.852922562] [brain_node]: Precision striker: chase -> adjust range=0.89 alignment=0.79 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769603.348837186] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769603.540322244] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769603.723313916] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769603.746480945] [brain_node]: Precision striker: settle -> adjust range=0.30 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769603.791411593] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.060023980] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.173114410] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.468405010] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.591904907] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.702132481] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769604.724228440] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769605.341632627] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.31 alignment=0.06 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769614.002056929] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.31 alignment=0.07 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769614.424596031] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.05 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769616.025762439] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.30 alignment=-0.02 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 15,
+    "decision_intervals": [
+      [
+        2353.8119999581636,
+        2354.127999958156,
+        "unknown"
+      ],
+      [
+        2354.127999958156,
+        2361.6439999579784,
+        "chase"
+      ],
+      [
+        2361.6439999579784,
+        2365.3219999578914,
+        "adjust"
+      ],
+      [
+        2365.3219999578914,
+        2365.335999957891,
+        "settle"
+      ],
+      [
+        2365.335999957891,
+        2365.6899999578827,
+        "adjust"
+      ],
+      [
+        2365.6899999578827,
+        2365.8659999578786,
+        "settle"
+      ],
+      [
+        2365.8659999578786,
+        2365.8759999578783,
+        "adjust"
+      ],
+      [
+        2365.8759999578783,
+        2365.9099999578775,
+        "settle"
+      ],
+      [
+        2365.9099999578775,
+        2366.109999957873,
+        "adjust"
+      ],
+      [
+        2366.109999957873,
+        2366.1299999578723,
+        "settle"
+      ],
+      [
+        2366.1299999578723,
+        2366.5899999578614,
+        "adjust"
+      ],
+      [
+        2366.5899999578614,
+        2366.6719999578595,
+        "settle"
+      ],
+      [
+        2366.6719999578595,
+        2366.8879999578544,
+        "adjust"
+      ],
+      [
+        2366.8879999578544,
+        2367.2619999578455,
+        "settle"
+      ],
+      [
+        2367.2619999578455,
+        2367.657999957836,
+        "adjust"
+      ],
+      [
+        2367.657999957836,
+        2367.959999957829,
+        "settle"
+      ],
+      [
+        2367.959999957829,
+        2368.515999957816,
+        "adjust"
+      ],
+      [
+        2368.515999957816,
+        2368.9099999578066,
+        "settle"
+      ],
+      [
+        2368.9099999578066,
+        2369.137999957801,
+        "adjust"
+      ],
+      [
+        2369.137999957801,
+        2369.1699999578004,
+        "settle"
+      ],
+      [
+        2369.1699999578004,
+        2369.9299999577825,
+        "adjust"
+      ],
+      [
+        2369.9299999577825,
+        2369.9779999577813,
+        "settle"
+      ],
+      [
+        2369.9779999577813,
+        2370.02599995778,
+        "adjust"
+      ],
+      [
+        2370.02599995778,
+        2370.1419999577774,
+        "settle"
+      ],
+      [
+        2370.1419999577774,
+        2370.2319999577753,
+        "adjust"
+      ],
+      [
+        2370.2319999577753,
+        2370.7359999577634,
+        "settle"
+      ],
+      [
+        2370.7359999577634,
+        2373.929999957688,
+        "auto_visual_kick"
+      ],
+      [
+        2373.929999957688,
+        2374.4979999576744,
+        "find"
+      ],
+      [
+        2374.4979999576744,
+        2374.599999957672,
+        "settle"
+      ],
+      [
+        2374.599999957672,
+        2374.643999957671,
+        "adjust"
+      ],
+      [
+        2374.643999957671,
+        2375.147999957659,
+        "settle"
+      ],
+      [
+        2375.147999957659,
+        2378.3919999575824,
+        "auto_visual_kick"
+      ],
+      [
+        2378.3919999575824,
+        2381.1319999575176,
+        "settle"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2373.927999957,
+        2375.427999957
+      ],
+      [
+        2378.387999957,
+        2379.887999957
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2371.241999957,
+        "stop_sim_time": 2373.927999957,
+        "rpc_active_s": 2.6859999999996944,
+        "truth_start_distance_m": 0.2601371464644151,
+        "truth_end_distance_m": 0.27334695360285366,
+        "robot_displacement_m": 0.01344901241791679,
+        "maximum_kick_target_age_s": 2.49800000068808,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2742763027193508,
+        "activation_truth_heading_error_deg": 9.028314957691668
+      },
+      {
+        "start_sim_time": 2375.665999957,
+        "stop_sim_time": 2378.387999957,
+        "rpc_active_s": 2.7219999999997526,
+        "truth_start_distance_m": 0.2772728112669037,
+        "truth_end_distance_m": 0.2805036681354143,
+        "robot_displacement_m": 0.003219880090127914,
+        "maximum_kick_target_age_s": 2.1260000005922848,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2697660019189883,
+        "activation_truth_heading_error_deg": 5.261760895652403
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769658.992963840] [brain_node]: Precision striker:  -> chase range=1.99 alignment=0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769668.396742179] [brain_node]: Precision striker: chase -> adjust range=0.87 alignment=-0.96 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769672.861932213] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769672.884382020] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.357943064] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.585838452] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.597306421] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.642159249] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.882456138] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769673.915796955] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.21 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769674.513583952] [brain_node]: Precision striker: adjust -> settle range=0.23 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769674.602506194] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769674.880947326] [brain_node]: Precision striker: adjust -> settle range=0.25 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769675.331537402] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769675.818411986] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769676.215511281] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769676.897000830] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769677.408383853] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769677.678000177] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769677.711116555] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769678.612440496] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769678.668101867] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769678.726047473] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769678.864040356] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769678.958048339] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769679.555866909] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.08 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769683.398586626] [brain_node]: Precision striker: auto_visual_kick -> find range=0.27 alignment=-0.02 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769684.055161678] [brain_node]: Precision striker: find -> settle range=0.24 alignment=0.00 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769684.191311764] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.03 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769684.247835955] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=0.03 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769684.948845072] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.27 alignment=-0.03 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769688.895384400] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=0.02 stable=1 cooldown=1"
+    ]
+  },
+  {
+    "trial": 16,
+    "decision_intervals": [
+      [
+        2414.1679999567364,
+        2414.2779999567338,
+        "unknown"
+      ],
+      [
+        2414.2779999567338,
+        2417.053999956668,
+        "chase"
+      ],
+      [
+        2417.053999956668,
+        2417.4159999566596,
+        "settle"
+      ],
+      [
+        2417.4159999566596,
+        2424.425999956494,
+        "auto_visual_kick"
+      ],
+      [
+        2424.425999956494,
+        2425.097999956478,
+        "adjust"
+      ],
+      [
+        2425.097999956478,
+        2425.9299999564582,
+        "settle"
+      ],
+      [
+        2425.9299999564582,
+        2427.7799999564145,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2424.421999956,
+        2425.921999956
+      ],
+      [
+        2425.995999956,
+        2427.495999956
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2417.921999956,
+        "stop_sim_time": 2424.421999956,
+        "rpc_active_s": 6.5,
+        "truth_start_distance_m": 0.6457978778851625,
+        "truth_end_distance_m": 0.6101430264856665,
+        "robot_displacement_m": 0.03319328844735653,
+        "maximum_kick_target_age_s": 0.05400000064037158,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.5427695569418877,
+        "activation_truth_heading_error_deg": 8.978866534799458
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769733.160022573] [brain_node]: Precision striker:  -> chase range=2.14 alignment=-0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769736.583061532] [brain_node]: Precision striker: chase -> settle range=0.89 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769737.058480688] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.69 alignment=-0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769745.792014651] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.50 alignment=0.06 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769746.589036063] [brain_node]: Precision striker: adjust -> settle range=0.47 alignment=-0.01 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791769747.658227050] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.42 alignment=-0.09 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 17,
+    "decision_intervals": [
+      [
+        2460.9819999556294,
+        2467.72999995547,
+        "chase"
+      ],
+      [
+        2467.72999995547,
+        2472.3599999553603,
+        "find"
+      ],
+      [
+        2472.3599999553603,
+        2474.3799999553125,
+        "chase"
+      ],
+      [
+        2474.3799999553125,
+        2484.603999955071,
+        "find"
+      ],
+      [
+        2484.603999955071,
+        2489.957999954944,
+        "adjust"
+      ],
+      [
+        2489.957999954944,
+        2490.3579999549347,
+        "find"
+      ],
+      [
+        2490.3579999549347,
+        2491.871999954899,
+        "adjust"
+      ],
+      [
+        2491.871999954899,
+        2492.503999954884,
+        "find"
+      ],
+      [
+        2492.503999954884,
+        2495.077999954823,
+        "chase"
+      ],
+      [
+        2495.077999954823,
+        2499.5859999547165,
+        "find"
+      ],
+      [
+        2499.5859999547165,
+        2501.6679999546673,
+        "chase"
+      ],
+      [
+        2501.6679999546673,
+        2510.0659999544687,
+        "find"
+      ],
+      [
+        2510.0659999544687,
+        2511.6439999544314,
+        "chase"
+      ],
+      [
+        2511.6439999544314,
+        2516.055999954327,
+        "find"
+      ],
+      [
+        2516.055999954327,
+        2516.2139999543233,
+        "chase"
+      ],
+      [
+        2516.2139999543233,
+        2561.8859999532433,
+        "adjust"
+      ],
+      [
+        2561.8859999532433,
+        2562.1639999532367,
+        "find"
+      ],
+      [
+        2562.1639999532367,
+        2564.807999953174,
+        "adjust"
+      ]
+    ],
+    "cooldown_intervals": [],
+    "visual_skill_intervals": [],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769788.965849900] [brain_node]: Precision striker:  -> chase range=7.77 alignment=2.31 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769797.006154105] [brain_node]: Precision striker: chase -> find range=6.22 alignment=2.41 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769802.299122249] [brain_node]: Precision striker: find -> chase range=4.01 alignment=-1.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769804.620489638] [brain_node]: Precision striker: chase -> find range=2.86 alignment=-0.47 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769816.609830450] [brain_node]: Precision striker: find -> adjust range=0.36 alignment=-0.93 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769822.963702789] [brain_node]: Precision striker: adjust -> find range=0.19 alignment=1.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769823.468512963] [brain_node]: Precision striker: find -> adjust range=0.28 alignment=2.27 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769825.308007633] [brain_node]: Precision striker: adjust -> find range=0.21 alignment=2.22 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769826.004462382] [brain_node]: Precision striker: find -> chase range=4.95 alignment=2.19 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769829.064859133] [brain_node]: Precision striker: chase -> find range=4.96 alignment=2.26 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769834.367789269] [brain_node]: Precision striker: find -> chase range=4.43 alignment=-1.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769836.804134882] [brain_node]: Precision striker: chase -> find range=3.33 alignment=-0.23 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769846.497732910] [brain_node]: Precision striker: find -> chase range=4.93 alignment=2.83 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769848.252574760] [brain_node]: Precision striker: chase -> find range=4.76 alignment=2.75 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769853.413668310] [brain_node]: Precision striker: find -> chase range=3.98 alignment=-1.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769853.598536015] [brain_node]: Precision striker: chase -> adjust range=0.56 alignment=-1.58 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769908.037206693] [brain_node]: Precision striker: adjust -> find range=0.51 alignment=-2.57 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769908.322851902] [brain_node]: Precision striker: find -> adjust range=0.39 alignment=2.57 stable=0 cooldown=0"
+    ]
+  },
+  {
+    "trial": 18,
+    "decision_intervals": [
+      [
+        2597.5319999524004,
+        2602.0999999522924,
+        "chase"
+      ],
+      [
+        2602.0999999522924,
+        2605.6119999522093,
+        "adjust"
+      ],
+      [
+        2605.6119999522093,
+        2605.7659999522057,
+        "settle"
+      ],
+      [
+        2605.7659999522057,
+        2605.8139999522045,
+        "adjust"
+      ],
+      [
+        2605.8139999522045,
+        2605.8239999522043,
+        "settle"
+      ],
+      [
+        2605.8239999522043,
+        2606.5439999521873,
+        "adjust"
+      ],
+      [
+        2606.5439999521873,
+        2606.6259999521853,
+        "settle"
+      ],
+      [
+        2606.6259999521853,
+        2606.8419999521802,
+        "adjust"
+      ],
+      [
+        2606.8419999521802,
+        2606.9039999521788,
+        "settle"
+      ],
+      [
+        2606.9039999521788,
+        2606.9599999521774,
+        "adjust"
+      ],
+      [
+        2606.9599999521774,
+        2607.011999952176,
+        "settle"
+      ],
+      [
+        2607.011999952176,
+        2607.061999952175,
+        "adjust"
+      ],
+      [
+        2607.061999952175,
+        2607.3299999521687,
+        "settle"
+      ],
+      [
+        2607.3299999521687,
+        2607.611999952162,
+        "adjust"
+      ],
+      [
+        2607.611999952162,
+        2608.11199995215,
+        "settle"
+      ],
+      [
+        2608.11199995215,
+        2608.1499999521493,
+        "adjust"
+      ],
+      [
+        2608.1499999521493,
+        2608.1739999521487,
+        "settle"
+      ],
+      [
+        2608.1739999521487,
+        2608.1859999521484,
+        "adjust"
+      ],
+      [
+        2608.1859999521484,
+        2608.2179999521477,
+        "settle"
+      ],
+      [
+        2608.2179999521477,
+        2608.2599999521467,
+        "adjust"
+      ],
+      [
+        2608.2599999521467,
+        2608.285999952146,
+        "settle"
+      ],
+      [
+        2608.285999952146,
+        2608.3079999521456,
+        "adjust"
+      ],
+      [
+        2608.3079999521456,
+        2608.8119999521336,
+        "settle"
+      ],
+      [
+        2608.8119999521336,
+        2612.0799999520564,
+        "auto_visual_kick"
+      ],
+      [
+        2612.0799999520564,
+        2613.067999952033,
+        "settle"
+      ],
+      [
+        2613.067999952033,
+        2616.1699999519597,
+        "auto_visual_kick"
+      ],
+      [
+        2616.1699999519597,
+        2617.161999951936,
+        "settle"
+      ],
+      [
+        2617.161999951936,
+        2619.11399995189,
+        "auto_visual_kick"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2612.071999952,
+        2613.571999952
+      ],
+      [
+        2616.161999951,
+        2618.913999951
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2609.323999952,
+        "stop_sim_time": 2612.071999952,
+        "rpc_active_s": 2.7480000000000473,
+        "truth_start_distance_m": 0.29924685341966695,
+        "truth_end_distance_m": 0.30577344466771966,
+        "robot_displacement_m": 0.006487861434516513,
+        "maximum_kick_target_age_s": 2.1200000000671935,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.25895489140099853,
+        "activation_truth_heading_error_deg": -7.654374482026125
+      },
+      {
+        "start_sim_time": 2613.569999952,
+        "stop_sim_time": 2616.161999951,
+        "rpc_active_s": 2.591999998999654,
+        "truth_start_distance_m": 0.30695786812301795,
+        "truth_end_distance_m": 0.3080816163124951,
+        "robot_displacement_m": 0.0015364963324414514,
+        "maximum_kick_target_age_s": 1.8639999999704742,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.2616315472332058,
+        "activation_truth_heading_error_deg": -3.0532829123301277
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791769951.949057047] [brain_node]: Precision striker:  -> chase range=1.68 alignment=0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769957.749164045] [brain_node]: Precision striker: chase -> adjust range=0.90 alignment=-0.72 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769962.306004042] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769962.499388175] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769962.567174264] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769962.578691600] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769963.487822230] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=-0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769963.613012649] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769963.886279546] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769963.955098836] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769964.022074566] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=-0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769964.100350754] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769964.158986150] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769964.506045310] [brain_node]: Precision striker: settle -> adjust range=0.23 alignment=0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769964.874267169] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.483145025] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.540099731] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.562551052] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.586241694] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.619312933] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.676921291] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.713485540] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769965.747706553] [brain_node]: Precision striker: adjust -> settle range=0.29 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791769966.416316670] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.28 alignment=-0.00 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769970.433198383] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.26 alignment=-0.06 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791769971.636971978] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.06 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791769975.600132946] [brain_node]: Precision striker: auto_visual_kick -> settle range=0.28 alignment=-0.07 stable=1 cooldown=1",
+      "[brain_node-1] [INFO] [1791769976.797072764] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.26 alignment=-0.06 stable=1 cooldown=0"
+    ]
+  },
+  {
+    "trial": 19,
+    "decision_intervals": [
+      [
+        2653.161999951085,
+        2653.451999951078,
+        "unknown"
+      ],
+      [
+        2653.451999951078,
+        2655.0879999510394,
+        "chase"
+      ],
+      [
+        2655.0879999510394,
+        2655.945999951019,
+        "find"
+      ],
+      [
+        2655.945999951019,
+        2662.457999950865,
+        "chase"
+      ],
+      [
+        2662.457999950865,
+        2668.8199999507146,
+        "adjust"
+      ],
+      [
+        2668.8199999507146,
+        2668.895999950713,
+        "settle"
+      ],
+      [
+        2668.895999950713,
+        2669.3319999507025,
+        "adjust"
+      ],
+      [
+        2669.3319999507025,
+        2669.359999950702,
+        "settle"
+      ],
+      [
+        2669.359999950702,
+        2669.3799999507014,
+        "adjust"
+      ],
+      [
+        2669.3799999507014,
+        2669.475999950699,
+        "settle"
+      ],
+      [
+        2669.475999950699,
+        2672.275999950633,
+        "adjust"
+      ],
+      [
+        2672.275999950633,
+        2672.441999950629,
+        "settle"
+      ],
+      [
+        2672.441999950629,
+        2675.1239999505656,
+        "adjust"
+      ],
+      [
+        2675.1239999505656,
+        2675.2979999505615,
+        "settle"
+      ],
+      [
+        2675.2979999505615,
+        2675.615999950554,
+        "adjust"
+      ],
+      [
+        2675.615999950554,
+        2675.911999950547,
+        "settle"
+      ],
+      [
+        2675.911999950547,
+        2676.745999950527,
+        "adjust"
+      ],
+      [
+        2676.745999950527,
+        2677.1219999505183,
+        "settle"
+      ],
+      [
+        2677.1219999505183,
+        2677.4959999505095,
+        "adjust"
+      ],
+      [
+        2677.4959999505095,
+        2677.7459999505036,
+        "settle"
+      ],
+      [
+        2677.7459999505036,
+        2677.805999950502,
+        "adjust"
+      ],
+      [
+        2677.805999950502,
+        2677.8679999505007,
+        "settle"
+      ],
+      [
+        2677.8679999505007,
+        2678.4339999504873,
+        "adjust"
+      ],
+      [
+        2678.4339999504873,
+        2678.4579999504867,
+        "settle"
+      ],
+      [
+        2678.4579999504867,
+        2678.571999950484,
+        "adjust"
+      ],
+      [
+        2678.571999950484,
+        2678.7959999504787,
+        "settle"
+      ],
+      [
+        2678.7959999504787,
+        2679.6579999504584,
+        "adjust"
+      ],
+      [
+        2679.6579999504584,
+        2679.833999950454,
+        "settle"
+      ],
+      [
+        2679.833999950454,
+        2682.1999999503983,
+        "adjust"
+      ],
+      [
+        2682.1999999503983,
+        2682.5379999503903,
+        "settle"
+      ],
+      [
+        2682.5379999503903,
+        2682.807999950384,
+        "adjust"
+      ],
+      [
+        2682.807999950384,
+        2683.229999950374,
+        "settle"
+      ],
+      [
+        2683.229999950374,
+        2683.769999950361,
+        "adjust"
+      ],
+      [
+        2683.769999950361,
+        2683.9219999503575,
+        "settle"
+      ],
+      [
+        2683.9219999503575,
+        2683.995999950356,
+        "adjust"
+      ],
+      [
+        2683.995999950356,
+        2684.1379999503524,
+        "settle"
+      ],
+      [
+        2684.1379999503524,
+        2684.23599995035,
+        "adjust"
+      ],
+      [
+        2684.23599995035,
+        2684.2559999503496,
+        "settle"
+      ],
+      [
+        2684.2559999503496,
+        2687.497999950273,
+        "adjust"
+      ],
+      [
+        2687.497999950273,
+        2687.5099999502727,
+        "settle"
+      ],
+      [
+        2687.5099999502727,
+        2696.793999950053,
+        "adjust"
+      ],
+      [
+        2696.793999950053,
+        2697.047999950047,
+        "settle"
+      ],
+      [
+        2697.047999950047,
+        2697.0759999500465,
+        "adjust"
+      ],
+      [
+        2697.0759999500465,
+        2697.093999950046,
+        "settle"
+      ],
+      [
+        2697.093999950046,
+        2697.1159999500455,
+        "adjust"
+      ],
+      [
+        2697.1159999500455,
+        2697.1639999500444,
+        "settle"
+      ],
+      [
+        2697.1639999500444,
+        2697.179999950044,
+        "adjust"
+      ],
+      [
+        2697.179999950044,
+        2697.691999950032,
+        "settle"
+      ],
+      [
+        2697.691999950032,
+        2704.707999949866,
+        "auto_visual_kick"
+      ],
+      [
+        2704.707999949866,
+        2705.5019999498472,
+        "adjust"
+      ],
+      [
+        2705.5019999498472,
+        2705.7379999498417,
+        "settle"
+      ],
+      [
+        2705.7379999498417,
+        2708.0239999497876,
+        "adjust"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2704.701999949,
+        2706.201999949
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2698.19399995,
+        "stop_sim_time": 2704.701999949,
+        "rpc_active_s": 6.507999998999821,
+        "truth_start_distance_m": 0.7140698296892422,
+        "truth_end_distance_m": 0.7156468849061088,
+        "robot_displacement_m": 0.0015881428145854896,
+        "maximum_kick_target_age_s": 0.022000000947627996,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.607759609950744,
+        "activation_truth_heading_error_deg": 7.983651257311425
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2664.487999950817,
+      2664.5019999508168,
+      2664.5059999508167,
+      2664.5219999508163,
+      2664.529999950816,
+      2666.2779999507748,
+      2666.2879999507745,
+      2666.2999999507742,
+      2666.305999950774,
+      2687.673999950269,
+      2687.6779999502687,
+      2687.6879999502685,
+      2687.6939999502683,
+      2687.705999950268,
+      2689.9179999502157,
+      2689.9219999502156,
+      2689.941999950215,
+      2689.945999950215,
+      2695.783999950077,
+      2695.7979999500767,
+      2695.8119999500764,
+      2695.8159999500763,
+      2695.821999950076
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791770024.335325383] [brain_node]: Precision striker:  -> chase range=1.90 alignment=-0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770026.289288655] [brain_node]: Precision striker: chase -> find range=1.64 alignment=-0.22 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770027.312881845] [brain_node]: Precision striker: find -> chase range=3.58 alignment=0.90 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770035.405369856] [brain_node]: Precision striker: chase -> adjust range=0.87 alignment=0.78 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770043.435639880] [brain_node]: Precision striker: adjust -> settle range=0.43 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770043.559030719] [brain_node]: Precision striker: settle -> adjust range=0.40 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770044.077257714] [brain_node]: Precision striker: adjust -> settle range=0.33 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770044.110522671] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770044.144164342] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770044.269042128] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.21 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770047.568249977] [brain_node]: Precision striker: adjust -> settle range=0.37 alignment=0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770047.761122722] [brain_node]: Precision striker: settle -> adjust range=0.38 alignment=-0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770050.981745426] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770051.240118857] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770051.665270737] [brain_node]: Precision striker: adjust -> settle range=0.24 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770052.041381409] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770053.255379029] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.03 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770053.761601242] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770054.201314014] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770054.500353853] [brain_node]: Precision striker: settle -> adjust range=0.32 alignment=-0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770054.567177883] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770054.733917960] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770055.757201755] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770055.816972922] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770056.076038113] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770056.358466480] [brain_node]: Precision striker: settle -> adjust range=0.26 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770057.338832793] [brain_node]: Precision striker: adjust -> settle range=0.31 alignment=0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770057.528183392] [brain_node]: Precision striker: settle -> adjust range=0.31 alignment=-0.19 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770060.544479931] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770060.915655007] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.15 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770061.250819559] [brain_node]: Precision striker: adjust -> settle range=0.26 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770061.761034512] [brain_node]: Precision striker: settle -> adjust range=0.29 alignment=-0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770062.597033639] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.12 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770062.803063556] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=-0.11 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770062.954875030] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=-0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770063.184986752] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770063.308574100] [brain_node]: Precision striker: adjust -> settle range=0.25 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770063.331716511] [brain_node]: Precision striker: settle -> adjust range=0.25 alignment=-0.05 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770067.769470700] [brain_node]: Precision striker: adjust -> settle range=0.28 alignment=-0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770067.780822564] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=-0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770080.849777305] [brain_node]: Precision striker: adjust -> settle range=0.55 alignment=-0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.219162138] [brain_node]: Precision striker: settle -> adjust range=0.56 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.252807854] [brain_node]: Precision striker: adjust -> settle range=0.54 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.275009505] [brain_node]: Precision striker: settle -> adjust range=0.54 alignment=0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.311754876] [brain_node]: Precision striker: adjust -> settle range=0.57 alignment=-0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.357794186] [brain_node]: Precision striker: settle -> adjust range=0.58 alignment=-0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.380456662] [brain_node]: Precision striker: adjust -> settle range=0.58 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770081.982709189] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.61 alignment=0.01 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791770091.136724919] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.62 alignment=-0.09 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791770092.043763947] [brain_node]: Precision striker: adjust -> settle range=0.57 alignment=-0.04 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791770092.327542305] [brain_node]: Precision striker: settle -> adjust range=0.55 alignment=-0.04 stable=0 cooldown=1"
+    ]
+  },
+  {
+    "trial": 20,
+    "decision_intervals": [
+      [
+        2741.0119999490075,
+        2741.2219999490026,
+        "unknown"
+      ],
+      [
+        2741.2219999490026,
+        2749.069999948817,
+        "chase"
+      ],
+      [
+        2749.069999948817,
+        2755.9099999486552,
+        "adjust"
+      ],
+      [
+        2755.9099999486552,
+        2757.0399999486285,
+        "find"
+      ],
+      [
+        2757.0399999486285,
+        2758.537999948593,
+        "adjust"
+      ],
+      [
+        2758.537999948593,
+        2762.6179999484966,
+        "find"
+      ],
+      [
+        2762.6179999484966,
+        2762.7559999484934,
+        "chase"
+      ],
+      [
+        2762.7559999484934,
+        2771.727999948281,
+        "adjust"
+      ],
+      [
+        2771.727999948281,
+        2771.77399994828,
+        "settle"
+      ],
+      [
+        2771.77399994828,
+        2772.493999948263,
+        "adjust"
+      ],
+      [
+        2772.493999948263,
+        2772.8499999482547,
+        "settle"
+      ],
+      [
+        2772.8499999482547,
+        2774.485999948216,
+        "adjust"
+      ],
+      [
+        2774.485999948216,
+        2774.5019999482156,
+        "settle"
+      ],
+      [
+        2774.5019999482156,
+        2774.611999948213,
+        "adjust"
+      ],
+      [
+        2774.611999948213,
+        2774.74199994821,
+        "settle"
+      ],
+      [
+        2774.74199994821,
+        2774.8439999482075,
+        "adjust"
+      ],
+      [
+        2774.8439999482075,
+        2774.9279999482055,
+        "settle"
+      ],
+      [
+        2774.9279999482055,
+        2780.6799999480695,
+        "adjust"
+      ],
+      [
+        2780.6799999480695,
+        2782.1179999480355,
+        "find"
+      ],
+      [
+        2782.1179999480355,
+        2785.4919999479557,
+        "adjust"
+      ],
+      [
+        2785.4919999479557,
+        2787.297999947913,
+        "find"
+      ],
+      [
+        2787.297999947913,
+        2794.61399994774,
+        "adjust"
+      ],
+      [
+        2794.61399994774,
+        2795.121999947728,
+        "find"
+      ],
+      [
+        2795.121999947728,
+        2798.3659999476513,
+        "adjust"
+      ],
+      [
+        2798.3659999476513,
+        2798.6079999476456,
+        "settle"
+      ],
+      [
+        2798.6079999476456,
+        2798.887999947639,
+        "adjust"
+      ],
+      [
+        2798.887999947639,
+        2798.9399999476377,
+        "settle"
+      ],
+      [
+        2798.9399999476377,
+        2810.6519999473608,
+        "adjust"
+      ],
+      [
+        2810.6519999473608,
+        2814.191999947277,
+        "chase"
+      ],
+      [
+        2814.191999947277,
+        2814.4779999472703,
+        "settle"
+      ],
+      [
+        2814.4779999472703,
+        2821.509999947104,
+        "auto_visual_kick"
+      ],
+      [
+        2821.509999947104,
+        2822.2099999470875,
+        "adjust"
+      ],
+      [
+        2822.2099999470875,
+        2822.7559999470745,
+        "settle"
+      ],
+      [
+        2822.7559999470745,
+        2822.865999947072,
+        "adjust"
+      ],
+      [
+        2822.865999947072,
+        2824.887999947024,
+        "settle"
+      ]
+    ],
+    "cooldown_intervals": [
+      [
+        2821.495999947,
+        2822.995999947
+      ]
+    ],
+    "visual_skill_intervals": [
+      {
+        "start_sim_time": 2814.985999947,
+        "stop_sim_time": 2821.495999947,
+        "rpc_active_s": 6.510000000000218,
+        "truth_start_distance_m": 0.506071231563479,
+        "truth_end_distance_m": 0.4884871837110494,
+        "robot_displacement_m": 0.020798220049304535,
+        "maximum_kick_target_age_s": 0.12800000024117253,
+        "contact_while_rpc_active": false,
+        "estimated_start_range_m": 0.5955434177824976,
+        "activation_truth_heading_error_deg": 18.007659939875193
+      }
+    ],
+    "responses": [],
+    "contact_sim_times": [
+      2767.419999948383,
+      2767.421999948383,
+      2767.431999948383,
+      2767.4419999483825,
+      2775.3879999481946,
+      2775.3939999481945,
+      2775.409999948194,
+      2775.421999948194,
+      2785.9739999479443,
+      2785.977999947944,
+      2785.985999947944,
+      2785.995999947944,
+      2786.0019999479437,
+      2795.8139999477116,
+      2795.8219999477114,
+      2795.8259999477114,
+      2795.8299999477113,
+      2795.835999947711,
+      2795.839999947711,
+      2795.847999947711,
+      2801.9959999475655,
+      2802.0019999475653,
+      2802.0039999475653,
+      2802.013999947565,
+      2802.023999947565,
+      2802.0339999475646
+    ],
+    "precision_transitions": [
+      "[brain_node-1] [INFO] [1791770133.942623391] [brain_node]: Precision striker:  -> chase range=1.79 alignment=-0.27 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770143.605661499] [brain_node]: Precision striker: chase -> adjust range=0.88 alignment=-0.71 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770151.411253578] [brain_node]: Precision striker: adjust -> find range=0.29 alignment=-0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770152.636158444] [brain_node]: Precision striker: find -> adjust range=0.68 alignment=0.81 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770154.332270041] [brain_node]: Precision striker: adjust -> find range=0.50 alignment=0.74 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770158.999539886] [brain_node]: Precision striker: find -> chase range=8.96 alignment=-2.67 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770159.192472028] [brain_node]: Precision striker: chase -> adjust range=0.67 alignment=-2.09 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770170.277366052] [brain_node]: Precision striker: adjust -> settle range=0.25 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770170.333280326] [brain_node]: Precision striker: settle -> adjust range=0.24 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770171.170097480] [brain_node]: Precision striker: adjust -> settle range=0.34 alignment=0.10 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770171.588357224] [brain_node]: Precision striker: settle -> adjust range=0.40 alignment=-0.14 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770173.508666019] [brain_node]: Precision striker: adjust -> settle range=0.30 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770173.520194692] [brain_node]: Precision striker: settle -> adjust range=0.28 alignment=0.13 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770173.643112643] [brain_node]: Precision striker: adjust -> settle range=0.27 alignment=0.06 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770173.788060657] [brain_node]: Precision striker: settle -> adjust range=0.27 alignment=0.04 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770173.892815381] [brain_node]: Precision striker: adjust -> settle range=0.32 alignment=-0.01 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770174.004255676] [brain_node]: Precision striker: settle -> adjust range=0.33 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770180.894478087] [brain_node]: Precision striker: adjust -> find range=0.24 alignment=0.18 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770182.640051887] [brain_node]: Precision striker: find -> adjust range=0.26 alignment=0.60 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770186.492116786] [brain_node]: Precision striker: adjust -> find range=0.34 alignment=-0.18 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770188.831115829] [brain_node]: Precision striker: find -> adjust range=0.63 alignment=-1.23 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770198.008071659] [brain_node]: Precision striker: adjust -> find range=0.36 alignment=-0.42 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770198.601161132] [brain_node]: Precision striker: find -> adjust range=0.94 alignment=-1.16 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770202.918567543] [brain_node]: Precision striker: adjust -> settle range=0.79 alignment=0.08 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770203.211876948] [brain_node]: Precision striker: settle -> adjust range=0.68 alignment=0.00 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770203.519426649] [brain_node]: Precision striker: adjust -> settle range=0.57 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770203.586833251] [brain_node]: Precision striker: settle -> adjust range=0.55 alignment=-0.07 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770218.298827307] [brain_node]: Precision striker: adjust -> chase range=2.05 alignment=-0.52 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770223.196295757] [brain_node]: Precision striker: chase -> settle range=0.85 alignment=-0.02 stable=0 cooldown=0",
+      "[brain_node-1] [INFO] [1791770223.557022132] [brain_node]: Precision striker: settle -> auto_visual_kick range=0.79 alignment=-0.03 stable=1 cooldown=0",
+      "[brain_node-1] [INFO] [1791770232.305613779] [brain_node]: Precision striker: auto_visual_kick -> adjust range=0.40 alignment=0.08 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791770233.099114145] [brain_node]: Precision striker: adjust -> settle range=0.40 alignment=0.09 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791770233.742099785] [brain_node]: Precision striker: settle -> adjust range=0.41 alignment=-0.14 stable=0 cooldown=1",
+      "[brain_node-1] [INFO] [1791770233.880274642] [brain_node]: Precision striker: adjust -> settle range=0.40 alignment=-0.09 stable=0 cooldown=1"
+    ]
+  }
+]

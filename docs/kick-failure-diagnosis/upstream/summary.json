@@ -1,0 +1,14 @@
+{
+  "trials": 20,
+  "goals": 5,
+  "goal_percent": 25.0,
+  "trials_with_direction": 0,
+  "mean_absolute_aim_error_deg": null,
+  "max_absolute_aim_error_deg": null,
+  "mean_absolute_goal_center_error_deg": null,
+  "max_absolute_goal_center_error_deg": null,
+  "outcomes": {
+    "goal": 5,
+    "missed_contact": 15
+  }
+}

@@ -86,8 +86,12 @@ Dependency installation and the full build commands are recorded in
 6. Read the current container IP using the command below. Run
    `sim_restart_camera_renderer.py` with the **current** renderer PID and
    `ws://CURRENT_CONTAINER_IP:8790`; the old PIDs and IPs in the historical
-   commands are examples, not constants. It preserves the existing camera hub
-   connection. If Studio creates multiple renderer instances, identify the one
+   commands are examples, not constants. Container restart can also remap the
+   camera hub's host port. Inspect `docker port rxlma-k1 9876/tcp` before reusing
+   the renderer's camera URL. If it is stale, add
+   `--camera-publish-url ws://CURRENT_CONTAINER_IP:9876/publish` when restarting
+   the renderer (or use the current mapped host port). Verify real images arrive.
+   If Studio creates multiple renderer instances, identify the one
    for this virtual robot by its command arguments before restarting it.
 
 7. Start the corrected referee using the command below. Its helper stops the
