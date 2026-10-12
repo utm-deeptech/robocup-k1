@@ -100,13 +100,20 @@ Use a new output directory for every run; the script will not overwrite one.
 CSV and summary JSON are updated after each completed trial. Raw recordings
 are under that output directory inside `/root/robocup_demo`; copy them to the
 host before shutdown. The referee match is ended on completion or exceptions.
+To continue after a setup interruption, rerun the same command with `--resume`.
+The runner verifies the saved protocol, keeps completed results, and retries
+setup up to three times per trial. It confirms discovery of `brain_node_ext`
+and the localization control acknowledgment before waiting for vision
+localization. Failed setup recordings are retained separately and do not enter
+the completed-trial denominator.
 After measurement, stop the specific `sim_kick_test_referee.py` process and
 restart `sim_defender_referee.sh` to return to the frozen ordinary referee.
 Do not start both referees at once.
 
 Measurement math tests: `python3 tests/test_sim_kick_metrics.py`. They verify
 known trajectory directions in all quadrants, angle wrapping, missing data,
-and full-ball crossing near the goal/posts/boundary.
+full-ball crossing near the goal/posts/boundary, failed trials in the goal
+denominator, and missing directions remaining missing rather than zero error.
 
 Stop after the baseline report. Source attribution and behavior fixes belong
 to the later requested steps and must not be silently mixed into this run.
