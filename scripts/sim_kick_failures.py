@@ -36,7 +36,7 @@ def analyze_trial(base, row, profile):
     events = json.loads((base / f'trial-{trial:02d}-events.json').read_text())
     finishes = [e['simTime'] for e in events if e.get('type') == 'match_finished'
                 and e.get('simTime') is not None and e['simTime'] >= begin]
-    end = min(finishes) if finishes else float('inf')
+    end = min(finishes+[row.get('observation_end_sim_time',float('inf'))])
     durations = collections.defaultdict(float)
     longest = collections.defaultdict(float)
     ranges = []
@@ -182,7 +182,7 @@ def analyze_trial(base, row, profile):
                        'first_visual_maximum_target_age_s': first['maximum_kick_target_age_s']})
     if result['contact_during_Kick_decision'] or result['contact_while_visual_rpc_active']:
         category = 'kick action produced contact'
-    elif row['result'] != 'missed_contact':
+    elif row['result'] != 'missed_contact' and not row.get('observation_window_sim_s'):
         category = 'measured launch (not one of the 19 failures)'
     elif starts or result['Kick_node_ever_started']:
         category = CATEGORIES[2]

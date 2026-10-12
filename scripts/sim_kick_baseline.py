@@ -10,6 +10,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import statistics
 import subprocess
@@ -420,6 +421,81 @@ def run_trial(rec, client, sdk, folder, trial, repeat, position, timeout):
     return row
 
 
+def fixed_window_trial(rec, client, sdk, folder, trial, repeat, position, seconds):
+    """Observe the entire same sim-time interval, including walking Kick contacts."""
+    rec.open_trial(folder / f'trial-{trial:02d}.jsonl')
+    initialize(rec, client, sdk, folder, trial)
+    rec.starts.clear()
+    rec.command('place_ball', position=[*position, 0.11])
+    rec.wait(lambda: math.dist(rec.world['world']['ballPosition'][:2], position) < .03,
+             5, 'Ball placement failed')
+    world = rec.world
+    started_wall = time.time()
+    begin = world['time']
+    row = {'trial':trial, 'repeat':repeat, 'requested_ball_x':position[0],
+           'requested_ball_y':position[1], 'start_sim_time':begin,
+           'ball_start_x':world['world']['ballPosition'][0],
+           'ball_start_y':world['world']['ballPosition'][1],
+           'observation_window_sim_s':seconds}
+    print(json.dumps({'stage':'trial_started', **row}), flush=True)
+    (folder / f'trial-{trial:02d}-start-status.json').write_text(json.dumps(http('/status'),indent=2))
+    event_path = Path('.cache/kick-test-referee/events.jsonl')
+    offset = event_path.stat().st_size
+    processed_wall = started_wall
+    action = contact = None
+    kick_contact = False
+    boundary = None
+    deadline = time.monotonic()+max(180, seconds*2)
+    while True:
+        with rec.lock:
+            frames = [f for f in rec.frames if f['wall_time'] > processed_wall
+                      and begin <= f['time'] <= begin+seconds]
+            now = rec.world['time']
+        for frame in frames:
+            processed_wall = frame['wall_time']
+            decision = frame['state'].get('decision', {})
+            name = (decision.get('value') or '').removeprefix('striker-')
+            active_kick = (decision.get('wall_time',0) >= started_wall and name in ('kick','cross'))
+            if active_kick and action is None:
+                action = frame
+                add_snapshot(row,'activation',frame)
+            touches = any(c['name']=='robot1' for c in frame['world'].get('ballContacts',[]))
+            if touches and contact is None:
+                contact = frame
+                add_snapshot(row,'contact',frame)
+            kick_contact = kick_contact or (touches and active_kick)
+            if contact and boundary is None:
+                boundary = boundary_result(frame['world']['ballPosition'])
+        if now >= begin+seconds:
+            break
+        if time.monotonic() >= deadline:
+            raise TimeoutError('Incomplete fixed observation window: stalled or slow physics')
+        if rec.worker.poll() is not None:
+            raise RuntimeError('Physics worker exited during fixed observation')
+        time.sleep(.05)
+    # Close the referee trial before stopping the brain, to delimit offline analysis.
+    http('/match/end',True)
+    time.sleep(.25)
+    with event_path.open() as stream:
+        stream.seek(offset)
+        events = [json.loads(line) for line in stream if line.strip()]
+    goals = [e for e in events if e.get('type')=='goal' and
+             e.get('actor',{}).get('side')=='home' and
+             begin <= e.get('simTime',-1) <= begin+seconds]
+    row.update({'result':'goal' if goals else (boundary or 'short') if contact else 'missed_contact',
+                'reason':'fixed_sim_window_complete', 'goal_confirmed_by_referee':bool(goals),
+                'contact_observed':bool(contact), 'contact_during_Kick_decision':kick_contact,
+                'Kick_node_ever_started':action is not None, 'kick_activations':len(rec.starts),
+                'actual_dir_rad':None, 'direction_sample_count':0,
+                'observation_end_sim_time':begin+seconds, 'duration_wall_s':time.time()-started_wall})
+    (folder / f'trial-{trial:02d}-events.json').write_text(json.dumps(events,indent=2))
+    (folder / f'trial-{trial:02d}-brain.log').write_bytes(Path('brain.log').read_bytes())
+    rec.buttons(lt=True,x=True)
+    stop_motion(client)
+    print(json.dumps({'stage':'trial_result', **row}),flush=True)
+    return row
+
+
 def summary(rows, output):
     errors = [abs(r['aim_error_deg']) for r in rows if r.get('aim_error_deg') is not None]
     centers = [abs(r['goal_center_error_deg']) for r in rows if r.get('goal_center_error_deg') is not None]
@@ -448,13 +524,20 @@ def main():
     parser.add_argument('--timeout', type=float, default=120)
     parser.add_argument('--resume', action='store_true', help='Resume completed trials; retain failed setup recordings')
     parser.add_argument('--profile', choices=('enhanced', 'upstream'), default='enhanced')
+    parser.add_argument('--fixed-window', type=float, help='Full sim-time window after placement; no early stop')
+    parser.add_argument('--visual-kick-off', action='store_true', help='Verify the approved sim-only visual-off variant')
     args = parser.parse_args()
     if args.output.exists() and not args.resume:
         raise SystemExit('Use a new output directory to preserve raw evidence')
     args.output.mkdir(parents=True, exist_ok=args.resume)
     freeze = json.loads(Path('docs/two-robot-freeze.json').read_text())
     for file, expected in freeze['sha256'].items():
-        if hashlib.sha256(Path(file).read_bytes()).hexdigest() != expected:
+        content = Path(file).read_bytes()
+        if args.visual_kick_off and file == 'src/brain/config/config_local.yaml':
+            if b'      enableAutoVisualKick: false\n' not in content:
+                raise RuntimeError('Visual-off override missing')
+            content = content.replace(b'      enableAutoVisualKick: false\n',b'')
+        if hashlib.sha256(content).hexdigest() != expected:
             raise RuntimeError('Frozen baseline differs: ' + file)
     protocol = {
         'positions': POSITIONS, 'repeats': args.repeats, 'timeout_wall_s': args.timeout,
@@ -468,10 +551,21 @@ def main():
         'truth_policy': 'test observer only; never published to brain',
         'additional_outcomes': 'short/unresolved retained rather than mislabelled as wide/out/missed contact'
     }
+    protocol['observation_window_sim_s'] = args.fixed_window
+    protocol['visual_kick_off'] = args.visual_kick_off
+    protocol['source_sha256'] = {f:hashlib.sha256(Path(f).read_bytes()).hexdigest() for f in freeze['sha256']}
+    if args.fixed_window:
+        if args.fixed_window <= 0:
+            raise ValueError('Observation window must be positive')
+        protocol['post_shot_stop'] = 'none; full fixed simulation-time window for both profiles'
+        protocol['start_protocol'] = 'reset/localize/READY/SET/PLAY/place; observe all actions for fixed window'
+        protocol['direction_fit'] = 'not fitted; completion comparison across all actions in the fixed window'
     if args.profile == 'upstream':
-        manifest = json.loads(Path('.cache/upstream-ab/manifest.json').read_text())
+        overlay = Path('.cache/upstream-ab-visual-off' if args.visual_kick_off else '.cache/upstream-ab')
+        os.environ['SIM_UPSTREAM_OVERLAY'] = str(overlay)
+        manifest = json.loads((overlay / 'manifest.json').read_text())
         for file, expected in manifest['sha256'].items():
-            if hashlib.sha256((Path('.cache/upstream-ab') / file).read_bytes()).hexdigest() != expected:
+            if hashlib.sha256((overlay / file).read_bytes()).hexdigest() != expected:
                 raise RuntimeError('Pinned upstream control differs: ' + file)
         protocol['behavior_profile'] = 'upstream'
         protocol['upstream_manifest'] = manifest
@@ -514,7 +608,9 @@ def main():
                     continue
                 for setup_attempt in range(1, 4):
                     try:
-                        row = run_trial(rec, client, sdk, args.output, trial, repeat, position, args.timeout)
+                        runner = fixed_window_trial if args.fixed_window else run_trial
+                        row = runner(rec, client, sdk, args.output, trial, repeat, position,
+                                     args.fixed_window or args.timeout)
                         break
                     except TimeoutError as error:
                         print(json.dumps({'stage': 'setup_retry', 'trial': trial, 'error': str(error)}), flush=True)
