@@ -12,4 +12,4 @@ Decision rule (approved 12:32): upstream wins, so revert our gates and keep only
 visual-kick-off change. **Not yet applied**: do it next session, then rebuild and verify startup.
 
 Raw data: inside container `rxlma-k1:/root/robocup_demo/.cache/kick-upstream-visual-off-v1`
-(909 MB, not yet archived to the host).
+(909 MB). Host copy: `.cache/kick-upstream-visual-off-v1.tar.gz`.
