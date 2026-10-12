@@ -1,0 +1,34 @@
+{
+  "captured_utc": "2026-10-12T00:58:31Z",
+  "source_commit": "5e0810f73953448889ce27f6a104c880de8e04b4",
+  "branch": "local/sim-autonomy",
+  "container": "rxlma-k1",
+  "container_image": "booster-robotics-registry.cn-beijing.cr.aliyuncs.com/virtual-robot/virtual-robot:0.8.4-beta-humble",
+  "studio_version": "1.110.1-1789720186",
+  "sha256": {
+    "src/brain/config/config_local.yaml": "3c5ffdb516f1f6027a29bc79837135712d71f0e9d7176f5aa7981cff36cc5f39",
+    "src/vision/config/vision_local.yaml": "575dcac001adf37063af15b907896c163fabdf911f7a52f83125f02706c59882",
+    "src/brain/behavior_trees/game_sim.xml": "644f9db6373a4dec573b5cefa9725280730aae5c9f662cb3f2b0a9e614d1942b",
+    "src/brain/behavior_trees/subtrees/subtree_striker_play_sim.xml": "4250f1a592b8423d046cf7e131a3c7576c8d5c50d3cbaed968de62e7b1757ac5",
+    "src/vision/model/sim_data_det_0126.onnx": "4410f04175bb3a7bc79ed7cfce2a5ab0e9c695be8cb488fbfd9d5619dc492005",
+    "src/vision/model/sim_data_seg_0126.onnx": "fdcfa2cbda43a218d8614d2d119e063789a5656d202f460c7e3a78ee9447ee46"
+  },
+  "restart_observation": {
+    "container_initially_stopped": true,
+    "container_restarted_in_place": true,
+    "robot_names": [
+      "robot1"
+    ],
+    "ball_position": [
+      0,
+      0,
+      0.1099
+    ],
+    "host_native_renderer_running": false
+  },
+  "notes": [
+    "Live scene edits and helper processes do not survive a container restart. Reattach robot2 and restart services.",
+    "Frozen code previously validated with two robots; no kick-accuracy baseline collected yet.",
+    "Ground truth is permitted only in test observers, not in agent perception or decisions."
+  ]
+}
