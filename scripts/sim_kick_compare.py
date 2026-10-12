@@ -2,6 +2,7 @@
 """Compare archived profiles; choose gates only after two complete equal windows."""
 import argparse
 import json
+import math
 from pathlib import Path
 
 from sim_kick_failures import CATEGORIES
@@ -18,6 +19,27 @@ def load_metrics(folder):
              'visual_started_trials':sum(r['visual_rpc_start_count']>0 for r in rows),
              'failure_categories':{c:sum(r['category']==c for r in rows) for c in CATEGORIES}}
     return metrics,results,json.loads((folder/'protocol.json').read_text())
+
+
+def validate_completed_windows(results, classifications, protocol):
+    """Reject duplicate trials or incomplete recordings before choosing gates."""
+    expected = list(range(1, 21))
+    if sorted(r['trial'] for r in results) != expected or sorted(r['trial'] for r in classifications) != expected:
+        raise ValueError('Expected exactly one result and classification for each trial 1–20')
+    window = protocol['observation_window_sim_s']
+    if not window or not math.isfinite(window) or window <= 0:
+        raise ValueError('A positive finite observation window is required')
+    positions = protocol['positions']
+    for row in results:
+        position = positions[(row['trial'] - 1) % len(positions)]
+        if [row['requested_ball_x'], row['requested_ball_y']] != position:
+            raise ValueError('Wrong starting position for trial '+str(row['trial']))
+        if row.get('reason') != 'fixed_sim_window_complete' or not math.isclose(
+                row['observation_end_sim_time'] - row['start_sim_time'], window, abs_tol=1e-6):
+            raise ValueError('Incomplete observation for trial '+str(row['trial']))
+    for row in classifications:
+        if row['observed_play_duration_s'] < window - 0.5:
+            raise ValueError('Raw recording does not cover the window for trial '+str(row['trial']))
 
 
 def main():
@@ -39,6 +61,8 @@ def main():
         if loaded[2][2][key]!=loaded[3][2][key]:
             raise ValueError('New observation protocols differ: '+key)
     window=loaded[2][2]['observation_window_sim_s']
+    for folder, entry in zip([args.new_enhanced, args.new_upstream], loaded[2:]):
+        validate_completed_windows(entry[1], json.loads((folder/'classification.json').read_text()), entry[2])
     if not window or not all(r.get('observation_window_sim_s')==window
                              for entry in loaded[2:] for r in entry[1]):
         raise ValueError('New profiles need the same fixed window in every trial')
