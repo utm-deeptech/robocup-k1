@@ -24,6 +24,12 @@ def state_value(frame, key):
     return frame.get('state', {}).get(key, {}).get('value')
 
 
+def read_jsonl(path):
+    with path.open() as stream:
+        for line in stream:
+            yield json.loads(line)
+
+
 def analyze_trial(base, row, profile):
     trial = row['trial']
     begin = row['start_sim_time']
@@ -44,8 +50,7 @@ def analyze_trial(base, row, profile):
     run_state = None
     run_begin = None
     reset_wall_time = 0
-    for line in (base / f'trial-{trial:02d}.jsonl').open():
-        frame = json.loads(line)
+    for frame in read_jsonl(base / f'trial-{trial:02d}.jsonl'):
         if frame.get('kind') == 'command_sent' and frame.get('command') == 'reset_robot':
             reset_wall_time = frame['wall_time']
         if frame.get('kind') == 'kick_rpc' and begin <= frame['sim_time'] <= end:
