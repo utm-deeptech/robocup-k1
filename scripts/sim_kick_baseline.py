@@ -136,7 +136,7 @@ class Recorder:
 
     def buttons(self, **fields):
         msg = self.remote_type(**fields)
-        deadline = time.monotonic() + 1
+        deadline = time.monotonic() + 2
         while time.monotonic() < deadline:
             self.remote.publish(msg)
             time.sleep(0.1)
@@ -232,7 +232,16 @@ def initialize(rec, sdk_client, sdk, folder, trial):
         subprocess.run(['bash', 'scripts/sim_start.sh', 'tree:=game_sim.xml', 'disable_com:=true'],
                        stdout=log, stderr=subprocess.STDOUT, check=True)
     time.sleep(3)
-    rec.buttons(lt=True, a=True)
+    rec.wait(lambda: any(endpoint.node_name == 'brain_node_ext' for endpoint in
+                         rec.node.get_subscriptions_info_by_topic('/remote_controller_state')),
+             20, 'Brain control subscription not discovered')
+    for attempt in range(3):
+        rec.buttons(lt=True, a=True)
+        time.sleep(0.3)
+        if 'State => 2: RECALIBRATE' in Path('brain.log').read_text(errors='replace'):
+            break
+    else:
+        raise TimeoutError('Brain did not acknowledge localization control')
     rec.wait(lambda: 'Locate Success:' in Path('brain.log').read_text(errors='replace'), 60,
              'Vision localization did not succeed')
     rec.buttons(lt=True, b=True)
@@ -392,6 +401,7 @@ def summary(rows, output):
               'max_absolute_goal_center_error_deg': max(centers) if centers else None,
               'outcomes': {key: sum(r['result'] == key for r in rows) for key in sorted(set(r['result'] for r in rows))}}
     (output / 'summary.json').write_text(json.dumps(result, indent=2) + '\n')
+    (output / 'results.json').write_text(json.dumps(rows, indent=2) + '\n')
     columns = sorted(set().union(*(r.keys() for r in rows)))
     with (output / 'trials.csv').open('w') as stream:
         writer = csv.DictWriter(stream, fieldnames=columns)
@@ -405,15 +415,16 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--timeout', type=float, default=120)
+    parser.add_argument('--resume', action='store_true', help='Resume completed trials; retain failed setup recordings')
     args = parser.parse_args()
-    if args.output.exists():
+    if args.output.exists() and not args.resume:
         raise SystemExit('Use a new output directory to preserve raw evidence')
-    args.output.mkdir(parents=True)
+    args.output.mkdir(parents=True, exist_ok=args.resume)
     freeze = json.loads(Path('docs/two-robot-freeze.json').read_text())
     for file, expected in freeze['sha256'].items():
         if hashlib.sha256(Path(file).read_bytes()).hexdigest() != expected:
             raise RuntimeError('Frozen baseline differs: ' + file)
-    (args.output / 'protocol.json').write_text(json.dumps({
+    protocol = {
         'positions': POSITIONS, 'repeats': args.repeats, 'timeout_wall_s': args.timeout,
         'freeze': freeze, 'calc_dir_source': 'wrap(Kick.dir + Kick.robot_theta_to_field); exact in normal play and kickoff',
         'direction_fit': 'time regression on initial 0.10–0.80 m travel after first >1 m/s motion with robot1 contact',
@@ -424,9 +435,30 @@ def main():
         'post_shot_stop': 'stop striker once ball travels >1 m and is >1.2 m from striker',
         'truth_policy': 'test observer only; never published to brain',
         'additional_outcomes': 'short/unresolved retained rather than mislabelled as wide/out/missed contact'
-    }, indent=2))
+    }
+    protocol_path = args.output / 'protocol.json'
+    if protocol_path.exists():
+        if json.loads(protocol_path.read_text()) != json.loads(json.dumps(protocol)):
+            raise RuntimeError('Resume protocol differs from recorded protocol')
+    else:
+        protocol_path.write_text(json.dumps(protocol, indent=2))
     rec = Recorder(args.output)
     rows = []
+    if args.resume:
+        if (args.output / 'results.json').exists():
+            rows = json.loads((args.output / 'results.json').read_text())
+        elif (args.output / 'trials.csv').exists():
+            def parsed(value):
+                if value == '':
+                    return None
+                if value in ('True', 'False'):
+                    return value == 'True'
+                try:
+                    return json.loads(value)
+                except ValueError:
+                    return value
+            with (args.output / 'trials.csv').open() as stream:
+                rows = [{k: parsed(v) for k, v in row.items()} for row in csv.DictReader(stream)]
     import booster_robotics_sdk_python as sdk
     sdk.ChannelFactory.Instance().Init(0, 'lo')
     client = sdk.B1LocoClient()
@@ -436,9 +468,24 @@ def main():
         rec.wait(lambda: 'camera' in rec.state and time.time() - rec.state['camera']['wall_time'] < 1, 15, 'No camera frames')
         rec.wait(lambda: 'truth' in rec.state, 10, 'No ROS robot pose ground truth')
         for repeat in range(1, args.repeats + 1):
-            for position in POSITIONS:
-                trial = len(rows) + 1
-                rows.append(run_trial(rec, client, sdk, args.output, trial, repeat, position, args.timeout))
+            for position_index, position in enumerate(POSITIONS):
+                trial = (repeat - 1) * len(POSITIONS) + position_index + 1
+                if trial <= len(rows):
+                    continue
+                for setup_attempt in range(1, 4):
+                    try:
+                        row = run_trial(rec, client, sdk, args.output, trial, repeat, position, args.timeout)
+                        break
+                    except TimeoutError as error:
+                        print(json.dumps({'stage': 'setup_retry', 'trial': trial, 'error': str(error)}), flush=True)
+                        suffix = str(time.time_ns())
+                        for partial in args.output.glob(f'trial-{trial:02d}*'):
+                            partial.rename(partial.with_name('setup-failed-' + suffix + '-' + partial.name))
+                        with (args.output / 'setup-failures.jsonl').open('a') as stream:
+                            stream.write(json.dumps({'trial': trial, 'error': str(error), 'wall_time': time.time()}) + '\n')
+                        if setup_attempt == 3:
+                            raise
+                rows.append(row)
                 summary(rows, args.output)
         print(json.dumps({'stage': 'baseline_complete', **summary(rows, args.output)}), flush=True)
     finally:
