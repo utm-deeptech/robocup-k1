@@ -14,6 +14,7 @@ import time
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('pid', type=int)
 parser.add_argument('--physics-url', help='Optional scene-state relay WebSocket URL')
+parser.add_argument('--camera-publish-url', help='Override camera hub URL after container port mappings change')
 args = parser.parse_args()
 proc = Path('/proc') / str(args.pid)
 argv = [part.decode() for part in (proc / 'cmdline').read_bytes().split(b'\0') if part]
@@ -23,6 +24,8 @@ env = dict(part.decode().split('=', 1) for part in (proc / 'environ').read_bytes
 workdir = os.readlink(proc / 'cwd')
 if args.physics_url:
     argv[argv.index('--physics-url') + 1] = args.physics_url
+if args.camera_publish_url:
+    argv[argv.index('--camera-publish-url') + 1] = args.camera_publish_url
 os.kill(args.pid, signal.SIGTERM)
 for _ in range(50):
     if not proc.exists() or (proc / 'stat').read_text().split()[2] == 'Z':
