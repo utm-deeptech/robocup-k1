@@ -153,13 +153,31 @@ def analyze_trial(base, row, profile):
             entry['activation_truth_heading_error_deg'] = math.degrees(wrap(first[2]-target['calc_dir']))
         visual_intervals.append(entry)
     result['contact_while_visual_rpc_active'] = any(i['contact_while_rpc_active'] for i in visual_intervals)
+    legacy_contact_times = [t for t in contacts if at(t)[4] in ('kick','cross')]
+    result['contact_during_Kick_decision'] = bool(legacy_contact_times)
+    action_entries = [(low, 'Kick') for low, high, name in ranges if name in ('kick','cross')]
+    action_entries += [(q['sim_time'], 'RLVisionKick') for q in starts]
+    if action_entries:
+        first_time, first_kind = min(action_entries)
+        first_contacts = [t for t in contacts if first_time <= t <= first_time+8 and
+                          ((first_kind == 'Kick' and at(t)[4] in ('kick','cross')) or
+                           (first_kind == 'RLVisionKick' and any(i['start_sim_time'] <= t <= i['stop_sim_time']
+                                                               for i in visual_intervals[:1])))]
+        result['first_kick_action_kind'] = first_kind
+        result['first_action_contact_within_8s'] = bool(first_contacts)
+        if first_contacts:
+            result['first_action_contact_delay_s'] = first_contacts[0]-first_time
+    else:
+        result['first_action_contact_within_8s'] = False
     if visual_intervals:
         first = visual_intervals[0]
         result.update({'first_visual_active_s': first['rpc_active_s'],
                        'first_visual_truth_start_distance_m': first['truth_start_distance_m'],
                        'first_visual_robot_displacement_m': first['robot_displacement_m'],
                        'first_visual_maximum_target_age_s': first['maximum_kick_target_age_s']})
-    if row['result'] != 'missed_contact':
+    if result['contact_during_Kick_decision'] or result['contact_while_visual_rpc_active']:
+        category = 'kick action produced contact'
+    elif row['result'] != 'missed_contact':
         category = 'measured launch (not one of the 19 failures)'
     elif starts or result['Kick_node_ever_started']:
         category = CATEGORIES[2]
@@ -207,10 +225,14 @@ def main():
                'visual_rpc_started_trials':sum(r['visual_rpc_start_count']>0 for r in results),
                'contact_while_visual_rpc_active_trials':sum(r['contact_while_visual_rpc_active'] for r in results),
                'post_activation_contact_trials':sum(r['kick_contact_after_first_activation'] for r in results),
+               'contact_during_Kick_decision_trials':sum(r['contact_during_Kick_decision'] for r in results),
+               'first_action_contact_within_8s_trials':sum(r['first_action_contact_within_8s'] for r in results),
+               'kick_action_contact_trials':sum(r['contact_during_Kick_decision'] or r['contact_while_visual_rpc_active'] for r in results),
                'notes':['Closest distance is ground-truth robot root to ball center, in meters.',
                         'Cached decision samples from before this trial robot reset are ignored.',
                         'Reached = within the 1 m chase/adjust threshold; activation failures take precedence.',
                         'Kick-node selection in the synchronous tree is the start evidence; visual RPC is recorded separately.',
+                        'The baseline recorder only triggers on visual RPC; contact during the legacy Kick decision is assessed from raw physics independently.',
                         'Cooldown duration overlaps other decisions; it is inferred from stop RPC time plus 1.5 s, not additive.',
                         'A reached, unactivated trial with observed settle is classified as pause/cooldown gate blocked; alignment oscillation can contribute.',
                         'Timeline excludes RESET/READY/SET and stops at the trial end referee event.']}
