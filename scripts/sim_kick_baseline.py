@@ -31,6 +31,13 @@ def http(path, post=False):
         return json.load(response)
 
 
+def referee_available():
+    try:
+        return 'game' in http('/status')
+    except (OSError, ValueError):
+        return False
+
+
 class Recorder:
     def __init__(self, output, profile='enhanced'):
         import rclpy
@@ -170,6 +177,8 @@ class Recorder:
         with self.lock:
             if self.raw:
                 self.raw.close()
+            if path.exists():
+                path.rename(path.with_name('setup-incomplete-' + str(time.time_ns()) + '-' + path.name))
             self.raw = path.open('w', buffering=1)
             self.frames.clear()
             self.starts.clear()
@@ -231,6 +240,12 @@ def add_snapshot(row, prefix, event):
 def initialize(rec, sdk_client, sdk, folder, trial):
     http('/match/end', True)
     subprocess.run(['bash', 'scripts/stop.sh'], stdout=subprocess.DEVNULL)
+    cleanup = Path('/usr/local/booster_robot/cleanup_orphan_shm.sh')
+    if cleanup.exists():
+        maintenance = subprocess.run(['sh', str(cleanup)], capture_output=True, text=True, check=True)
+        with (folder / 'shm-maintenance.jsonl').open('a') as stream:
+            stream.write(json.dumps({'trial': trial, 'wall_time': time.time(),
+                                     'output': maintenance.stdout.strip()}) + '\n')
     rec.command('reset_robot')
     time.sleep(5)
     # Wait for the restarted locomotion service; this affects setup only.
@@ -488,6 +503,7 @@ def main():
     client = sdk.B1LocoClient()
     client.Init()
     try:
+        rec.wait(referee_available, 15, 'Referee HTTP service not ready')
         rec.wait(lambda: rec.world and len(rec.world['world']['robots']) == 2, 10, 'Need two robot bodies')
         rec.wait(lambda: 'camera' in rec.state and time.time() - rec.state['camera']['wall_time'] < 1, 15, 'No camera frames')
         rec.wait(lambda: 'truth' in rec.state, 10, 'No ROS robot pose ground truth')
