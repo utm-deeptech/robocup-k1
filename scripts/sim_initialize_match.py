@@ -16,6 +16,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reset-robot', action='store_true')
     parser.add_argument('--localization-timeout', type=float, default=60)
+    parser.add_argument('--resume', action='store_true',
+                        help='Re-enter soccer mode and relocalize after a simulator reset; keep the running match')
     args = parser.parse_args()
     import booster_robotics_sdk_python as sdk
     import rclpy
@@ -81,6 +83,10 @@ c.disconnect()
             raise RuntimeError('Localization did not succeed; match was not started')
         print(json.dumps({'stage': 'localized', 'evidence': localized}), flush=True)
         buttons(lt=True, b=True)
+        if args.resume:
+            success = True
+            print(json.dumps({'stage': 'resumed'}), flush=True)
+            return
         request = urllib.request.Request('http://127.0.0.1:38383/match/start',
                                          data=b'', method='POST')
         result = json.load(urllib.request.urlopen(request, timeout=5))
