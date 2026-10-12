@@ -1,0 +1,22 @@
+{
+  "captured_date": "2026-10-12",
+  "studio_version": "1.110.1",
+  "installed_statics_root": "/usr/share/booster-studio/resources/app/booster-native/statics",
+  "sha256": {
+    "scripts/football3v3_runner/run.py": "2c14bc1224d97289a1845470cb455169b5eae510889dbd8654601cb36d0e3b7f",
+    "scripts/football3v3_runner/supervisor.py": "ba86bebf9e1ae2d3e41fd137f94f067dca1314a603c911712bd39201e1fe6f25",
+    "scripts/football3v3_runner/sandbox.py": "60b11ac29c6a8147db6349ff3fee8623f89af09034df505ab705b1d265bd9f29",
+    "scripts/football3v3_runner/launcher.py": "5f99539218df0414d4a35f71ac9cf2d2b43a6b2ae138cd7aa6c632b06bf90f5f",
+    "ai-agent/football3v3/com.booster.default3v3ai.agent": "9624e6ff254b73c246676ac7c7066f1a4eb716f76bf6c63eed3ce782a0a8b10d",
+    "ai-agent/football3v3/version.lock": "53abee9dd22dfb0f76c300dbcb13070edd821c929165f40038874d20847189d2",
+    "virtual-robot/robocup_sim_src/physics/process.py": "cb142970a433230d828fe030ba953694642416df247c26924edfd14da6af6a3a"
+  },
+  "match_runner_revision": "9e9b8bfcf00bfa632b57ffa122dc12b2bd483da4",
+  "portal_release": "release-0.0.34",
+  "portal_assets_sha256": {
+    "home-CrTZX9-W.js": "49fc1ff99d29b912daadf5db842e2577426aab98067a2247c1d757671c8f92cd",
+    "index-DYWky5tO.js": "da94a9dffa7486ea9223a5d1fde82ee78b54e9c90048adee7240b0ff45ec28f7",
+    "my-team-B3I1XTgH.js": "a19591fb7d833e2ae9447460b261141462d7ab4158ebad052e26004bae91f50e",
+    "login-BDRERYPJ.js": "5a194766f68890844cac73294bc7acec3080b113a7e8e1bd40bb6d3a62230085"
+  }
+}
