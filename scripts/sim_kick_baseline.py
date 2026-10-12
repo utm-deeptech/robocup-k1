@@ -523,10 +523,13 @@ def main():
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--timeout', type=float, default=120)
     parser.add_argument('--resume', action='store_true', help='Resume completed trials; retain failed setup recordings')
+    parser.add_argument('--max-new-trials', type=int, help='Stop cleanly after this many newly completed trials')
     parser.add_argument('--profile', choices=('enhanced', 'upstream'), default='enhanced')
     parser.add_argument('--fixed-window', type=float, help='Full sim-time window after placement; no early stop')
     parser.add_argument('--visual-kick-off', action='store_true', help='Verify the approved sim-only visual-off variant')
     args = parser.parse_args()
+    if args.max_new_trials is not None and args.max_new_trials < 1:
+        parser.error('--max-new-trials must be positive')
     if args.output.exists() and not args.resume:
         raise SystemExit('Use a new output directory to preserve raw evidence')
     args.output.mkdir(parents=True, exist_ok=args.resume)
@@ -596,6 +599,7 @@ def main():
     sdk.ChannelFactory.Instance().Init(0, 'lo')
     client = sdk.B1LocoClient()
     client.Init()
+    newly_completed = 0
     try:
         rec.wait(referee_available, 15, 'Referee HTTP service not ready')
         rec.wait(lambda: rec.world and len(rec.world['world']['robots']) == 2, 10, 'Need two robot bodies')
@@ -623,6 +627,11 @@ def main():
                             raise
                 rows.append(row)
                 summary(rows, args.output)
+                newly_completed += 1
+                if args.max_new_trials is not None and newly_completed >= args.max_new_trials:
+                    print(json.dumps({'stage': 'batch_complete', 'new_trials': newly_completed,
+                                      **summary(rows, args.output)}), flush=True)
+                    return
         print(json.dumps({'stage': 'baseline_complete', **summary(rows, args.output)}), flush=True)
     finally:
         try:
