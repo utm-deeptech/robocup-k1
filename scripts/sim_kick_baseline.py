@@ -32,17 +32,19 @@ def http(path, post=False):
 
 
 class Recorder:
-    def __init__(self, output):
+    def __init__(self, output, profile='enhanced'):
         import rclpy
         from rclpy.parameter import Parameter
         from rclpy.qos import qos_profile_sensor_data
         from geometry_msgs.msg import Pose2D, Point
         from sensor_msgs.msg import CompressedImage
         from std_msgs.msg import String
-        from booster_msgs.msg import RpcReqMsg
+        from booster_msgs.msg import RpcReqMsg, RpcRespMsg
         from brain.msg import Kick
         from booster_interface.msg import RemoteControllerState
         self.rclpy = rclpy
+        self.profile = profile
+        self.kick_requests = {}
         self.remote_type = RemoteControllerState
         rclpy.init()
         self.node = rclpy.create_node('kick_baseline_test', parameter_overrides=[Parameter('use_sim_time', value=True)])
@@ -67,6 +69,7 @@ class Recorder:
             self.node.create_subscription(String, '/booster_soccer/player_decision', lambda m: self.update('decision', m.data), qos_profile_sensor_data),
             self.node.create_subscription(Kick, '/kick_ball', self.kick, qos_profile_sensor_data),
             self.node.create_subscription(RpcReqMsg, '/LocoApiTopicReq', self.rpc, qos_profile_sensor_data),
+            self.node.create_subscription(RpcRespMsg, '/LocoApiTopicResp', self.response, qos_profile_sensor_data),
         ]
         def spin():
             from rclpy.executors import ExternalShutdownException
@@ -104,6 +107,7 @@ class Recorder:
         except (TypeError, ValueError):
             return
         with self.lock:
+            self.kick_requests[msg.uuid] = {'api_id': 2038, 'body': body}
             event = {'kind': 'kick_rpc', 'wall_time': time.time(), 'body': body,
                      'sim_time': self.node.get_clock().now().nanoseconds / 1e9,
                      'state': dict(self.state), 'world': self.world}
@@ -111,6 +115,16 @@ class Recorder:
                 self.raw.write(json.dumps(event) + '\n')
             if body.get('start'):
                 self.starts.append(event)
+
+    def response(self, msg):
+        with self.lock:
+            request = self.kick_requests.get(msg.uuid)
+            if request is None or self.raw is None:
+                return
+            self.raw.write(json.dumps({'kind': 'kick_rpc_response', 'wall_time': time.time(),
+                                      'sim_time': self.node.get_clock().now().nanoseconds / 1e9,
+                                      'uuid': msg.uuid, 'header': msg.header, 'body': msg.body,
+                                      'request': request}) + '\n')
 
     def read_world(self):
         for line in self.worker.stdout:
@@ -229,7 +243,9 @@ def initialize(rec, sdk_client, sdk, folder, trial):
                 raise
             time.sleep(1)
     with (folder / f'trial-{trial:02d}-startup.log').open('w') as log:
-        subprocess.run(['bash', 'scripts/sim_start.sh', 'tree:=game_sim.xml', 'disable_com:=true'],
+        command = (['bash', 'scripts/sim_kick_ab_start.sh'] if rec.profile == 'upstream' else
+                   ['bash', 'scripts/sim_start.sh', 'tree:=game_sim.xml', 'disable_com:=true'])
+        subprocess.run(command,
                        stdout=log, stderr=subprocess.STDOUT, check=True)
     time.sleep(3)
     rec.wait(lambda: any(endpoint.node_name == 'brain_node_ext' for endpoint in
@@ -416,6 +432,7 @@ def main():
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--timeout', type=float, default=120)
     parser.add_argument('--resume', action='store_true', help='Resume completed trials; retain failed setup recordings')
+    parser.add_argument('--profile', choices=('enhanced', 'upstream'), default='enhanced')
     args = parser.parse_args()
     if args.output.exists() and not args.resume:
         raise SystemExit('Use a new output directory to preserve raw evidence')
@@ -436,13 +453,20 @@ def main():
         'truth_policy': 'test observer only; never published to brain',
         'additional_outcomes': 'short/unresolved retained rather than mislabelled as wide/out/missed contact'
     }
+    if args.profile == 'upstream':
+        manifest = json.loads(Path('.cache/upstream-ab/manifest.json').read_text())
+        for file, expected in manifest['sha256'].items():
+            if hashlib.sha256((Path('.cache/upstream-ab') / file).read_bytes()).hexdigest() != expected:
+                raise RuntimeError('Pinned upstream control differs: ' + file)
+        protocol['behavior_profile'] = 'upstream'
+        protocol['upstream_manifest'] = manifest
     protocol_path = args.output / 'protocol.json'
     if protocol_path.exists():
         if json.loads(protocol_path.read_text()) != json.loads(json.dumps(protocol)):
             raise RuntimeError('Resume protocol differs from recorded protocol')
     else:
         protocol_path.write_text(json.dumps(protocol, indent=2))
-    rec = Recorder(args.output)
+    rec = Recorder(args.output, args.profile)
     rows = []
     if args.resume:
         if (args.output / 'results.json').exists():
