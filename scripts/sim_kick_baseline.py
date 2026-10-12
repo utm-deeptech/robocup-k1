@@ -237,7 +237,8 @@ def initialize(rec, sdk_client, sdk, folder, trial):
              'Vision localization did not succeed')
     rec.buttons(lt=True, b=True)
     http('/match/start', True)
-    rec.wait(lambda: http('/status')['game']['state'] == 'playing', 100, 'Referee did not reach PLAY')
+    rec.wait(lambda: (lambda g: g['state'] == 'playing' and g['setPlay'] == 'noSetPlay')(http('/status')['game']),
+             100, 'Test referee did not reach ordinary PLAY')
 
 
 def run_trial(rec, client, sdk, folder, trial, repeat, position, timeout):
@@ -253,7 +254,7 @@ def run_trial(rec, client, sdk, folder, trial, repeat, position, timeout):
     print(json.dumps({'stage': 'trial_started', 'trial': trial, 'repeat': repeat, 'ball': position}), flush=True)
     Path(folder / f'trial-{trial:02d}-start-status.json').write_text(json.dumps(http('/status'), indent=2))
     started_wall = time.time()
-    event_path = Path('.cache/defender-referee/events.jsonl')
+    event_path = Path('.cache/kick-test-referee/events.jsonl')
     event_offset = event_path.stat().st_size
     begin = time.monotonic()
     activation = None
@@ -417,7 +418,9 @@ def main():
         'freeze': freeze, 'calc_dir_source': 'wrap(Kick.dir + Kick.robot_theta_to_field); exact in normal play and kickoff',
         'direction_fit': 'time regression on initial 0.10–0.80 m travel after first >1 m/s motion with robot1 contact',
         'target_goal': [7.0, 0.0], 'defender': [4.5, 0.0],
-        'start_protocol': 'reset robot, vision localization, READY/SET/PLAY, place ball, first kick attempt',
+        'start_protocol': 'reset robot, vision localization, READY/SET/PLAY, finish kickoff via test referee, place ball, first kick attempt',
+        'test_referee_options': {'place_ball': False, 'handle_global_game_stuck': False,
+                                 'clear_stuck_ball': False, 'penalize_stopped_motion': False},
         'post_shot_stop': 'stop striker once ball travels >1 m and is >1.2 m from striker',
         'truth_policy': 'test observer only; never published to brain',
         'additional_outcomes': 'short/unresolved retained rather than mislabelled as wide/out/missed contact'

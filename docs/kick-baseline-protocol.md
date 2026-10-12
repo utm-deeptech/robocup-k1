@@ -16,7 +16,14 @@ system. The stationary opposing K1 remains near `(4.48, 0)`.
 Each trial ends the previous match, stops the previous demo, resets only robot1
 to the same entrance pose, selects soccer mode, starts the unchanged enhanced
 demo, and requests its usual camera-based localization. It then hands over to
-the official referee and waits for READY → SET → PLAY. The ball is placed at
+the test referee and waits for READY → SET → PLAY. The test referee uses the
+official implementation, then calls `finish_set_play()` at the first PLAY
+frame to end kickoff restrictions. Automatic ball placement, inactivity
+restarts, stuck-ball clearance, and stopped-motion penalties are disabled
+in this fixture. Goal and boundary detection remain enabled. These changes
+are confined to a repo-local referee wrapper; the installed simulator and
+agent behavior are unchanged. This measures ordinary-play shooting, not
+kickoff passes or full match performance. The ball is placed at
 the trial position **after PLAY**, with zero velocity, because the referee
 places it at center during match initialization. Placement is verified from
 physics; the striker receives the ball's position through its camera only.
@@ -53,7 +60,8 @@ In normal play and kickoff, `Brain::pubKickMsg` publishes
 `wrap(Kick.dir + Kick.robot_theta_to_field)` recovers the computed CalcKickDir
 without rounding or changing the brain. The source includes an override for
 indirect free kicks; any such trial must be identified from referee events and
-excluded from this direct-shot interpretation. The initial set play is kickoff;
+excluded from this direct-shot interpretation. The measured initial state is
+ordinary play (`setPlay=noSetPlay`);
 later set plays must not be mistaken for that first attempt.
 
 Fit actual travel direction by linear regression of x and y against simulation
@@ -80,16 +88,21 @@ jump before an outcome) as additional categories rather than inventing an out.
 ## Run
 
 Restore cameras, bridge, and opposing referee using
-`sim-multi-camera-workaround.md`, then run from the host:
+`sim-multi-camera-workaround.md`. Temporarily replace the opposing referee
+with the measurement fixture, then run from the host:
 
 ```bash
-docker exec rxlma-k1 bash -lc 'cd /root/robocup_demo; source /opt/ros/humble/setup.bash; source install/setup.bash; export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/booster/BoosterRos2/fastdds_profile.xml SIM_DDS_PROFILE=/opt/booster/BoosterRos2/fastdds_profile.xml; python3 -u scripts/sim_kick_baseline.py --output .cache/kick-baseline-v0 --repeats 4'
+docker exec rxlma-k1 bash -lc 'cd /root/robocup_demo; nohup bash scripts/sim_kick_test_referee.sh > sim-kick-test-referee.log 2>&1 < /dev/null &'
+docker exec rxlma-k1 bash -lc 'cd /root/robocup_demo; source /opt/ros/humble/setup.bash; source install/setup.bash; export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/booster/BoosterRos2/fastdds_profile.xml SIM_DDS_PROFILE=/opt/booster/BoosterRos2/fastdds_profile.xml; python3 -u scripts/sim_kick_baseline.py --output .cache/kick-baseline-v0-open-play --repeats 4'
 ```
 
 Use a new output directory for every run; the script will not overwrite one.
 CSV and summary JSON are updated after each completed trial. Raw recordings
 are under that output directory inside `/root/robocup_demo`; copy them to the
 host before shutdown. The referee match is ended on completion or exceptions.
+After measurement, stop the specific `sim_kick_test_referee.py` process and
+restart `sim_defender_referee.sh` to return to the frozen ordinary referee.
+Do not start both referees at once.
 
 Measurement math tests: `python3 tests/test_sim_kick_metrics.py`. They verify
 known trajectory directions in all quadrants, angle wrapping, missing data,
