@@ -1,0 +1,29 @@
+{
+  "profile": "upstream",
+  "trials": 20,
+  "failed_trials": 0,
+  "categories": {
+    "never reached the ball": 0,
+    "reached but never aligned (stuck in adjust)": 0,
+    "kick started but no contact": 0,
+    "blocked by our added pause/cooldown logic": 0,
+    "timeout / other": 0
+  },
+  "kick_node_started_trials": 20,
+  "visual_rpc_started_trials": 0,
+  "contact_while_visual_rpc_active_trials": 0,
+  "post_activation_contact_trials": 20,
+  "contact_during_Kick_decision_trials": 20,
+  "first_action_contact_within_8s_trials": 19,
+  "kick_action_contact_trials": 20,
+  "notes": [
+    "Closest distance is ground-truth robot root to ball center, in meters.",
+    "Cached decision samples from before this trial robot reset are ignored.",
+    "Reached = within the 1 m chase/adjust threshold; activation failures take precedence.",
+    "Kick-node selection in the synchronous tree is the start evidence; visual RPC is recorded separately.",
+    "The baseline recorder only triggers on visual RPC; contact during the legacy Kick decision is assessed from raw physics independently.",
+    "Cooldown duration overlaps other decisions; it is inferred from stop RPC time plus 1.5 s, not additive.",
+    "A reached, unactivated trial with observed settle is classified as pause/cooldown gate blocked; alignment oscillation can contribute.",
+    "Timeline excludes RESET/READY/SET and stops at the trial end referee event."
+  ]
+}

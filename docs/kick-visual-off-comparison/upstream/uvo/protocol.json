@@ -1,0 +1,142 @@
+{
+  "positions": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      -1.5
+    ],
+    [
+      1.0,
+      1.5
+    ],
+    [
+      2.0,
+      -2.0
+    ],
+    [
+      2.0,
+      2.0
+    ]
+  ],
+  "repeats": 4,
+  "timeout_wall_s": 120,
+  "freeze": {
+    "captured_utc": "2026-10-12T00:58:31Z",
+    "source_commit": "5e0810f73953448889ce27f6a104c880de8e04b4",
+    "branch": "local/sim-autonomy",
+    "container": "rxlma-k1",
+    "container_image": "booster-robotics-registry.cn-beijing.cr.aliyuncs.com/virtual-robot/virtual-robot:0.8.4-beta-humble",
+    "studio_version": "1.110.1-1789720186",
+    "sha256": {
+      "src/brain/config/config_local.yaml": "3c5ffdb516f1f6027a29bc79837135712d71f0e9d7176f5aa7981cff36cc5f39",
+      "src/vision/config/vision_local.yaml": "575dcac001adf37063af15b907896c163fabdf911f7a52f83125f02706c59882",
+      "src/brain/behavior_trees/game_sim.xml": "644f9db6373a4dec573b5cefa9725280730aae5c9f662cb3f2b0a9e614d1942b",
+      "src/brain/behavior_trees/subtrees/subtree_striker_play_sim.xml": "4250f1a592b8423d046cf7e131a3c7576c8d5c50d3cbaed968de62e7b1757ac5",
+      "src/vision/model/sim_data_det_0126.onnx": "4410f04175bb3a7bc79ed7cfce2a5ab0e9c695be8cb488fbfd9d5619dc492005",
+      "src/vision/model/sim_data_seg_0126.onnx": "fdcfa2cbda43a218d8614d2d119e063789a5656d202f460c7e3a78ee9447ee46"
+    },
+    "restart_observation": {
+      "container_initially_stopped": true,
+      "container_restarted_in_place": true,
+      "robot_names": [
+        "robot1"
+      ],
+      "ball_position": [
+        0,
+        0,
+        0.1099
+      ],
+      "host_native_renderer_running": false
+    },
+    "notes": [
+      "Live scene edits and helper processes do not survive a container restart. Reattach robot2 and restart services.",
+      "Frozen code previously validated with two robots; no kick-accuracy baseline collected yet.",
+      "Ground truth is permitted only in test observers, not in agent perception or decisions."
+    ]
+  },
+  "calc_dir_source": "wrap(Kick.dir + Kick.robot_theta_to_field); exact in normal play and kickoff",
+  "direction_fit": "not fitted; completion comparison across all actions in the fixed window",
+  "target_goal": [
+    7.0,
+    0.0
+  ],
+  "defender": [
+    4.5,
+    0.0
+  ],
+  "start_protocol": "reset/localize/READY/SET/PLAY/place; observe all actions for fixed window",
+  "test_referee_options": {
+    "place_ball": false,
+    "handle_global_game_stuck": false,
+    "clear_stuck_ball": false,
+    "penalize_stopped_motion": false
+  },
+  "post_shot_stop": "none; full fixed simulation-time window for both profiles",
+  "truth_policy": "test observer only; never published to brain",
+  "additional_outcomes": "short/unresolved retained rather than mislabelled as wide/out/missed contact",
+  "observation_window_sim_s": 120.0,
+  "visual_kick_off": true,
+  "source_sha256": {
+    "src/brain/config/config_local.yaml": "c4aff597c1b6782769f0c2e7e940e44bc066456418a31f6e66f827af8af01985",
+    "src/vision/config/vision_local.yaml": "575dcac001adf37063af15b907896c163fabdf911f7a52f83125f02706c59882",
+    "src/brain/behavior_trees/game_sim.xml": "644f9db6373a4dec573b5cefa9725280730aae5c9f662cb3f2b0a9e614d1942b",
+    "src/brain/behavior_trees/subtrees/subtree_striker_play_sim.xml": "4250f1a592b8423d046cf7e131a3c7576c8d5c50d3cbaed968de62e7b1757ac5",
+    "src/vision/model/sim_data_det_0126.onnx": "4410f04175bb3a7bc79ed7cfce2a5ab0e9c695be8cb488fbfd9d5619dc492005",
+    "src/vision/model/sim_data_seg_0126.onnx": "fdcfa2cbda43a218d8614d2d119e063789a5656d202f460c7e3a78ee9447ee46"
+  },
+  "behavior_profile": "upstream",
+  "upstream_manifest": {
+    "git_revision": "45b0e16889c25a6f01ec43952bcec685c303ba62",
+    "branch": "sandbox/support_2026_game_controller",
+    "original_source_files_verified": 40,
+    "sim_only_override_source": "c72d6e8:src/brain/config/config_local.yaml",
+    "behavior": "game.xml plus original C++/locator/default config; no precision gate, no enforced max duration",
+    "sha256": {
+      "src/brain/CMakeLists.txt": "c1c03295481bd747332c82c0424acec704ff65d7fd7137014891a363fe094a51",
+      "src/brain/behavior_trees/game.xml": "52582c9cb19999840ef7153defa503967cb3b43b964d8eab406701d9b199b6f5",
+      "src/brain/behavior_trees/subtrees/subtree_auto_standup_and_locate.xml": "40fee94b6fe7b621b525b74fbae523cffa9e44f44be4c9f7815d2a5b2689d16c",
+      "src/brain/behavior_trees/subtrees/subtree_cam_find_and_track_ball.xml": "2dabb6baf5e7788de6b5b61c9353b52d9d4a2556ddf84641d63ae11679a9910b",
+      "src/brain/behavior_trees/subtrees/subtree_find_ball.xml": "fddf9e4c7a151ab6d7d75ac322ae574f8b62e2247f274413bf6864e52bd543a8",
+      "src/brain/behavior_trees/subtrees/subtree_goal_keeper_freekick.xml": "b67664163419b087932dc74a468f68b9af2080b219d4d4f3a5cdc4ea52611ca6",
+      "src/brain/behavior_trees/subtrees/subtree_goal_keeper_play.xml": "0571318544d2079ba50c1fc19ad451070107fa09b3d7c48bb7acbfd176312f70",
+      "src/brain/behavior_trees/subtrees/subtree_locate.xml": "79afbd2d5ca15aaccfbfdd508d0f86ee2190e19a347e1bf3d2d7301bb3d61492",
+      "src/brain/behavior_trees/subtrees/subtree_striker_freekick.xml": "73be7faea7c2b24f647739ebfaf00ac932945ccbb7aea27559e02772f80cf013",
+      "src/brain/behavior_trees/subtrees/subtree_striker_play.xml": "2800f75e1a19d112cc8fa81d657eb254efb0c4b0f519649f048aca0f94c103b7",
+      "src/brain/config/config.yaml": "c4289c56f60f3b1a0cd149b44fc3e81fceb000b711aae02b04fd88854125b66f",
+      "src/brain/include/RoboCupGameControlData.h": "dd328aa8b0e1f6f98051718ecfdfebdd1655168dc5faebf73ca07d2eb10be20b",
+      "src/brain/include/SPLCoachMessage.h": "446efb8ac1fad6f3afd165d1210d300b0dc5e849a453e52fff5db003a0e8bd9d",
+      "src/brain/include/brain.h": "1a9475187d5e4d38903f3c441e395015ec69e3fdd549ab5e4917732f5466d379",
+      "src/brain/include/brain_communication.h": "0864c2814133beb80a14bcc3f5172d1f9b230263a5fcbbb49026493766b9f326",
+      "src/brain/include/brain_config.h": "c610d3f85c04207f5baaab48d341a0b40c866a81d98ae67695d608672c28bced",
+      "src/brain/include/brain_data.h": "17965e577e8df3c781fde703b27992138e639797c826534bf768be355016a42c",
+      "src/brain/include/brain_log.h": "4feb2c00e2256ea9322aa4a1e5c414c3cc19a9a263ff1cd38c14e2c0b65b23f8",
+      "src/brain/include/brain_tree.h": "fea44e54a097545585c19c791c633b28a9a8d53fe6c5bdc7edb20c3cd9569190",
+      "src/brain/include/locator.h": "1b906063169ef8709fdb3f2c899a92b20ebf43ac92c866aaa1e110e2efc9540d",
+      "src/brain/include/robot_client.h": "b0a7378bc6695ceeb46f566ed656360a8999d2c6033a0aad66648e117acd6ee7",
+      "src/brain/include/team_communication_msg.h": "849f9ea8cd32b43b057acd37eb2fc53a7cf27f0b97cd2baa13add353805ea26f",
+      "src/brain/include/types.h": "1e5b74eb552493c363b77e0859448e14b5747d79510ee09dfc2c189a00cececa",
+      "src/brain/include/utils/math.h": "651d9f4084a8479bf6e1238cfe2857e4610e1e6e9d36724a02ed8f0e385544d9",
+      "src/brain/include/utils/misc.h": "b58bf30015371329ae12d63064fc92dd07afa01225bc00f34d54f9114e491dd2",
+      "src/brain/include/utils/print.h": "72ef28ae5105fab41309eb89d13004cdb0840b420c1224c1102475c64d969b37",
+      "src/brain/include/visualization_publisher.h": "2c04b4282a191d9495680380247966c8c967dc88dc9717f5a193d68e2c6f1daf",
+      "src/brain/launch/launch.py": "eb7524427f55def7760a51a4259eb94a4dacf21281af6aee9310a7adae125376",
+      "src/brain/msg/Kick.msg": "880fbb0c41d8e77ed38216fdb0f39743651f876c48322257b72929ecb1b65e75",
+      "src/brain/package.xml": "f42ffa55afba43b9648359a2d8f5aa908fdcbb1e0080a6f5c469b4b8bd47968c",
+      "src/brain/src/brain.cpp": "f753e0294377b7cc7b02b6bfc616f5791bd7a2b787ce321bf69222a48c949e78",
+      "src/brain/src/brain_communication.cpp": "fdcbdb92568c290acbda988833a0b05e88231b5bb48f6dd6a4f5bf060373a77b",
+      "src/brain/src/brain_config.cpp": "8141c9ef4404c09e9786179addb92d120d50866aa598b4734107521503a4b4bb",
+      "src/brain/src/brain_data.cpp": "a7b2a3c1a82ba480b2ce6a6e471f761ea55a5a054bd71eba0c5ffc48275da15f",
+      "src/brain/src/brain_log.cpp": "36292fe5414c3c14406381aa5da43517d2872dd0965a7586c605d8f1cffe09e4",
+      "src/brain/src/brain_tree.cpp": "9897f536968bf9de158bf24b5f6f9b3348080043e6e5170eb400de78a71fa7dd",
+      "src/brain/src/locator.cpp": "0d42951318753c5788db21c21c6bc94cd8762e2c0e0f4308681517907994641b",
+      "src/brain/src/main.cpp": "b7f0ce75b5000653da13b5e2f1f62947494a301a74f0b48d9dbc0b6abe4cf5fa",
+      "src/brain/src/robot_client.cpp": "1ae73b965010f106ae80ec5a01a96701ca678830d0ad1b1523e37784ae0a4347",
+      "src/brain/src/visualization_publisher.cpp": "c4de2c073eef4b2915a98583be7d5d4842a22758d406c23fee8612aaa9f81450",
+      "src/brain/config/config_local.yaml": "4390616fd2ce483a5173a38e242dea909458f31cd9c61045cc1d9fcea99d1c03"
+    },
+    "approved_behavior_change": "RLVisionKick.enableAutoVisualKick: false (local sim only)"
+  }
+}
