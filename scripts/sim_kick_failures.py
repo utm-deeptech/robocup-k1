@@ -46,6 +46,7 @@ def analyze_trial(base, row, profile):
     closest = None
     distance_min = float('inf')
     contacts = []
+    defender_samples = []
     prev = None
     run_state = None
     run_begin = None
@@ -60,6 +61,9 @@ def analyze_trial(base, row, profile):
         if frame.get('kind') != 'world' or not begin <= frame['time'] <= end:
             continue
         robot = next(r for r in frame['world']['robots'] if r['name'] == 'robot1')
+        defender = next((r for r in frame['world']['robots'] if r['name'] == 'robot2'),None)
+        if defender:
+            defender_samples.append((frame['time'],defender))
         ball = frame['world']['ballPosition']
         distance = math.dist(robot['position'][:2], ball[:2])
         decision_sample = frame.get('state', {}).get('decision', {})
@@ -110,6 +114,13 @@ def analyze_trial(base, row, profile):
               'settle_pause_s': durations['settle'], 'settle_longest_s': longest['settle'],
               'cooldown_overlap_s': sum(high-low for low, high in cooling),
               'final_decision': samples[-1][4], 'final_decision_run_s': ranges[-1][1] - ranges[-1][0]}
+    if defender_samples:
+        result['defender_max_distance_from_fixture_m'] = max(math.dist(r['position'][:2],[4.5,0])
+                                                           for _,r in defender_samples)
+        result['defender_minimum_upDot'] = min(r['upDot'] for _,r in defender_samples)
+        result['defender_tilt_below_point9_s'] = sum(
+            defender_samples[i+1][0]-seconds for i,(seconds,r) in enumerate(defender_samples[:-1])
+            if r['upDot'] < .9)
     for name in ('find', 'chase', 'adjust', 'auto_visual_kick', 'kick', 'cross', 'settle', 'assist', 'unknown'):
         result[name + '_total_s'] = durations[name]
         result[name + '_longest_s'] = longest[name]
@@ -182,6 +193,8 @@ def analyze_trial(base, row, profile):
                        'first_visual_maximum_target_age_s': first['maximum_kick_target_age_s']})
     if result['contact_during_Kick_decision'] or result['contact_while_visual_rpc_active']:
         category = 'kick action produced contact'
+    elif row['result']=='goal':
+        category = 'goal without contact during a selected kick action'
     elif row['result'] != 'missed_contact' and not row.get('observation_window_sim_s'):
         category = 'measured launch (not one of the 19 failures)'
     elif starts or result['Kick_node_ever_started']:
