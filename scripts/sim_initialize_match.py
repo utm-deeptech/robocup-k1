@@ -33,7 +33,9 @@ c = PhysicsWebSocketClient(PhysicsTransportConfig(port=8788), owner='soccer-init
 world = []
 c.subscribe_game_control_world(lambda frame: world.append(frame))
 c.connect()
-time.sleep(1)
+deadline = time.monotonic() + 10
+while not world and time.monotonic() < deadline:
+    time.sleep(0.2)
 if not world:
     raise RuntimeError('No live world; reset was not attempted')
 robot = next(r for r in world[-1]['world']['robots'] if r['name'] == 'robot1')
@@ -43,7 +45,7 @@ c.send_command(PhysicsCommand.SET_BODY_POSITION,
 c.send_command(PhysicsCommand.RESET_ROBOT, {'robot_name': 'robot1'})
 time.sleep(3)
 c.disconnect()
-'''], cwd=sim_root, check=True, timeout=15)
+'''], cwd=sim_root, check=True, timeout=25)
 
     sdk.ChannelFactory.Instance().Init(0, 'lo')
     client = sdk.B1LocoClient()

@@ -51,6 +51,7 @@ public:
     bool localFreekickPoseSampleInitialized = false;
     bool localFreekickSeenStop = false;
     bool waitForOpponentKickoffByFreekick = false;
+    int gcSecondaryTime = 0; // GC secondary_time; during an opponent kickoff in PLAY it counts down until the ball is free
 
     /* ------------------------------------ Whistle detection ------------------------------------ */
     bool whistleTriggeredPlay = false; // 是否通过哨声检测触发 PLAY 状态

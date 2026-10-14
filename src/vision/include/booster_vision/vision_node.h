@@ -95,6 +95,8 @@ private:
 
     rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr detection_img_pub_;
     rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr segmentation_img_pub_;
+    // annotated detection image for Booster Studio; encoded only while someone subscribes
+    rclcpp::Publisher<sensor_msgs::msg::CompressedImage>::SharedPtr detection_img_compressed_pub_;
 
     rclcpp::Publisher<geometry_msgs::msg::TransformStamped>::SharedPtr pose_tf_pub_;
     rclcpp::Subscription<geometry_msgs::msg::TransformStamped>::SharedPtr pose_tf_sub_;

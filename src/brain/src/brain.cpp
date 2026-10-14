@@ -1063,8 +1063,10 @@ void Brain::updateKickoffMemory() {
         return consecutiveMoveCount >= CONSECUTIVE_MOVE_THRESHOLD;
     };
 
+    // kickOffTime stops updating at the end of READY, so this timeout can expire while the
+    // GC still counts down the opponent kickoff; keep waiting until the ball is free.
     auto timeReached = [this, TIMEOUT]() {
-        return msecsSince(kickOffTime) > TIMEOUT;
+        return msecsSince(kickOffTime) > TIMEOUT && data->gcSecondaryTime <= 0;
     };
 
     auto resetOpponentKickoffLocalReleaseObservation = [this]() {
@@ -1831,8 +1833,12 @@ void Brain::gameControlCallback(const game_controller_interface::msg::GameContro
     // 因此这里在哨声触发后短时间内保护本地 PLAY 状态。仅当哨声状态位有效时介入, 不影响正常流程。
     const int rawGameState = static_cast<int>(msg.state); // 2: SET, 3: PLAY
     const int rawSetPlay = static_cast<int>(msg.set_play); // 0: NONE
+    data->gcSecondaryTime = msg.secondary_time;
     // 当 GC 真正下发 PLAY 时, 释放仍在等待对方开球的状态/override。
-    if (rawGameState == 3 && rawSetPlay == 0 && !isKickOffSide
+    // Not while secondary_time still counts down: the ball is not free yet and the
+    // non-kicking team must stay out of the center circle. The wait then ends on
+    // ball movement, or here once secondary_time reaches 0.
+    if (rawGameState == 3 && rawSetPlay == 0 && !isKickOffSide && msg.secondary_time <= 0
         && (tree->getEntry<bool>("wait_for_opponent_kickoff")
             || data->opponentKickoffWhistlePending
             || data->opponentKickoffLocalPlayOverride)) {

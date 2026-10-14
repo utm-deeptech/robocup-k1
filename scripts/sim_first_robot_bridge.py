@@ -14,6 +14,8 @@ def main():
     mappings = {
         '/LocoApiTopicReq': ('/LocoApiTopic/robot1Req', 'booster_msgs/msg/RpcReqMsg'),
         '/LocoApiTopic/robot1Resp': ('/LocoApiTopicResp', 'booster_msgs/msg/RpcRespMsg'),
+        # Visual-kick targets: robot1's motion process reads rt/robot1/kick_ball.
+        '/kick_ball': ('/robot1/kick_ball', 'brain/msg/Kick'),
         '/robot1/rgbd_camera/rgb/image_compressed': ('/rgbd_camera/rgb/image_compressed', 'sensor_msgs/msg/CompressedImage'),
         '/robot1/rgbd_camera/rgb/camera_info': ('/rgbd_camera/rgb/camera_info', 'sensor_msgs/msg/CameraInfo'),
         '/robot1/rgbd_camera/depth/image_raw': ('/rgbd_camera/depth/image_raw', 'sensor_msgs/msg/Image'),

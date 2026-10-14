@@ -280,6 +280,8 @@ void VisionNode::Init(const std::string &cfg_template_path, const std::string &c
     }
 
     detection_pub_ = this->create_publisher<vision_interface::msg::Detections>("/booster_soccer/detection" + topic_suffix, rclcpp::QoS(1));
+    detection_img_compressed_pub_ = this->create_publisher<sensor_msgs::msg::CompressedImage>(
+        "/booster_soccer/detection_image" + topic_suffix + "/compressed", rclcpp::QoS(1));
 
     if (node["segmentation_model"]) {
         std::cout << "create sub for segmentor" << std::endl;
@@ -458,6 +460,18 @@ void VisionNode::ProcessData(SyncedDataBlock &synced_data, vision_interface::msg
         }
         last_pub_time = pub_ts;
         count++;
+    }
+
+    // publish annotated detection image (viewable in Booster Studio Image panel)
+    if (detection_img_compressed_pub_->get_subscription_count() > 0) {
+        cv::Mat color_bgr;
+        cv::cvtColor(color, color_bgr, cv::COLOR_BGR2RGB);
+        cv::Mat img_out = YoloV8Detector::DrawDetection(color_bgr, detections_for_display);
+        sensor_msgs::msg::CompressedImage img_msg;
+        img_msg.header = detection_msg.header;
+        img_msg.format = "jpeg";
+        cv::imencode(".jpg", img_out, img_msg.data, {cv::IMWRITE_JPEG_QUALITY, 80});
+        detection_img_compressed_pub_->publish(img_msg);
     }
 
     // show vision results
