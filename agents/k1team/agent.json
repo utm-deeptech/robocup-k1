@@ -1,0 +1,41 @@
+{
+    "id": "com.k1team.soccer",
+    "name": {
+        "en": "K1Team",
+        "zh": "K1Team"
+    },
+    "version": "1.1.0",
+    "description": "Our 3v3 team, based on Booster SoccerAI",
+    "logo": "/res/logo.png",
+    "entry": "src/main.py:SoccerSimAgent",
+    "debuggable": true,
+    "gait": "default",
+    "requirements": {
+        "models": [
+            "Booster T1",
+            "Booster K1"
+        ],
+        "min_api_level": 10700,
+        "nvidia_jetpack_main_versions": [],
+        "qti_qnn_main_versions": [],
+        "compile_api_level": 10700,
+        "platforms": [
+            "sim_x86_64",
+            "sim_aarch64",
+            "real_jetson",
+            "real_qcom"
+        ]
+    },
+    "package_type": "python",
+    "ros2": {
+        "package_name": "com_booster_default3v3ai",
+        "launch_file": "launch.py"
+    },
+    "locale_name": {
+        "en": "K1Team",
+        "zh": "K1Team"
+    },
+    "app_image": {
+        "icon": "/res/logo.png"
+    }
+}

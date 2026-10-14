@@ -13,6 +13,8 @@ brain_node:
       depth_image_topic: /rgbd_camera/depth/image_raw
       depth_camera_info_topic: /rgbd_camera/depth/camera_info
     RLVisionKick:
-      enableAutoVisualKick: false
-      autoVisualKickEnableDistMax: 1.0
-      autoVisualKickEnableAngle: 0.2
+      # Kick policy walks up and shoots by itself once in soccer mode (k1-soccer-strategy skill).
+      # Booster's default AI hands over below 2.5 m with no angle gate.
+      enableAutoVisualKick: true
+      autoVisualKickEnableDistMax: 2.5
+      autoVisualKickEnableAngle: 0.8

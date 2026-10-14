@@ -379,6 +379,19 @@ void Brain::tick()
     handleSpecialStates();
     handleCooperation();
 
+    // Penalties, resets and robot attach leave the motion controller in Prepare (planner
+    // index 2), where walk and kick commands are rejected (code 400). The startup soccer-mode
+    // switch runs only once, so re-assert it while we are in autonomous control.
+    static rclcpp::Time lastSoccerModeRequest(0, 0, RCL_ROS_TIME);
+    if (data->currentRobotModeIndex == 2
+        && tree->getEntry<int>("control_state") == 3
+        && !tree->getEntry<bool>("gc_is_under_penalty")
+        && msecsSince(lastSoccerModeRequest) > 2000) {
+        lastSoccerModeRequest = get_clock()->now();
+        RCLCPP_INFO(get_logger(), "Robot in prepare mode; re-entering soccer mode");
+        client->changeRobocupMode();
+    }
+
     tree->tick();
 
     // Publish kick message after special-state and behavior decisions have updated kickDir/state.
