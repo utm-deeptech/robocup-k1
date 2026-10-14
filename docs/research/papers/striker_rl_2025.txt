@@ -1,0 +1,606 @@
+                                                       Learning Agile Striker Skills for Humanoid Soccer Robots
+                                                                      from Noisy Sensory Input
+                                                           Zifan Xu1 , Myoungkyu Seo1 , Dongmyeong Lee1 , Hao Fu1 , Jiaheng Hu1 , Jiaxun Cui1 ,
+                                                             Yuqian Jiang1 , Zhihan Wang1 , Anastasiia Brund1 , Joydeep Biswas1 , Peter Stone1,2
+                                                                          1 Department of Computer Science, The University of Texas at Austin, 2 Sony AI
+
+                                                                                    Project webiste: https://humanoidsoccer.github.io
+arXiv:2512.06571v3 [cs.RO] 10 May 2026
+
+
+
+
+                                                          Fig. 1: The illustration of a complete ball-kicking cycle in the robust continual ball-kicking task.
+
+                                            Abstract— Learning fast and robust ball-kicking skills is a                                        I. I NTRODUCTION
+                                         critical capability for humanoid soccer robots, yet it remains
+                                         a challenging problem due to the need for rapid leg swings,                          Humanoid robots are designed with anthropomorphic mor-
+                                         postural stability on a single support foot, and robustness                       phology, allowing them to operate in environments built
+                                         under noisy sensory input and external perturbations (e.g.,
+                                                                                                                           for humans [1]. This makes them suitable for diverse
+                                         opponents). This paper presents a reinforcement learning
+                                         (RL)–based training pipeline that enables humanoid robots                         tasks that potentially requires whole-body control [2], dy-
+                                         to execute robust continual ball-kicking with adaptability to                     namic balance [3], [4], and coordinated interaction with
+                                         different ball-goal configurations. The pipeline extends a typical                the environment [5], [6]. Recent advances in reinforcement
+                                         teacher-student training framework—in which a “teacher”                           learning (RL) and simulation have enabled progress in
+                                         policy is trained with ground truth state information and the
+                                                                                                                           humanoid locomotion and manipulation, including robust
+                                         “student” learns to mimic it with noisy, imperfect sensing—by
+                                         including four training stages: (1) long-distance ball chasing                    locomotion [7]–[9], and object interaction skills [10]–[12].
+                                         (teacher); (2) directional kicking (teacher); (3) teacher policy                     Despite this progress, learning whole-body tasks that com-
+                                         distillation (student), and (4) student adaptation and refine-                    bine speed, balance, and perception remains challenging.
+                                         ment (student). Key design elements—including tailored reward                     Such tasks require rapid limb movements, stability on a
+                                         functions, realistic noise modeling, and online constrained RL
+                                         for adaptation and refinement—are critical for closing the                        reduced support polygon, and robustness to perceptual noise
+                                         sim-to-real gap and sustaining performance under perceptual                       and external perturbations. A prime example is the ball-
+                                         uncertainty. Extensive evaluations in both simulation and on                      kicking skill: the robot must approach the ball quickly,
+                                         a real robot demonstrate strong kicking accuracy and goal-                        coordinate a powerful leg swing, maintain balance on one
+                                         scoring success across diverse ball–goal configurations. Ablation                 foot, and direct the ball toward the goal with precision.
+                                         studies further highlight the necessity of the constrained RL,
+                                         noise modeling, and the adaptation stage. This work presents                      Effective striking further depends on accurate localization
+                                         a training pipeline for robust continual humanoid ball-kicking                    of both ball and goal, which is often degraded by sensor
+                                         under imperfect perception, establishing a benchmark task for                     noise, delays, and perception errors. These demands make
+                                         visuomotor skill learning in humanoid whole-body control.                         humanoid striking a difficult benchmark for visuomotor
+                                                                                                                           whole-body control.
+                                            This work has taken place jointly in the Learning Agents Research
+                                         Group (LARG) and Autonomous Mobile Robotics Laboratory (AMRL)                        This paper presents an RL–based training pipeline that en-
+                                         at UT Austin. LARG research is supported in part by NSF (FAIN-                    ables humanoid robots to acquire such a reliable ball-kicking
+                                         2019844, NRT-2125858), ONR (N00014-24-1-2550), ARO (W911NF-17-                    skill with great generalization across diverse ball–goal con-
+                                         2-0181, W911NF-23-2-0004, W911NF-25-1-0065), DARPA (Cooperative
+                                         Agreement HR00112520004 on Ad Hoc Teamwork) Lockheed Martin, and                  figurations. The pipeline comprises four consecutive training
+                                         UT Austin’s Good Systems grand challenge. AMRL research is supported              stages: (1) long-distance ball chasing, (2) directional kick-
+                                         in part by NSF (CAREER-2046955, OIA-2219236, DGE-2125858, CCF-                    ing, (3) teacher policy distillation, and (4) student policy
+                                         2319471), ARO (W911NF-23-2-0004), Amazon, and JP Morgan. Any
+                                         opinions, findings, and conclusions expressed in this material are those of the   adaptation and refinement. The first two training stages form
+                                         authors and do not necessarily reflect the views of the sponsors. Peter Stone     a simple two-stage curriculum that enables a privileged
+                                         serves as the Chief Scientist of Sony AI and receives financial compensation      teacher, that has the ground-true ball and goal position in-
+                                         for that role. The terms of this arrangement have been reviewed and
+                                         approved by the University of Texas at Austin in accordance with its policy       formation, to acquire ball-chasing skills, and extend them to
+                                         on objectivity in research.                                                       directional kicking. During this process, aggressive domain
+randomization, such as external pushes on the body and ball,      B. Humanoid Whole-Body Control
+is applied to encourage recovery from imperfect states, such         Whole-body control of humanoid robots is a central
+as missed kicks and tilted postures. The teacher policy is then   challenge in robotics, requiring dynamic coordination of
+distilled into a student policy, that has imperfect perception    dozens of degrees of freedom while maintaining balance and
+of the ball and goal position, via DAgger [13]. The modeling      stability [28]–[36]. Traditional methods often rely on model
+of such imperfect perception constitutes three components: a      predictive control (MPC) or optimization-based controllers
+velocity-dependent noise model, delayed updates, and frame        that explicitly encode dynamics and contact constraints [28],
+drops caused by perceptual occlusion. Finally, stage four         [29]. While these approaches provide stability guarantees,
+applies online adaptation using N-P3O [14], a constrained         they can be brittle under perception noise, latency, or un-
+RL algorithm, to refine the kicking skill. This process reduces   modeled dynamics.
+jittery leg motions and unsafe sharp turning that often              Reinforcement learning has recently emerged as a power-
+arise when using a fixed regularization coefficient, which        ful alternative, enabling humanoids to learn locomotion [37],
+can impose disproportionately large penalties at certain          acrobatic maneuvers [30], and robust recovery strategies [33]
+steps—particularly those immediately preceding the kick,          directly from interaction. GPU-accelerated simulation frame-
+where the agent expects high immediate future reward from         works have further accelerated progress, allowing large-
+the kicking task.                                                 scale training of bipedal policies. Beyond locomotion, re-
+    We evaluate the resulting policy extensively in simulation,   searchers have begun to study whole-body visuomotor skills,
+measuring kick accuracy, success rate, kick strength, and         such as manipulation [34], agile sports behaviors (e.g.,
+energy cost across diverse ball–goal configurations. Ablation     badminton [35]), and multi-contact motion tracking [36].
+studies highlight the importance of the final adaptation stage    These advances highlight the feasibility of training policies
+and motion refinement through constrained RL. To assess           that integrate perception and control for high-dimensional
+real-world performance, we deploy the policy on a Booster         humanoids.
+T1 humanoid robot, which achieves an average success                 Our work contributes to this growing literature by extend-
+rate of 66.7% across five different ball–goal configurations.     ing whole-body control to a challenging soccer striker task.
+Overall, this work presents a comprehensive framework for         Unlike locomotion or manipulation, striking requires rapid
+learning robust continual humanoid ball-kicking skill under       leg swings, balance on a single support foot, and accurate
+imperfect perception and establishes a benchmark for agile        timing under noisy perception. By combining robust percep-
+visuomotor skill learning in humanoid robots.                     tion with a staged RL framework, our approach bridges the
+                                                                  gap between whole-body control research and the practical
+                    II. R ELATED W ORK                            demands of humanoid soccer.
+                                                                                           III. M ETHOD
+A. Robot Soccer
+                                                                     System Overview. The objective of the system is to learn a
+   Robot soccer has long served as a benchmark domain for         control policy at = π(ot−H:t ) that maps a history of H obser-
+testing integrated perception, control, and decision-making       vations ot−H:t = [ot−H , . . . , ot ] to an action at , corresponding
+systems [15]–[17]. Early efforts explored rule-based strate-      to the joint position targets of a humanoid robot at 50 Hz.
+gies and simple controllers, but recent advances in reinforce-    Each observation at time t is a tuple ot = (otp , otb , otg ) where
+ment learning (RL) have enabled agile, dynamic skills. On         otp denotes proprioceptive measurements, and otb and otg
+quadrupeds, researchers have demonstrated soccer behaviors        represent the estimated ball and goal positions, respectively.
+such as cooperative play [18] and precise shooting [19]           By executing the learned policy, the robot exhibits continual
+using hierarchical RL, robust dribbling in the wild [20],         ball-kicking behaviors. As shown in Fig. 1, each kicking
+and dynamic goalkeeping against human players [21], [22].         cycle integrates three key phases: (i) approaching the ball
+Quadrupeds naturally benefit from high stability, making          from long distance, (ii) performing a kick motion that directs
+perception and balance control easier compared to humanoid        the ball toward the goal, and (iii) reorienting to locate the
+platforms.                                                        ball again and seamlessly initiating the next kicking attempt.
+   Humanoid soccer is comparatively less explored, but it         An illustration of phase (iii) is shown in Fig. 3.
+presents greater challenges due to bipedal balance, whole-           The system is trained through a four-stage training frame-
+body coordination, and larger perceptual uncertainty [23],        work, followed by a real-world deployment pipeline:
+[24]. Prior work has focused on dribbling with agile lo-             1) Long-Distance Chasing – a “teacher” policy, by
+comotion [25], learning from gameplay recordings, and                   which we mean a policy with privileged ground-
+diffusion-based visuomotor policies [26]. Other efforts target          truth ball position, learning a robust walking gait to
+biomechanics-inspired approaches to humanoid kicking [27].              approach the ball from diverse initial configurations;
+However, most prior humanoid studies emphasize dribbling             2) Directional Kicking – a teacher policy acquiring pre-
+or generic locomotion skills, while agile striking under noisy          cise and robust kick motions using privileged ground-
+perception remains relatively unaddressed. Our work fills this          truth ball and goal positions;
+gap by tackling robust and adaptive ball-kicking skills, a           3) Teacher Policy Distillation – transferring privileged-
+critical capability for advancing humanoid soccer.                      information teacher policies into “student” policies, by
+    Policy Network Architectures                          Stage One: Long-Distance Ball Chasing                                Stage Two: Directional Kicking                            Reward Functions
+                                         Teacher Policy
+                                                                                                Reward Functions                                                                          Ball Velocity Reward
+
+
+                                                                                                Chase Ball Lin. Vel.
+
+                                                                                                                                                                                   Domain Randomization
+
+                                   MLP                                                          Chase Ball Ang. Vel.                                                                            Push Ball
+
+                                                                                                                                                                                              Push Robot
+                                                                                                                                                                                         Learning to recover from
+                                                                                                          ...                                                                                imperfect states
+
+                                                           Teacher Training
+                                         Student Policy
+                                                                                                                       Student Distillation                                         Student Fine-Tuning
+                                                          Stage Three: Teacher Policy Distillation                                             Stage Four: Adaptation and Refinement
+           ...                                                                                                         Environment
+                         History                              Imperfect Perception Modeling
+                         Encoder                                                                                           DAgger
+                                                                                                                                                Adapt to partially       Heterogeneous credit assignment
+                                                                    Realistic Noise Model                                                        observed state
+                                                                                                                  Teacher Policy
+
+
+                                             MLP
+                                                                                                                                                                                Constrained RL
+                                                                             +
+                                                              Delayed and Asynchronous Update                               Regression
+                                                                             +                                     Student Policy
+                                                                    Perception Occlusion
+                                                                                                                                                 Miss Detection          Sharp turning           Smooth turning
+
+
+
+
+Fig. 2: Left: The network architectures for the teacher and the student network; Right: Multi-stage training framework: (1)
+Long-distance Chasing; (2) Directional Kicking; (3) Teacher Policy Distillation; (4) Student Adaptation and Refinement.
+
+                                                                                                                   TABLE I: Summary of Observation Space.
+                                                                                                                Components                    Dims       Teacher (Critic)            Student
+                                                                                                                Commands                        3                    ✓                      ✓
+                                                                                                                Gait Cycle                      2                    ✓                      ✓
+                                                                                                                Gravity Vector                  3                    ✓                      ✓
+                                                                                                                Angular Velocity                3                    ✓                      ✓
+                                                                                                                Joint Position                 23                    ✓                      ✓
+                                                                                                                Joint Velocity                 23                    ✓                      ✓
+                                                                                                                Previous Action                23                    ✓                      ✓
+                                                                                                                Noisy Ball Position             2                                           ✓
+                                                                                                                Noisy Goal Position             2                                           ✓
+
+Fig. 3: Kicking cycle phase (iii): reorienting to locate the                                                    Body Mass                       1                    ✓
+                                                                                                                Body Center of Mass             3                    ✓
+ball and seamlessly initiating a kicking attempt.                                                               Base Linear Velocity            3                    ✓
+                                                                                                                Base Height                     1                    ✓
+                                                                                                                Push Force                      2                    ✓
+      which we mean policies that operate under imperfect                                                       Push Torque                     3                    ✓
+                                                                                                                Real Ball Position              2                    ✓
+      perception.                                                                                               Real Goal Position              2                    ✓
+  4) Student Adaptation and Refinement – applying an                                                            Real Ball Velocity              2                    ✓
+                                                                                                                Ball Mass                       1                    ✓
+      online constrained RL algorithm to adapt to partially                                                     Ball Friction                   1                    ✓
+      observed states created by imperfect perception.
+  Each stage builds on the previous one, progressively shap-
+                                                                                                         b) Environment Design: The environment contains a
+ing the policy to acquire a ball-kicking skill that is robust to
+                                                                                                humanoid robot, a soccer ball, and a point goal representing
+perception noise enabling zero-shot real-world deployment.
+                                                                                                the kick direction. At the beginning of each episode, the
+The following sections detail the four training stages and the
+                                                                                                robot’s initial position is sampled uniformly within an annu-
+deployment pipeline.
+                                                                                                lar region centered at the ball, bounded by an inner radius
+A. Long-Distance Chasing                                                                        of 0.5 m and an outer radius of 4.0 m. The long-distance
+       a) Privileged Teacher Policy: The teacher policy is                                      chasing task is adapted from the standard flat-ground walking
+defined as ât = π̂(st ) where the input state st at timestep t                                 task, with modifications tailored to the ball-chasing task.
+consists of three components: (i) proprioceptive observations                                   Instead of tracking a velocity target in the world frame, the
+otp , (ii) a velocity command ct = (vtx , vty , ωtz ), (iii) a gait                             commanded linear velocity always aligns with the robot–ball
+                                             priv
+cycle gt , and (iv) privileged observations ot . The design of                                  vector. Let rrb (t) ∈ R2 denote the vector from the robot
+the proprioceptive and privileged observations varies across                                    base to the ball at time t, and r̂rb (t) = |rrrb (t)     its unit vector.
+                                                                                                                                                 rb (t)|
+the actual morphology of the robot. In this paper, we                                           The commanded linear velocity target is defined as vtarget       t     =
+follow the proprioceptive and privileged observations from                                      vtx · r̂rb (t). For rotation, let θt ∈ [−π, π] be the signed angular
+Booster Gym [38], with the exception that the privileged                                        difference between the robot heading vector and r̂rb (t). The
+input additionally includes ground-truth information about                                      target angular velocity is given by ωttarget = ωtz · sign(θt ), so
+the ball and goal positions, the ball’s linear velocity, and its                                that the robot always turns in the direction (left or right) that
+physical parameters such as mass and friction. The full list                                    minimizes |θt |. The scalar ωtz ≥ 0 controls the magnitude of
+of observations is listed in Table I.                                                           the turning speed.
+        Components                         Equations1                Weights     is sampled from an annular region centered at the original
+                                   Task Rewards                                  ball position. This setup encourages the robot to repeatedly
+        Chase ball lin. vel.         exp(−(vtarget − v)2 /σ )       2.0 (0.5)    search for the ball, approach it, and execute a kick, thereby
+        Chase ball ang. vel.        exp(−(ω target − ωz )2 /σ )     2.0 (0.5)
+        Feet swing                    1feet swing · 1swing period   3.0 (0.0)    creating continuous striking cycles.
+        Arm swing                     1arm swing · 1swing period    1.0 (0.0)       To improve robustness, we introduce additional domain
+        Head tracking ball                   1ball in FOV             1.0
+        Ball velocity                    min[6.0, vb · d̂ ]         0.0 (4.0)    randomization: every four seconds, the ball receives an
+                               Regularization Rewards                            external disturbance by applying a random linear velocity
+        Survival                                  1                    1.0       sampled from [−0.1, 0.1] m/s along both axes. This per-
+        Base height                         (hdes − h)2              −20.0       turbation produces imperfect states from which the teacher
+        Orientation                             ∥g∥2                  −5.0
+        Torque                                  ∥τ∥2                −2 × 10−4
+                                                                                 policy must recover. These recovery behaviors can then be
+        Torque tiredness                   ∥τ/τ max ∥2              −1 × 10−2    distilled into the student policy, which may encounter similar
+        Power                             max(τ · q̇, 0)            −2 × 10−4    imperfect states due to noisy perception.
+        Lin velocity (z)                          v2z                 −2.0
+        Ang velocity (xy)                      ∥ω xy ∥2               −0.2             b) Reward Design: The directional kick task introduces
+        Joint velocity                          ∥q̇∥2               −1 × 10−4    two extra reward functions: ball velocity reward and head
+        Joint acceleration                      ∥q̈∥2               −1 × 10−7
+        Base acceleration                 ∥v̇∥2 + ∥ω̇∥2             −1 × 10−4    tracking ball reward detailed as follows.
+        Action rate                       ∥at − at−1 ∥2               −1.0          Ball velocity reward encourages the robot to impart a high
+        Upper body symmetry                  ∥q − q0 ∥2               −0.5
+        Joint position limit           1q>qmax + 1q<qmin              −1.0       ball velocity directed toward the opponent’s goal. Let pg ∈ R2
+        Collision                             ncollision              −1.0       denote the goal position, pb ∈ R2 the ball position, and vb ∈
+        Feet slip                      1feet stance · ∥vfeet ∥2       −0.1
+        Feet yaw                        ∥ψ feet − ψbase ∥2          −1.0 (0.0)   R2 the linear velocity of the ball. Define the goal direction
+        Feet roll                             ∥φ feet ∥2              −0.1       unit vector as
+        Feet distance                  max(dref − dfeet , 0)          −1.0                                      pg − pb
+                                                                                                         d̂ =            .                   (1)
+                                                                                                              ∥pg − pb ∥
+TABLE II: Summary of reward functions. Weights are speci-
+fied for the long-distance chasing task; values in parentheses                   The reward is given by the projection of the ball velocity
+indicate the weights used for the directional kicking task                       onto the goal direction, scaled by the velocity magnitude:
+when they differ.                                                                                                        
+                                                                                                    rt = min[6.0, vb · d̂ ],              (2)
+   To improve robustness, we apply domain randomization
+following prior work on humanoid locomotion [38], [39].                          The reward is capped at 6.0 to prevent the agent from
+Randomized parameters include joint stiffness, damping, and                      exploiting the objective by generating excessively large ball
+friction, body masses, and center of mass, as well as external                   velocities.
+perturbations such as forces and pushes. Additionally, the                          Head tracking ball reward encourages the robot to main-
+ball’s mass and surface friction are randomized to encourage                     tain visual contact with the ball. At each timestep, a reward
+robust ball interaction.                                                         of +1 is assigned if the ball lies within the field of view of
+      c) Reward Design: The reward formulation builds on                         the robot’s head camera.
+prior walking-gait designs [38], [39], where the primary task                    C. Teacher Policy Distillation
+rewards are exponential kernels of linear and angular velocity
+                                                                                    Once the teacher policy acquires a basic kicking skill with
+tracking errors. For the ball-chasing task, the tracking errors
+                                                                                 a degree of recovery capability, it is distilled into a student
+are defined relative to vtarget
+                          t     and ωttarget grounded by the ball
+                                                                                 policy that can operate under imperfect perception.
+position (detailed in Section III-B (a)). Table II provides the
+                                                                                      a) Student Policy: The student policy is defined as
+full list of reward functions specific to our hardware platform
+                                                                                 at = π(ot−H:t ), where the input consists of a history of
+Booster T1 robot.
+                                                                                 H = 50 observations ot−H:t = [ot−H , . . . , ot ]. Each observation
+B. Directional Kicking                                                           is represented as ot = (otp , otb , otg ), with otp denoting proprio-
+                                                                                 ceptive measurements, and otb and otg corresponding to noisy
+      a) Environment Design: The directional kick environ-
+                                                                                 estimates of the ball and goal positions. The perceptual error
+ment simulates a soccer field consistent with the RoboCup
+                                                                                 modeling for these inputs is described in the next subsection.
+Adult Size Humanoid League rules [40]. The field measures
+                                                                                    To capture temporal dependencies, the observation history
+14 m × 9 m, with goals placed at x = −7 m and x = +7 m.
+                                                                                 ot−H:t is first processed by a 1D convolutional encoder,
+   At the beginning of each episode, the ball is uniformly
+                                                                                 producing a 64-dimensional latent representation. This latent
+initialized within the region [−1.5, 6.5] × [−4.0, 4.0], corre-
+                                                                                 vector is concatenated with the most recent observation ot
+sponding roughly to the front half of the field. The robot
+                                                                                 and passed through a multilayer perceptron (MLP) with three
+is then placed within an annular region centered at the ball,
+                                                                                 hidden layers of 256, 256, and 128 units, respectively, to
+bounded by an inner radius of 0.5 m and an outer radius of
+                                                                                 output the action.
+2.0 m.
+                                                                                      b) Noise Modeling: To simulate realistic perception un-
+   If the ball exits the field boundary, it is reset to a new
+                                                                                 certainty, we employ a velocity-dependent noise model [41]
+position without terminating the episode. The reset location
+                                                                                 for both the ball and goal positions. The magnitude of the
+  1 The notation in this Table is consistent with popular convention, and        injected noise scales with object velocity in the robot’s head
+will be defined in full detail in the Appendix of the online publication.        frame, reflecting the fact that rapid-moving objects generally
+        Asynchronous Update
+
+
+
+
+                                                 Noise
+                 Zero mask
+                               Random Delay      Model
+
+
+
+
+                                               Timestep
+
+
+
+Fig. 4: An illustration of the realistic perception modeling.
+
+lead to larger noise in camera-based localization. Formally,
+the noise to the ball/goal position ∆pball/goal is defined as
+                                             !
+                        ∥vhball/goal ∥                             Fig. 5: An illustration of inhomogeneous credit assign-
+         ∆pball/goal =                 + cmin · N (0, I),    (3)   ment within four complete kicking cycles. y-axis shows the
+                            cvel
+                                                                   normalized future returns for regularization reward, head
+where vhball/goal denotes the ball/goal velocity in the robot’s    tracking reward, and ball velocity reward, respectively. Large
+camera frame, cvel and cmin are scaling constants, and             dips in regularization reward indicate jittery kick motions.
+N (0, I) is standard Gaussian vector noise. The student
+                                                                   during the real-world deployment. We attribute these issues
+policy is trained using Dataset Aggregation (DAgger) [13],
+                                                                   to inhomogeneous credit assignment within an episode,
+which iteratively collects rollouts under the student pol-
+                                                                   where task rewards, e.g., ball velocity in Fig. 5 (top) and
+icy while querying the teacher for corrective actions. This
+                                                                   head tracking ball in Fig. 5 (middle), are distributed unevenly
+process ensures that the student learns not only from the
+                                                                   across a ball-kicking cycle. In particular, the discounted
+teacher’s demonstrations but also from states encountered
+                                                                   future reward associated with ball velocity exhibits a pro-
+due to its own errors, improving robustness under noisy
+                                                                   nounced peak at the kick moment (indicated by the dashed
+perception.
+                                                                   vertical lines in Fig. 5). In this case, a fixed regularization
+   In addition, perception signals are subject to realistic
+                                                                   coefficient can impose disproportionately large penalties at
+delays and dropouts. Proprioceptive observations are updated
+                                                                   certain steps—particularly those immediately preceding the
+at 50 Hz (every 0.02 s), while ball positions are published at
+                                                                   kick, where the agent expects high immediate future reward
+around 10 Hz (every 0.1 s) with a random offset to mimic
+                                                                   from the kicking task. This effect is reflected in the sharp
+asynchronous updates. If the ball lies outside the camera’s
+                                                                   drops of the regularization reward shown in Fig. 5 (bottom).
+field of view or falls between publish intervals, its position
+otb is masked with zeros. Goal observations are updated at the
+same frequency as the proprioception and subject to the same          To mitigate this problem, we reformulate directional kick-
+noise injection. Fig. 4 shows an overview of the imperfect         ing as a constrained RL problem. Let rtask denote the
+perception model.                                                  aggregated task rewards and rregu denote the aggregated reg-
+                                                                   ularization rewards (as defined in Table II). The objective is
+D. Student Adaptation and Refinement                               to maximize task performance while constraining excessive
+                                                                   regularization costs:
+      a) Student Adaptation: Conventional teacher–student
+frameworks typically involve training a teacher policy and
+distilling it into a student policy [9], under the assumption          max      Jtask (π)                                               (4)
+                                                                         π
+that full environment state information can be reconstructed             s.t.   rregu (at , st ) ≤ h,                         π
+                                                                                                        ∀(st , at ) ∈ τ, ; τ ∼ p (τ),   (5)
+from observation histories. However, recent work shows
+that certain partially observed states cannot be effectively                          h
+                                                                                         T
+                                                                                                                                        i
+captured by the teacher training stage, and that online RL-        where Jtask (π) = E ∑t=0 γ t rtask (at , st ) | s0 ∼ µ(s), τ ∼ pπ (τ)
+based adaptation can significantly improve performance in          with µ(s) denotes the initial state distribution, τ a trajectory
+such cases [42]. Inspired by this work, we further adapt the       sampled under policy π, and h is the upper limit on the
+student policy with online RL under noisy perception. During       aggregated regularization reward. In practice, h is set to 1.5×
+adaptation, we apply smaller perturbations to the robot            per-step average regularization cost of a walking gait.
+and ball, allowing the policy to concentrate on improving             This constrained optimization is solved using N-P3O [14],
+accuracy and robustness to realistic sensory uncertainty.          a constrained policy gradient method shown to be effective
+      b) Refinement through constrained RL: While training         for locomotion tasks [35]. Importantly, the role of con-
+the adapted student, we observed undesirable behaviors such        strained RL here is not strict hardware safety enforcement,
+as sharp rotations during ball search and overly dynamic           but rather the mitigation of inhomogeneous credit assign-
+kicking, which may compromise both safety and stability            ment, resulting in smoother, and safer ball-kicking motions.
+                                                                           rotation. Across trajectories spanning four complete ball-
+     Real-World Deployment
+                                                                           kicking cycles, the learned odometry achieves an average
+                                    Ball Tracking           Policy Input
+                                                                           position error of 0.14 ± 0.09 meters.
+        YOLOv8
+                   Ball
+                             Ball                                                                   V. E VALUATIONS
+                                       Transform to
+                                     robot base frame
+                                                                             The learned control policy is evaluated in both simulation
+                                                                           and the real world. We detail the evaluation settings and
+                             Learned Odometry           On-board Sensing
+                                                                           present the results in the following sections.
+
+                                                                           A. Simulation Results
+            ...                 1D TCN
+                                                                                a) Evaluation setting: We conduct evaluation under a
+                                                                           diverse set of initial ball positions, represented as a 9 × 9
+                                                                           matrix evenly spanning the region [−1.5, 6.5] × [−4.0, 4.0] at
+                                                                           1 m intervals. For each ball position, 50 independent trials
+                                                                           are executed with randomly sampled robot initial states.
+                                                                                b) Kick accuracy and success rate: Kick accuracy is
+Fig. 6: An overview of the real-world deployment pipeline
+                                                                           measured as the cosine similarity between the post-kick ball
+                  IV. R EAL -W ORLD D EPLOYMENT                            velocity unit vector and the ground-truth ball–goal direction
+  This section details the hardware platforms and core                     vector. The success rate is defined as the fraction of trials
+components that enables the real-world deployments.                        in which the ball crosses the goal line between the the goal
+                                                                           posts2 . Under these metrics, the policy achieves an average
+A. Hardware Platform                                                       success rate of 79.5% and an average kick accuracy of 0.956.
+                                                                           Results are visualized in Fig. 7
+   We deploy our ball-kicking policy on the physical Booster
+                                                                                c) Maximum ball velocity and energy cost: We also
+T1 humanoid robot [43]. The robot stands 1.18-meter-tall,
+                                                                           evaluate the maximum ball velocity and the average energy
+features 23 degrees of freedom and is equipped with a rich
+                                                                           cost during kicking, where energy cost is computed over
+sensor suite including an IMU and joint encoders for real-
+                                                                           timesteps in which the robot is within 0.5 m of the ball. The
+time state estimation, as well as a ZED 2i Stereo Camera for
+                                                                           learned policy achieves an overall maximum ball velocity of
+visual perception. All onboard computations are performed
+                                                                           4.13 m/s and an average energy cost of 110.8 J/s. Figure 7
+using an NVIDIA AGX Orin GPU in conjunction with a
+                                                                           (right) illustrates the distribution of these metrics across
+14-core high-performance CPU. The ball-kicking policy is
+                                                                           different initial ball positions. Notably, an emergent energy-
+executed at a control frequency of 50 Hz.
+                                                                           saving strategy is observed: when the ball is positioned
+B. Perception Pipeline                                                     closer to the goal, the robot consistently applies lighter kicks
+                                                                           and expends less energy, indicating adaptive behavior that
+   Our perception pipeline provides the policy with real-time              balances efficiency with task success.
+estimates of the ball and the opponent’s goal in the robot’s
+base frame. For ball perception, a YOLOv8 model [44]                       B. Real-world results
+processes the robot’s RGB-D camera stream to detect the
+                                                                              We perform a smaller-scale evaluation on hardware using
+ball’s bounding box. The center of the detected box is
+                                                                           five different ball positions in a RoboCup Kid-Size soccer
+unprojected into a 3D point using its corresponding depth
+                                                                           field. For each position, three trials are conducted with the
+value. This point is then transformed into the robot’s base
+                                                                           robot initialized from the same fixed location (6.5 m in
+frame using the head’s forward kinematics. This results the
+                                                                           front of the goal). We report averaged kick accuracies and
+pose of the ball in the robot’s base frame serving as the input
+                                                                           success rates across these trials. The results are presented
+to the ball-kicking policy.
+                                                                           in Table. III. The policy achieves an overall success rate of
+C. Odometry System                                                         66.7%.
+
+   To enable goal localization, we employ a lightweight data-                Ball Pos. x (m)   Ball Pos. y (m)    Kick Accuracy     Success Rate
+driven legged-inertial odometry module inspired by Lego-                           4.5                0.0          0.99 ± 0.01          3/3
+las [45]. As shown in Fig. 6 on the bottom left, the system                        3.5                1.8          0.94 ± 0.08          2/3
+fuses inertial signals—specifically the gravity vector and                         3.5               -1.8          0.95 ± 0.02          1/3
+                                                                                   6.0                2.5          0.99 ± 0.02          2/3
+angular velocity—with leg kinematics such as joint positions                       6.0               -2.5          0.99 ± 0.01          2/3
+and velocities. A neural network processes a 50-frame history
+of these measurements and predicts the relative pose change                TABLE III: Kick accuracy and success rate for the real-
+(∆x, ∆y, ∆yaw) in SE(2) space. Robustness of such prediction               world experiments at different ball positions (relative to goal
+is further enhanced through multi-step supervision and an                  center). The robot starts from 6.5 meters away from the goal.
+SE(2) consistency constraint, which together promote long-                   2 The goal posts distance are specified by RoboCup Adult-Size Humanoid
+term stability and coherent estimation of both translation and             League rules [40].
+Fig. 7: Visualizations of success rate, kick accuracy, max ball vel., and energy cost, at different initial ball positions. The
+shadowed trapezoidal regions visualize the goal areas.
+
+C. Ablation Studies                                                            Method                Succ.   Kick Accuracy     Energy Cost
+
+   To understand the contribution of individual design com-             Student after adaptation     79.5%        0.956          110.8 J/s
+                                                                       Student before adaptation     52.3%        0.807          256.2 J/s
+ponents, we perform ablations on the two key aspects of our           Teacher (w/o sensor noise)     81.1%        0.954          240.1 J/s
+system:
+      a) Constrained RL: We evaluate the effect of con-              TABLE V: Evaluation of student policies before and after
+strained RL by comparing N-P3O against standard PPO with             adaptation, and a teacher policy with perfect perception. The
+fixed regularization coefficients. Table IV summarizes the           bold numbers indicate the best results under each metric.
+results across success rate, peak ball velocities, and energy
+                                                                     noisy perception. Building on a four-stage teacher–student
+cost. N-P3O achieves the highest overall performance, with
+                                                                     framework, comprising long-distance chasing, directional
+a success rate of 79.5%, while maintaining smooth and
+                                                                     kicking, teacher policy distillation, and student adaptation
+stable motions characterized by lower maximum angular
+                                                                     and refinement, the system achieves continuous ball-kicking
+velocity and energy consumption at a small cost to peak ball
+                                                                     behaviors that remain stable under perceptual noise. Ex-
+velocity. Energy consumption is also substantially reduced to
+                                                                     periments in both simulation and on real hardware demon-
+108.6 J/s, less than half that of PPO. These results confirm
+                                                                     strate high accuracy and goal-scoring success across diverse
+that the constrained optimization in N-P3O mitigates unsafe
+                                                                     ball–goal configurations, while ablation studies confirm the
+behaviors and improves both efficiency and stability, leading
+                                                                     necessity of core design choices including the noise model-
+to the possibility of more reliable real-world deployment.
+                                                                     ing, constrained RL, and online adaptation.
+                                                                        A key limitation lies in that the long-distance chasing
+ Method     Succ.    Max Ball Vel.   Max Ang. Vel.   Energy Cost
+                                                                     gaits rely on heavily engineered reward functions adapted
+  N-P3O     79.5%      1.05 m/s       2.13 rad/s      108.6 J/s
+ PPO-1.0    64.8%      1.41 m/s       3.21 rad/s      255.8 J/s
+                                                                     from walking gait training, and the success of transferring
+ PPO-1.5    43.4%      1.21 m/s       2.86 rad/s      185.7 J/s      to ball-kicking depends on their similarity in motion. This
+                                                                     approach may not generalize to tasks with different motions,
+TABLE IV: Comparison between N-P3O and PPO with fixed                motivating future work on learning from diverse human
+regularization coefficients of 1.0 and 1.5. The bold numbers         motions as a more scalable strategy.
+indicate the best results under each metric.
+     b) Student adaptation: Finally, we evaluate the role                                          R EFERENCES
+of the final student adaptation stage by comparing poli-
+cies before and after online adaptation. As shown in Ta-             [1] Z. Gu, J. Li, W. Shen, W. Yu, Z. Xie, S. McCrory, X. Cheng,
+ble V, the adapted student achieves a success rate of 79.5%              A. Shamsah, R. Griffin, C. K. Liu, et al., “Humanoid locomotion and
+                                                                         manipulation: Current progress and challenges in control, planning,
+with a kick accuracy of 0.956, while also reducing energy                and learning,” arXiv preprint arXiv:2501.02116, 2025.
+consumption to 110.78 J/s. In contrast, the pre-adaptation           [2] J. Dao, H. Duan, and A. Fern, “Sim-to-real learning for humanoid
+student attains only 52.3% success and 0.807 accuracy,                   box loco-manipulation,” in 2024 IEEE International Conference on
+                                                                         Robotics and Automation (ICRA). IEEE, 2024, pp. 16 930–16 936.
+consuming more than twice as much energy (256.2 J/s).                [3] Y. Li, Y. Zhang, W. Xiao, C. Pan, H. Weng, G. He, T. He, and G. Shi,
+For reference, the privileged teacher policy trained without             “Learning gentle humanoid locomotion and end-effector stabilization
+sensor noise achieves slightly higher success (81.1%). These             control,” arXiv preprint arXiv:2505.24198, 2025.
+results highlight the fact that online adaptation is essential for   [4] T. Zhang, B. Zheng, R. Nai, Y. Hu, Y.-J. Wang, G. Chen, F. Lin,
+                                                                         J. Li, C. Hong, K. Sreenath, et al., “Hub: Learning extreme humanoid
+handling partially observed states that cannot be addressed              balance,” arXiv preprint arXiv:2505.07294, 2025.
+by distillation of a privileged teacher policy.                      [5] Z. Wang, X. Yang, J. Zhao, J. Zhou, T. Ma, Z. Gao, A. Ajoudani,
+                                                                         and J. Liang, “End-to-end humanoid robot safe and comfortable
+                      VI. C ONCLUSIONS                                   locomotion policy,” arXiv preprint arXiv:2508.07611, 2025.
+                                                                     [6] J. Li, X. Cheng, T. Huang, S. Yang, R.-Z. Qiu, and X. Wang, “Amo:
+  This paper introduced a RL–based system for enabling hu-               Adaptive motion optimization for hyper-dexterous humanoid whole-
+manoid robots to perform fast and robust ball-kicking under              body control,” arXiv preprint arXiv:2505.03738, 2025.
+ [7] N. Rudin, D. Hoeller, P. Reist, and M. Hutter, “Learning to walk            [26] F. Vahl, J. Griepenburg, J. Gutsche, J. Güldenstein, and J. Zhang,
+     in minutes using massively parallel deep reinforcement learning,” in             “Soccerdiffusion: Toward learning end-to-end humanoid robot soccer
+     Conference on robot learning. PMLR, 2022, pp. 91–100.                            from gameplay recordings,” arXiv preprint arXiv:2504.20808, Apr
+ [8] Z. Zhuang, Z. Fu, J. Wang, C. Atkeson, S. Schwertfeger, C. Finn, and             2025. [Online]. Available: https://arxiv.org/abs/2504.20808
+     H. Zhao, “Robot parkour learning,” arXiv preprint arXiv:2309.05665,         [27] D. Marew, N. Perera, S. Yu, S. Roelker, and D. Kim, “A
+     2023.                                                                            biomechanics-inspired approach to soccer kicking for humanoid
+ [9] A. Agarwal, A. Kumar, J. Malik, and D. Pathak, “Legged locomotion                robots,” in Proceedings of the 2024 IEEE-RAS 23rd International
+     in challenging terrains using egocentric vision,” in Conference on robot         Conference on Humanoid Robots (Humanoids), 2024, pp. 722–729.
+     learning. PMLR, 2023, pp. 403–415.                                               [Online]. Available: https://arxiv.org/abs/2407.14612
+[10] Z. He, K. Lei, Y. Ze, K. Sreenath, Z. Li, and H. Xu, “Learning              [28] D. Kim, S. J. Jorgensen, P. Stone, and L. Sentis, “Dynamic behaviors
+     visual quadrupedal loco-manipulation from demonstrations,” in 2024               on the nao robot with closed-loop whole body operational space con-
+     IEEE/RSJ International Conference on Intelligent Robots and Systems              trol,” in 2016 IEEE-RAS 16th International Conference on Humanoid
+     (IROS). IEEE, 2024, pp. 9102–9109.                                               Robots (Humanoids). IEEE, 2016, pp. 1121–1128.
+[11] J. Barreiros, A. Beaulieu, A. Bhat, R. Cory, E. Cousineau, H. Dai,          [29] L. Sentis and O. Khatib, “A whole-body control framework for
+     C.-H. Fang, K. Hashimoto, M. Z. Irshad, M. Itkina, et al., “A                    humanoids operating in human environments,” in Proceedings 2006
+     careful examination of large behavior models for multitask dexterous             IEEE International Conference on Robotics and Automation, 2006.
+     manipulation,” arXiv preprint arXiv:2507.05331, 2025.                            ICRA 2006. IEEE, 2006, pp. 2641–2648.
+                                                                                 [30] T. He, J. Gao, W. Xiao, Y. Zhang, Z. Wang, J. Wang, Z. Luo, G. He,
+[12] I. Dadiotis, M. Mittal, N. Tsagarakis, and M. Hutter, “Dynamic object
+                                                                                      N. Sobanbab, C. Pan, et al., “Asap: Aligning simulation and real-world
+     goal pushing with mobile manipulators through model-free constrained
+                                                                                      physics for learning agile humanoid whole-body skills,” arXiv preprint
+     reinforcement learning,” arXiv preprint arXiv:2502.01546, 2025.
+                                                                                      arXiv:2502.01143, 2025.
+[13] S. Ross, G. Gordon, and D. Bagnell, “A reduction of imitation learning      [31] X. Cheng, Y. Ji, J. Chen, R. Yang, G. Yang, and X. Wang, “Ex-
+     and structured prediction to no-regret online learning,” in Proceedings          pressive whole-body control for humanoid robots,” arXiv preprint
+     of the fourteenth international conference on artificial intelligence and        arXiv:2402.16796, 2024.
+     statistics. JMLR Workshop and Conference Proceedings, 2011, pp.             [32] J. Hu, P. Stone, and R. Martı́n-Martı́n, “Causal policy gradient for
+     627–635.                                                                         whole-body mobile manipulation,” arXiv preprint arXiv:2305.04866,
+[14] J. Lee, L. Schroth, V. Klemm, M. Bjelonic, A. Reske, and M. Hut-                 2023.
+     ter, “Evaluation of constrained reinforcement learning algorithms for       [33] D. Ferigo, R. Camoriano, P. M. Viceconte, D. Calandriello, S. Traver-
+     legged locomotion,” arXiv preprint arXiv:2309.15430, 2023.                       saro, L. Rosasco, and D. Pucci, “On the emergence of whole-
+[15] N. Kohl and P. Stone, “Policy gradient reinforcement learning for                body strategies from humanoid robot push-recovery learning,” IEEE
+     fast quadrupedal locomotion,” in IEEE International Conference on                Robotics and Automation Letters, vol. 6, no. 4, pp. 8561–8568, 2021.
+     Robotics and Automation, 2004. Proceedings. ICRA’04. 2004, vol. 3.          [34] J. Hu, P. Stone, and R. Martı́n-Martı́n, “Slac: Simulation-pretrained
+     IEEE, 2004, pp. 2619–2624.                                                       latent action space for whole-body real-world rl,” arXiv preprint
+[16] M. Hausknecht and P. Stone, “Learning powerful kicks on the aibo                 arXiv:2506.04147, 2025.
+     ers-7: The quest for a striker,” in Robot Soccer World Cup. Springer,       [35] Y. Ma, A. Cramariuc, F. Farshidian, and M. Hutter, “Learning coor-
+     2010, pp. 254–265.                                                               dinated badminton skills for legged manipulators,” Science Robotics,
+[17] R. Gerndt, D. Seifert, J. H. Baltes, S. Sadeghnejad, and S. Behnke,              vol. 10, no. 102, p. eadu3922, 2025.
+     “Humanoid robots in soccer: Robots versus humans in robocup 2050,”          [36] C. Zhang, W. Xiao, T. He, and G. Shi, “Wococo: Learning whole-
+     IEEE Robotics & Automation Magazine, vol. 22, no. 3, pp. 147–154,                body humanoid control with sequential contacts,” arXiv preprint
+     2015.                                                                            arXiv:2406.06005, 2024.
+[18] Z. Su, Y. Gao, E. Lukas, Y. Li, J. Cai, F. Tulbah, F. Gao, C. Yu,           [37] Z. Li, X. Cheng, X. B. Peng, P. Abbeel, S. Levine, G. Berseth,
+     Z. Li, Y. Wu, and K. Sreenath, “Toward real-world cooperative                    and K. Sreenath, “Reinforcement learning for robust parameterized
+     and competitive soccer with quadrupedal robot teams,” arXiv                      locomotion control of bipedal robots,” in 2021 IEEE International
+     preprint arXiv:2505.13834, 2025, may 20 2025. [Online]. Available:               Conference on Robotics and Automation (ICRA). IEEE, 2021, pp.
+     https://arxiv.org/abs/2505.13834                                                 2811–2817.
+[19] Y. Ji, G. B. Margolis, and P. Agrawal, “Dribblebot: Dynamic legged          [38] Y. Wang, P. Chen, X. Han, F. Wu, and M. Zhao, “Booster gym:
+     manipulation in the wild,” arXiv preprint arXiv:2304.01159, 2023,                An end-to-end reinforcement learning framework for humanoid robot
+     april 2023. [Online]. Available: https://arxiv.org/abs/2304.01159                locomotion,” arXiv preprint arXiv:2506.15132, 2025.
+[20] Y. Ji, Z. Li, Y. Sun, X. B. Peng, S. Levine, G. Berseth,                    [39] U. Robotics, “unitree rl gym: A reinforcement learning gym for
+     and K. Sreenath, “Hierarchical reinforcement learning for precise                unitree robots (go2, h1, h1 2, g1),” https://github.com/unitreerobotics/
+     soccer shooting skills using a quadrupedal robot,” in 2022                       unitree rl gym, 2025, bSD-3-Clause License; accessed September 15,
+     IEEE/RSJ International Conference on Intelligent Robots and                      2025.
+     Systems (IROS), Oct 2022, arXiv:2208.01160. [Online]. Available:            [40] RoboCup Humanoid League Technical Committee, “Humanoid
+     https://arxiv.org/abs/2208.01160                                                 league laws of the game 2025: Robocup humanoid league
+[21] L. Blommers, “Autonomous quadrupedal goalkeeping using hierar-                   adult-size rules,” https://humanoid.robocup.org/wp-content/uploads/
+     chical rl and vision-based localization,” Master’s thesis, Eindhoven             RC-HL-2025-Rules.pdf, Apr. 2025, accessed: 2025-09-13.
+     University of Technology, November 2024, master’s thesis.                   [41] Y. Li, Y. Lin, J. Cui, T. Liu, W. Liang, Y. Zhu, and S. Huang,
+[22] X. Huang, Z. Li, Y. Xiang, Y. Ni, Y. Chi, Y. Li, L. Yang,                        “Clone: Closed-loop whole-body humanoid teleoperation for long-
+     X. B. Peng, and K. Sreenath, “Creating a dynamic quadrupedal                     horizon tasks,” arXiv preprint arXiv:2506.08931, 2025.
+     robotic goalkeeper with reinforcement learning,” in 2023 IEEE/RSJ           [42] Q. Zhang, G. Han, J. Sun, W. Zhao, C. Sun, J. Cao, J. Wang, Y. Guo,
+     International Conference on Intelligent Robots and Systems (IROS),               and R. Xu, “Distillation-ppo: A novel two-stage reinforcement learning
+     Oct 2023, arXiv:2210.04435. [Online]. Available: https://arxiv.org/              framework for humanoid robot perceptive locomotion,” arXiv preprint
+     abs/2210.04435                                                                   arXiv:2503.08299, 2025.
+                                                                                 [43] B. Robotics, “Booster t1,” https://www.boosterobotics.com/robots/,
+[23] T. Haarnoja, B. Moran, G. Lever, S. H. Huang, D. Tirumala,
+                                                                                      Booster Robotics, 2023–2024, “Made for Developers”, Lightweight,
+     J. Humplik, M. Wulfmeier, et al., “Learning agile soccer skills
+                                                                                      Flexible, Durable. [Online]. Available: https://www.boosterobotics.
+     for a bipedal robot with deep reinforcement learning,” Science
+                                                                                      com/robots/
+     Robotics, vol. 9, no. 89, Apr. 2024. [Online]. Available: http:
+                                                                                 [44] R. Varghese and M. Sambath, “Yolov8: A novel object detection
+     //dx.doi.org/10.1126/scirobotics.adi8022
+                                                                                      algorithm with enhanced performance and robustness,” in 2024 Inter-
+[24] Y. Wang, C. Luo, P. Chen, J. Liu, W. Sun, T. Guo, K. Yang, B. Hu,                national conference on advances in data engineering and intelligent
+     Y. Zhang, and M. Zhao, “Learning vision-driven reactive soccer skills            computing systems (ADICS). IEEE, 2024, pp. 1–6.
+     for humanoid robots,” arXiv preprint arXiv:2511.03996, 2025.                [45] J. Wasserman, A. Agarwal, R. Jangir, G. Chowdhary, D. Pathak,
+[25] Z. Wang, J. Zhou, and Q. Wu, “Dribble master: Learning                           and A. Gupta, “Legolas: Deep leg-inertial odometry,” in 8th Annual
+     agile humanoid dribbling through legged locomotion,” arXiv                       Conference on Robot Learning, 2024.
+     preprint arXiv:2505.12679, May 2025. [Online]. Available: https:
+     //arxiv.org/abs/2505.12679
+

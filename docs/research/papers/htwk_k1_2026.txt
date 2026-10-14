@@ -1,0 +1,108 @@
+        HTWK Robots - Team Description Paper
+
+  Rico Tilgner1 , Stefan Seering, Tobias Jagla2 , Felix Loos, Lea Kunz, David
+Schulte2 , Johannes Walter2 , Tim Raddatz, Philip Parthier, and Vanessa Kuhfs.
+            1
+             Booster Robotics Technology Co., Ltd. 100192 Beijing, China
+ 2
+     Hochschule für Technik, Wirtschaft und Kultur Leipzig, 04277 Leipzig, Germany
+                                 naohtwk@gmail.com
+
+
+        Abstract. We present recent developments of the HTWK Robots team
+        in RoboCup humanoid soccer. After transitioning to the Booster Robotics
+        K1 and T1 platforms, we established a stable software foundation and
+        achieved competitive results across multiple leagues. Building on this
+        base, our current work focuses on learning-based perception and rein-
+        forcement learning for soccer-specific behaviour such as walking, drib-
+        bling, and kicking, with the goal of improving performance and autonomy
+        for RoboCup 2026.
+
+        Keywords: RoboCup Soccer · humanoid robotics · reinforcement learn-
+        ing · fall resistance · decision speed · robot platform · AI strategy · hard-
+        ware resilience · team coordination · autonomous robots
+
+
+1     Lessons Learned and Paths Taken
+The HTWK Robots team has a long-standing tradition in humanoid soccer re-
+search and competition. Since 2009, the team has been an active and competitive
+participant in the RoboCup Standard Platform League, consistently contribut-
+ing to the advancement of humanoid robot soccer.
+    In the previous year, the team transitioned to the K1 and T1 humanoid robot
+platforms provided by Booster Robotics. This strategic shift was accompanied
+by several notable competitive successes, including first place in the KidSize
+League at RoboCup Salvador, second place in the TeenSize League at the World
+Humanoid Robot Games, and a second-place finish in the RoboCup Asia-Pacific
+5v5 competition in Abu Dhabi.
+    Throughout the current development cycle, the team focused on establishing
+a robust and reliable software and system foundation for these platforms. The
+resulting system demonstrates stable operation under competitive conditions
+and provides strong evidence that the Booster Robotics K1 and T1 platforms
+constitute a well-suited and competitive choice for participation in RoboCup
+humanoid leagues.
+
+2     Publications
+In the past year, the team released two software projects and one Bachelor’s the-
+sis, reflecting the outcomes of both system development and research activities.
+2         Rico Tilgner et al.
+
+    – Robot Firmware [1]: The firmware was published in the state used during
+      the RoboCup Asia-Pacific competition in Abu Dhabi. This software man-
+      ages the complete game operation, including perception integration, and
+      behaviour execution. It represents a further development of the software
+      versions previously deployed in Salvador and Beijing, incorporating improve-
+      ments based on competition experience.
+    – Reinforcement Learning Environment [2]: The reinforcement learning
+      environment is based on an extended Booster Gym and has been augmented
+      with dedicated training setups for kicking motions and parameterized walk-
+      ing behaviour. In addition to the T1 platform, the environment has been
+      adapted to support training and evaluation for the K1 humanoid robot.
+    – Bachelor’s Thesis [3]: A reinforcement learning policy for kicking was
+      trained to react to varying ball positions. The resulting policy was suc-
+      cessfully deployed on a real T1 humanoid robot, demonstrating a complete
+      pipeline for training, transferring, and executing learned kicking behaviour
+      on the physical platform.
+
+
+3      Focus of the Upcoming Season
+While the primary focus of the previous year was the migration of the existing
+software stack from the NAO platform to the Booster K1 and T1 humanoid
+robots and the establishment of a stable software foundation, the emphasis of
+the upcoming competitions shifts towards data-driven and learning-based ap-
+proaches.
+    In particular, the team will focus on the application of machine learning
+methods to improve both perception and behavior generation.
+
+3.1     Visual Perception
+We are redesigning the visual perception pipeline using learning-based image
+analysis methods, replacing the existing YOLO-based demonstration solution
+provided by Booster Robotics.
+    To achieve this, we introduce a new two-layer ball detection approach. In the
+first layer, a detector identifies ball candidates. In the second layer, a classifier
+selects the most likely candidate. We expect the new system to achieve higher
+inference speed and improved detection accuracy. As vision serves as a core
+module for higher-level decision-making, tighter integration with the firmware
+and improved processing rates are expected. Increased perceptual accuracy will
+further enable more reliable ball tracking and localisation.
+
+3.2     Motion and Behavior Learning
+The team plans to move beyond the default walking and motion primitives pro-
+vided by the Booster Robotics software stack. While these implementations offer
+reliable basic locomotion, they limit more dynamic behaviour such as smooth
+                                    HTWK Robots - Team Description Paper             3
+
+ball reception, dribbling, and goal-directed motions. To address this, task-specific
+motion policies will be trained using reinforcement learning, aiming to achieve
+improved performance in soccer-specific scenarios. Promising results have al-
+ready been demonstrated in a Bachelor’s thesis published by the team, and
+additional learned behaviour have been successfully trained and validated in
+simulation. Our developments aim to enhance performance, adaptability, and
+autonomy under competitive game conditions.
+
+
+References
+1. https://github.com/NaoHTWK/Firmware-Salvador
+2. https://github.com/NaoHTWK/htwk-gym
+3. Loos, F.J.: Von der simulation aufs spielfeld: Reinforcement learning für dynamische
+   schussbewegungen im roboterfußball (2025)
+

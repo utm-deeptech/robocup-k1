@@ -11,3 +11,5 @@ build_image
 build_ros2
 dist
 .DS_Store
+docs/research/repos/
+docs/research/papers/*.pdf

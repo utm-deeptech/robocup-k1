@@ -1,0 +1,251 @@
+       RedbackBots - Team Description Paper
+            RoboCup Soccer HSL, 2026
+
+Timothy Wiley1[0000−0002−5424−2537] , Sam Griffiths1[0009−0001−9250−3291] , Mark
+                Field1 , and Tom Ellis1[0009−0000−0099−084X]
+
+                School of Computing Technologies, STEM College,
+                RMIT University, Melbourne, Victoria, Australia.
+
+
+
+
+      Abstract. RedbackBots is applying to qualify for the RoboCup Soccer
+      Humanoid Soccer League (HSL) in 2026. Redback- Bots is an established
+      former SPL team that was founded at RMIT University in 2019. We par-
+      ticipated in the former SPL across 2022–2025. Our academic team lead,
+      Dr. Timothy Wiley, has been an active member in RoboCup since 2010
+      and our team currently one of the HSL Executive members. Additionally,
+      we strongly believe in supporting the RoboCup community though our
+      SPL league contributions and active committee memberships.
+
+      Keywords: RoboCup · Soccer · HSL.
+
+
+
+1   RedbackBots Team Information
+
+Team Name: RedbackBots
+Team Leader and Academic Supervisors: Dr. Timothy Wiley, Prof. John
+Thangarajah
+Student Leads: Sam Griffiths, Mark Field
+Team Members: Aiden Brundell, Stephanie Byars, Benjamin Chandler, Tom
+Ellis, Mark Field, Sam Griffiths, Peter Hong, Yashal Hookmani, Ronit Israni,
+Shahira Jasmine Binti Yahaya, Thamadi Kulathunga, Karen Laurentia, Gian-
+luca Monsone, Luke Mullan, Kim Nguyen, Murray Owens, Eric Pham, Devika
+Sheeja, James Thomson, Rishi Verma and Kurniawan Zhong Zhen
+Affiliation: School of Computing Technologies, STEM College, RMIT Univer-
+sity, Melbourne, Australia
+Contact Email(s): stem.redbackbots@rmit.edu.au, timothy.wiley@rmit.edu.au
+Website: https://redbackbots.com/
+Qualification Video: https://youtu.be/OYDhPLzrRlU
+Robots: In 2026 we will transition to the Middle-Sized HSL league. We will
+compete with the Booster K1 robot as an standard platform. We currently have
+2 K1 robots and intend to use the robot pool from Booster.
+Combined Team: We note that we’re in discussions with two other Australian
+teams rUNSWift (UNSW Sydney) and Nubots (Newcastle University) to form
+a combined team in 2026 depending on available robots.
+2         T. Wiley et al.
+
+2      RedbackBots Development, Progress, and Team Status
+2.1     Challenges being addressed in 2026
+As a former SPL team, we are transitioning to the Booster K1 under the HSL
+standard platform rules with an unmodified robot. Thus, in 2026 we address the
+following software challenges, that are focused around:
+    – Migrate our existing codebase for Nao V6 to Booster K1. Except for the
+      Booster K1 walk engine.
+    – Redevelop the architecture our non-ROS based codebase into a ROS2 archi-
+      tecture.
+    – Primarily use and continue development of our vision, localisation, and be-
+      haviour algorithms.
+    – Development of our AR tool GameSight for Human-Robot Interaction with
+      RoboCup robots, and continue our user studies of AR and explainability for
+      HRI.
+    – Training of new motions for kicking via Deep Reinforcement Learning.
+
+2.2     Active Development and Plans for 2026
+We have commenced on moving our software infrastructure and algorithms to
+the Booster K1 robot platform, commencing this is simulation in the 4th quarter
+of 2025. We received 2 K1 robots in December 2025, and as of submission, have
+commenced working with the hardware platform in-conjunction with simulation.
+    We are currently working on the following features of our code base:
+    – We have ported our software codebase to the Booster simulation environment
+      in Isaac Sim, including integraton of camera images into our vision stack,
+      and abstracting our behaviour motion commands to K1 ROS2 messages.
+      Integration with physical K1 robot hardware is underway, however delayed
+      by hardware faults.
+    – We are revising our vision processing for use with the K1, with respect
+      to the significantly improved compute performance over the Nao V6, and
+      retraining our ML models to work with the different elements of HSL games
+      (such as the ball and opposing robots). This includes adapting our multi-
+      modal Kalman filter for localisation and continuing our incorporation and
+      extensive modifications the B-Human vision library into our codebase, the
+      next phase targeting robot detection.
+    – We are continuing development of our robot behaviours for playing 5v5 soc-
+      cer based on our previous competition learnings. Re-focusing our behaviour
+      development with a test-driven methodology to refine our fundamental soc-
+      cer skills with standardised testing framework. All behaviours are being re-
+      assesed with the change to the new platform and league.
+    – We intend to update GameSight based on a preliminary user study on the
+      impact of AR for HRI conducted in November 2025, these results are under
+      review in a conference paper. We intend to commence a broader end-user
+      study in mid 2026, potentially at RoboCup 2026.
+           RedbackBots - Team Description Paper RoboCup Soccer HSL, 2026        3
+
+      By the 2026 competition, we anticipate to have completed the following:
+ – Fully functional implementation of our software in both simulation and on
+   the K1.
+ – Use our own implementations for our vision, behaviour, and localisation
+   modules during competition.
+ – Develop new soccer behaviours with a focus on reliability and accuracy,
+   developed through a test-driven methodology.
+ – Conduct end-user testing with GameSight during the RoboCup 2026 com-
+   petition.
+
+2.3     RedbackBots Impact and Contributions to the HSL (and
+        formerly SPL)
+Since 2023, we have made the following contributions to the SPL:
+ – Developed and published GameSight, an open-source Augmented Reality (AR)
+   visualiser for Robot Soccer[10,8].
+ – Visual referee challenge participation and subsequent publication. [2,7].
+ – We support student Master’s Minor Thesis and Honours projects [18,6,1].
+ – Designed a ball ramp for the 2025 SPL leader-board challenges.
+ – Software contributions including alternate implementation of B-human vi-
+   sion systems .
+      For 2026, we declare the following novel contributions:
+ – Continued development of GameSight with further HRI research.
+ – Migrate our vision, localisation and behaviour modules to the Booster K1.
+ – Attempt Deep RL training of a K1 kick (simulation-to-real training).
+
+2.4     Code Releases
+Our published releases for our 2025 SPL soccer code release and team paper1 ,
+Gamesight2 and our 3D printable ball ramp3 developed for the "KICKin-Rollin
+Challenge" are all available on GitHub.
+
+2.5     Code re-use from other HSL (formerly SPL) teams
+We acknowledge the following code-use as part of our RedbackBots software:
+ – rUNSWift 2020 code release as a base, with major components significantly
+   modified or replaced,
+ – B-Human (and Nao Devils) 2022 code release - build / configuration scripts.
+ – B-Human 2024 code release - vision system with extensive modifications.
+ – Nao Devils 2024 code release for whistle detection.
+1
+  https://github.com/rmit-computing-technologies/redbackbots-coderelease/
+  releases/tag/coderelease2025
+2
+  https://github.com/rmit-computing-technologies/redbackbots-gamesight/releases/
+  tag/coderelease2024
+3
+  https://github.com/rmit-computing-technologies/redbackbots-spl-ballramp
+4        T. Wiley et al.
+
+2.6     Lessons learned from previous RoboCup Participation
+
+As a team primarily consisting of under-graduate students, we are continuously
+learning (and re-learning) how to develop reliable and real-time robotics systems
+with a focus on autonomous software. Our key learnings from 2025 moving into
+the merged HSL with a new robot are:
+
+    – Discussion with many former SPL and HL teams for integrating into a new
+      merged league, and how to transition to the K1 hardware.
+    – A prioritisation on reliable execution of fundamental robot skills.
+    – Using a test-based methodology for testing robot behaviours.
+    – A focus on challenging assumptions when programming for dynamic and
+      real-world systems.
+
+
+3     Team History
+
+The RedbackBots team is a small but keen team of combined undergraduate
+and postgraduate students who are studying at RMIT University. Our website4
+summarises our participation in RoboCup Soccer, including our active presence
+in RoboCup Leadership roles (LOC, OC, TC and Exec).
+
+
+4     Additional Information
+
+4.1     Publication History
+
+RedbackBots has built a track record of publications and thesis work. Addition-
+ally, our academic team leaders have an established track record of publications
+in both the RoboCup domain, and the wider field of AI. We have published
+several pieces directly related to RoboCup [16,9,8,7,2,14,15,3] and student thesis
+work from within the team adds to our body of work [18,6,1,13]. Additionally,
+recent related work from our team and collaborators further complement our
+research [10,11,5,4,12,17]. Our team members received a Best Paper Award at
+the Annual IEEE/ACM International Conference on Human-Robot Interaction
+(HRI 2025) [9].
+
+Acknowledgments. RMIT University has made a significant investment in AI and
+Robotics. The RedbackBots team is a key element part of the Artificial Innovation
+Intelligence Lab (AIIL), launched in 2019. The AIIL is part of the strategic direction
+of the RMIT Artificial Intelligence Advanced Innovation Experience (RAIsE) Hub.
+
+Disclosure of Interests. The authors have no competing interests to declare that
+are relevant to the content of this article.
+4
+    https://redbackbots.com/
+         RedbackBots - Team Description Paper RoboCup Soccer HSL, 2026                 5
+
+References
+ 1. Lohani, P.: Visual Referee Challenge For RoboCup Soccer. Master’s minor thesis,
+    School of Computing Technologies, RMIT University, Melbourne, Australia (2022)
+ 2. Lohani, P., Wiley, T.: Hybrid Methods for Real-time Video Sequence Identification
+    of Human Soccer Referee Signals. In: Proceedings of the RoboCup Symposium. pp.
+    1–12 (2023)
+ 3. Milstein, A., McGill, M., Wiley, T., Salleh, R., Sammut, C.: A Method for Fast
+    Encoder-Free Mapping in Unstructured Environments. Journal of Fields Robotics,
+    Special Issue on Safety, Security, and Rescue Robotics 28(6), 817–831 (Nov 2011)
+ 4. Ord, S., Marino, M., Wiley, T.: Modernising Delivery: A Low-Energy Teth-
+    ered Package System Using Fixed-Wing Drones. In: 2024 IEEE/RSJ Interna-
+    tional Conference on Intelligent Robots and Systems. pp. 2271–2277 (2024).
+    https://doi.org/10.1109/iros58592.2024.10802785
+ 5. Ord, S., Marino, M., Wiley, T.: Fixed-Wing UAV System for Aerial Tethered De-
+    livery of Small to Medium Packages. In: 21st Australian International Aerospace
+    Congress. pp. 262–267. Engineers Australia; Royal Aeronautical Society (2025)
+ 6. Owens, M.: Visual Referee Signals for RoboCup Standard Platform League. Mas-
+    ter’s minor thesis, School of Computing Technologies, RMIT University, Mel-
+    bourne, Australia (2023)
+ 7. Owens, M., Wiley, T.: Lightweight Real-Time Gesture Recognition for Dynamic
+    Soccer Referee Signals. In: Proceedings of the RoboCup Symposium (2024)
+ 8. Rodriguez, A.I.S., Ellis, T., Killeen, B., Owens, M., Griffiths, S., Wiley, T.: Game-
+    Sight: Augmented Reality Visualisation for the RoboCup Soccer SPL. In: Lecture
+    Notes in Computer Science (in press), pp. 1–12 (2025)
+ 9. Sanfilippo, F., Wiley, T., Rousi, R.: RoboCup Soccer Autonomy Uprising: How
+    Crowds, Referees, and Humanoid Robots are Redefining the Future of Human-
+    Robot Interaction. In: 2025 20th ACM/IEEE International Conference on Human-
+    Robot Interaction (HRI). pp. 1131–1139 (2025). https://doi.org/10.1109/hri61500.
+    2025.10974154
+10. Sanfilippo, F., Zafar, M.H., Wiley, T., Zambetta, F.: From caged robots to high-
+    fives in robotics: Exploring the paradigm shift from human–robot interaction to hu-
+    man–robot teaming in human–machine interfaces. Journal of Manufacturing Sys-
+    tems 78, 1–25 (2025). https://doi.org/10.1016/j.jmsy.2024.10.015
+11. Stiemer, L., Groves-Raines, M.M., Wood, L., Mohamed, A., Wiley, T.: Online Deep
+    Reinforcement Learning of Servo Control for a Small-Scale Bio-Inspired Wing. In:
+    Gong, M., Song, Y., Koh, Y.S., Xiang, W., Wang, D. (eds.) AI 2024: Advances
+    in Artificial Intelligence, vol. 15443, pp. 65–76. Springer Nature Singapore (2025).
+    https://doi.org/10.1007/978-981-96-0351-0_6
+12. Tennakoon, R.B., Hoseinnezhad, R., Tran, H., Bab-Hadiashar, A.: Visual inspec-
+    tion of storm-water pipe systems using deep convolutional neural networks. In:
+    ICINCO (1). pp. 145–150 (2018)
+13. Wiley, T.: Autonomous Victim Identification. Honours thesis, The University of
+    New South Wales, Sydney, Australia (2010), school of Computer Science and En-
+    gineering
+14. Wiley, T., Bratko, I., Sammut, C.: A Machine Learning System for Controlling a
+    Rescue Robot. In: RoboCup Symposium. pp. 1–12. Nagoya, Japan (Aug 2017)
+15. Wiley, T., McGill, M., Milstein, A., Salleh, R., Sammut, C.: Spatial Correlation of
+    Multi-sensor Features for Autonomous Victim Identification. In: Röfer, T., Mayer,
+    N.M., Savage, J., Saranli, U. (eds.) RoboCup 2011: Robot Soccer World Cup XV,
+    pp. 538–549. Springer-Verlag Berlin Heidelberg (Jul 2012)
+6       T. Wiley et al.
+
+16. Wiley, T., Sammut, C.: Data efficient online learning of robot behaviours via qual-
+    itative planning and reinforcement learning. Robotics and Autonomous Systems
+    194, 105122 (2025). https://doi.org/10.1016/j.robot.2025.105122
+17. Wiley, T., Sammut, C., Hengst, B., Bratko, I.: A Planning and Learning Hierarchy
+    using Qualitative Reasoning for the On-Line Acquisition of Robotic Behaviors.
+    Advances in Cognitive Systems 4, 93–112 (2016)
+18. Zhen, K.Z.: Learning Soccer Strategies Against Different Opponents in A Sim-
+    ulated Robot Soccer Environment. Master’s minor thesis, School of Computing
+    Technologies, RMIT University, Melbourne, Australia (2025)
+

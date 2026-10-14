@@ -1,0 +1,571 @@
+                                              Rhoban Football Club: RoboCup Humanoid
+                                                Kid-Size 2023 Champion Team Paper
+
+                                            Julien Allali, Adrien Boussicault, Cyprien Brocaire, Céline Dobigeon, Marc
+                                              Duclusaud, Clément Gaspard, Hugo Gimbert, Loı̈c Gondry, Olivier Ly,
+                                                               Grégoire Passault, and Antoine Pirrone
+arXiv:2402.00612v1 [cs.RO] 1 Feb 2024
+
+
+
+
+                                                                    Rhoban Football Club Team,
+                                                                LaBRI, University of Bordeaux, France
+                                                                         team@rhoban.com
+                                                               Corresponding author: Grégoire Passault
+                                                                 gregoire.passault@u-bordeaux.fr
+
+
+
+                                                Abstract. In 2023, Rhoban Football Club reached the first place of
+                                                the KidSize soccer competition for the fifth time, and received the best
+                                                humanoid award. This paper presents and reviews important points in
+                                                robots architecture and workflow, with hindsights from the competition.
+
+
+                                        Introduction
+
+                                        During the 2023 RoboCup kid-size soccer competition, Rhoban played 8 games,
+                                        scored 95 goals, and took a total of 2 goals (both during the final against CIT
+                                        Brains, Japan), reached the first place for drop-in games, technical challenges
+                                        and software challenge. Those achievements resulted in obtaining the best hu-
+                                        manoid award for Sigmaban, Rhoban’s kid-size humanoid robot.
+                                        This paper presents the main aspects of our robots, focusing on the recent im-
+                                        provements. Section 1 gives a short overview of the robots architecture, along
+                                        with recent mechanical upgrades, section 2 presents our vision and perception
+                                        system, section 3 details our new walk engine and section 4 describes the strategy
+                                        and monitoring system.
+
+
+                                        1     Robots architecture
+
+                                        1.1    Overview
+
+                                        Sigmaban has 20 degrees of freedom, 3 per arm (MX-64), 2 for the head (MX-64)
+                                        and 6 per leg (1xMX-64 + 5xMX-106). The legs are fully serial (no parallel kine-
+                                        matics). Parts are mostly milled in 2017 aluminium alloy. They are equipped with
+                                        Intel NUC (i5) running a (non real-time) Debian and a low-level custom board
+                                        with STM32 (72Mhz) to interface devices communication with the computer.
+                                        We use BNO055 IMU (Accelerometer+Gyroscope) and each foot is equipped
+                                        with four strain jauges to measure the pressure. More details can be found in
+2       Rhoban Football Club
+
+the public team description paper and specifications 1 .
+OnShape2 is used as CAD software, which allows us a seamless CAD-to-URDF
+conversion using OnShape-to-robot[9], our own open-source tool (winner of the
+2023 RoboCup software challenge).
+
+1.2    Software
+Most of the software running on the robots is written in C++. We factored out
+core components such as motion planning, control and strategy to separate mod-
+ules and using Python bindings, allowing us to test, visualize, plot, run physics
+simulation in a faster workflow than C++, while keeping the same code running
+on the robot. We switched from RBDL[3] to pinocchio[2] as rigid body dynamics
+library, because of its state-of-the-art performances and active development.
+
+1.3    Recent mechanical upgrades
+Bumpers Shocks with other robots and the ground are very common during
+the games, and mechanical breaks are frequent during the competition. Our
+previous design was relying on bent piano wires to dampen the shocks, which
+has proven to be efficient, but was not easy to reproduce, cumbersome and could
+create some obstruction with the vision. We switched to 3D (filament) printed
+TPU bumpers on the torso and the shoulders for 2023. This approach led to
+similar damping during lab tests.
+
+Hip yaw bearings In the leg architecture, the hip yaw degrees of freedom
+are typically highly stressed radially. In our previous design, the whole leg was
+fixed at this point with one unique (M3) screw, with no easy possibility to use
+a passive horn. We added cross roller bearings to this joint, and significantly
+reduced the backlash and possible screw loosening or damage.
+
+2     Vision, perception and localisation
+2.1    Lenses and Field of view
+When selecting a lens for a robot camera, a natural trade-off arises between the
+field of view and the resolution/distortion of the image. Our previous lens had
+a field of view of 68°(H), 54°(V), which required too many head movements to
+scan the field. We switched to a higher field of view, keeping the same image
+processed resolution (644x482) because we wanted to keep the same computa-
+tional power in order to still process the images at 30fps in real-time. Our new
+lens (BF5M2023S23C3 ) has a field of view of 100°(H), 83°(V). The time taken
+for a look-around scan was reduced from 3.2s to 2s to cover the same observation
+space. In the future, we can consider removing the head pan, which is arguably
+useless in the current architecture.
+1
+  https://humanoid.robocup.org/previous-editions/robocup-2023/teams/
+2
+  https://www.onshape.com/
+3
+  Technical Documentation of BF5M2023S23C Lens
+                                  Title Suppressed Due to Excessive Length        3
+
+2.2    Camera calibration
+Intrinsic calibration was done for each camera using ChArUco boards, enabling
+tangential and radial distortions. We found better results by imposing k3 = 0
+for radial coefficients during the calibration. Since we are using mobile robots,
+the extrinsic calibration is not relevant and is replaced with pose estimation
+produced by whole body forward kinematics.
+In hindsight, the distortion on the border of the image is still high, which makes
+some part of the image barely usable. We also notice significant reprojection
+errors that we countered by adjusting the optical center of the camera, especially
+to ensure proper positioning when the ball is close to the robot. Even if we
+had satisfying reprojection results with such adjustment, we need to investigate
+whether it is caused to extrinsic errors (e.g. bent parts) or intrinsic errors (e.g.
+errors in intrinsic calibration).
+
+2.3    Image processing
+We have switched from an approach based on Multi-class ROI and classification[5]
+to the state-of-the-art end-to-end YoloV8[6] algorithm for object detection, in
+order to detect different points of interest (POI, cf. 2.3) in the image. Camera
+extrinsic estimation allows for the projection of the POI in the world frame and
+feeding a particle filter [5] for localisation.
+Thanks to pressure sensors and the robot kinematics model, we also use exten-
+sively the odometry to adjust the localisation.
+
+Training: In order to train the neural network, we need to have a dataset of
+images with the features labeled. The HTC Vive auto-labeling described in [5]
+was not enough accurate to train the neural network. We manually labeled a set
+of 400 images to train a first version of the neural network in order to pre-label
+the rest of the dataset. Correcting such pre-labeled image was considered two
+times faster than labeling an image from scratch.
+    We used Label-Studio[11] as labeling tool because it is open-source, comes
+with a user-friendly web-based interface that can be shared through the network.
+    Yolo is trained with our dataset (see section 2.3) based on the pre-trained
+YoloV8n weights (3.2M parameters). It takes 48 minutes on an Intel Core™ i7-
+9700K, 32Go of RAM, a Nvidia RTX 2070 and a SSD to train the neural network
+for 407 epochs
+
+On-robot inference: Robots are running Intel Core™ i5-7260U with integrated
+GPU, 8Go of RAM and a SSD. YoloV8n is translated to an OpenVINO4 IR
+model, which is then loaded and run on the robot. We apply our own post-
+processing (Non-Maximum Suppression) to the output, and also some custom
+filtering such as removing unrealistic bounding boxes based on extrinsic infor-
+mation.
+4
+    https://www.openvino.ai/
+4       Rhoban Football Club
+
+The robot runs the neural network online at approximately 48fps on integrated
+GPU instead of 5fps on CPU only (without OpenVINO).
+
+2.4   Dataset
+Images selection and data augmentation: Our dataset is composed of 1794
+images. We arbitrarily split it into the usual three parts to evaluate the perfor-
+mance of a machine learning model: Train set : 1462 images (80%) — Evaluation
+set : 166 images (10%) — Test set : 166 images (10%).
+
+
+
+
+Fig. 1: Inference on a frame with our      Fig. 2: Normalized confusion matrix of
+trained neural network                     our neural network (confidence thresh-
+                                           old=0.25)
+
+    The majority of these images (∼80%) were captured at Rhoban lab with
+different brightness conditions and variations of the shutter speed and white
+balance of the camera. The rest of it was taken during the RoboCup 2022 and
+2023 competition. We had to train the network not only on images extracted
+from video (as in 2019[5]) but also on raw images, because the network tends to
+learn compression artefacts and the onboard performances on the raw camera
+stream was diminished. We also used data augmentation to make our network
+more robust with the following transformations: HSV modification, rotation,
+vertical flip, translation and rescaling.
+
+Detected features: We use 5 main localisation features: The lines ”L” and
+”T” patterns (4500 and 3500 instances), the center circle (700 its.), the penalty
+mark (800 its.) and the bottom of the goal posts (2000 its.). We also detect the
+ball (1500 its.) and the other robots (1500 its.). Figure 1 displays an example of
+detection.
+    The normalized confusion matrix of the neural network training is depicted
+on figure 2. The L an T corners have a relatively high false positive rate (confused
+with background). Note that this matrix is computed with a confidence threshold
+(0.25) lower than the one we use on the robot (0.6) The rest of the matrix shows
+us that the neural network is able to detect the features with a high accuracy.
+                                               Title Suppressed Due to Excessive Length        5
+
+3     Walk
+
+3.1   Overview
+
+Our walk engine was almost entirely reworked in 2023. The previous walk engine
+[5] was based on cubic splines and analytic inverse kinematics for the legs. This
+approach lacked a preview on the dynamics of the center of mass and versatility
+in the tasks that can be used to define the trajectories. This section describes
+the three main stages of this new walk engine, as depicted on figure 3: planning
+the footsteps, planning the center of mass trajectory and finally computing the
+whole body inverse kinematics to produce the joint trajectories that are sent to
+position-controlled actuators. Note that kicking and standing-up are, however
+still achieved with hand-tuned keyframe animation, which gives efficient results,
+but is tedious and not satisfying.
+
+                  1                             2                       3
+
+
+
+
+                 Footsteps planning            CoM planning            Whole body IK
+                 Deep Reinforcement Learning   Quadratic Programming   Quadratic Programming
+
+
+
+               Fig. 3: Overview of the stages of the walk engine
+
+
+
+3.2   Footsteps planning
+
+In the past, we relied on extensively hand-tuned approaches (based for example
+on potential fields) to plan the footsteps. On the one hand, this has proven
+to be efficient but relied on many hyper-parameters to be adjusted manually,
+especially when the robot walking abilities are updated, which is not satisfying.
+    Reinforcement learning, on the other hand, rely on simulated environments
+directly parametrized by the robot abilities along with a reward signal that can
+be adjusted to exactly match the desired outcome (in this case, minimizing the
+number of footsteps). It can embrace non-linearity and, thanks to Deep Rein-
+forcement Learning and the use of neural networks as functions approximators,
+continuous actions and observations space to produce a policy with a fast on-line
+inference. We thus formulated the footsteps planning as a reinforcement learning
+problem.
+    This RL environment is based on different parameters defined by our robot’s
+structure: maximum step sizes for the robot’s movement (∆xmax , ∆ymax , and
+∆θmax ), the feet spacing (lf ) and tolerances for reaching the target (tx and tθ
+in meters and radians, respectively).
+    The actions in this environment are represented as tuples of (∆x, ∆y, ∆θ),
+with the step sizes in meters and radians. These actions are clipped to ensure
+that they fall within an ellipsoid, rather than a box, to encourage more natural
+6         Rhoban Football Club
+
+movement patterns. Footsteps are simulated using purely geometrical displace-
+ments. the observation space consists of the position and orientation of the cur-
+rently considered neutral support foot, along with information about the current
+support foot (left or right). These values are expressed in the target frame to
+represent ”errors”.
+    The reward function in this RL environment is shaped as a cost function,
+which includes factors like the cost of taking additional steps, a reward shaping
+factor (α), and penalties for collisions with the ball.
+    Technically, the environment is implemented as an OpenAI gym, and trained
+using TD3[4] algorithm (implementation from [8]). The policy is then exported
+to OpenVINO IR model for inference, where the inference of one footstep takes
+about 100µs on the robot.
+    Extensive details about this work will be published later in a separate paper,
+and the environment is intended to be open-sourced.
+
+
+3.3      CoM planning
+
+In order to ensure the robot stability, the center of mass is planned with a
+preview horizon, on a scheme similar to [7]. This is formulated as the following
+discrete time optimization problem:
+
+                                    d 2    ... 2
+                        ... ∥z − z ∥ + ϵ∥ c ∥
+                      min
+                   c,ċ,c̈, c ,z
+                                              2      ∆t3 
+                              ck+1       1 ∆t ∆t2   ck        62  ...
+                         s.t ċk+1  = 0 1 ∆t  ċk  +  ∆t  c k
+                                                              2
+                              c̈k+1      0 0 1      c̈k      ∆t                        (1)
+                                                   h
+                                   zk = ck − c̈k , zk ∈ Sk
+                                                   g
+                                   c0 , ċ0 , c̈0 = cinit , ċinit , c̈init
+                                   cf , ċf , c̈f = cf inal , ċf inal , c̈f inal
+
+      Where:
+                       ...
+    – ck , ċk , c̈k , c k are respectively the (2D) center of mass position, velocity, ac-
+      celeration and jerk at step k,
+    – zk is ZMP approximation under the LIPM model at step k, h being the
+      (assumed constant) height of the center of mass and g the gravity,
+    – z d is a the desired ZMP trajectory,
+    – Sk is the support polygon at step k, given by the current support footprint
+      or by the convex hull of the two support footprints in the double support
+      phase,
+    – Initial and final center of mass positions are given by the current state of
+      the robot and the state at the end of the preview horizon.
+                                                                 Title Suppressed Due to Excessive Length                   7
+
+    The objective function is quadratic. The only constraint that is not an equal-
+ity is z ∈ S, which can be turned into inequalities because S are convex poly-
+gons. This can then be translated into a quadratic programming (QP) problem.
+                                                                 ...
+In practice, we used eiquadprog [1] solver. Note that c, ċ, c̈, c and z are all cou-
+pled with equality constraints, the problem can be rewritten (with less clarity)
+         ...
+so that c is the only decision variable.
+    The reference trajectory for the ZMP (z d ) is in our case a target that is
+constant in the current support foot. This offset can then be tuned to adjust
+the walk, with for example the effect of increasing or reducing the lateral swing.
+During the competition, this target was set to zero (i.e. we try to have the ZMP
+as close as possible to the center of the support foot).
+    Because our single support duration was tuned to 360ms, our value for ∆t
+                                                                           ...
+is 36ms, we plan 48 steps ahead which implies 96 decision variables ( c ) to op-
+timize. The preview horizon is then 1.7s (roughly 5 walk steps). Solving this
+optimization problem takes about 2ms on the robot and was done with a con-
+stant period of 25ms.
+    Equation 1 can be integrated as a smooth C 2 trajectory for c(t).
+
+
+3.4   Swing foot trajectory
+
+The swing foot trajectory is a trade-off between the risk of applying tangential
+forces on the ground while taking off or landing and the need to limiting the
+speed that is required to reach the target. Even if more thoughtful work can be
+considered in the future, we tried empirically different trajectories and settled
+on the most efficient one.
+    z being the vertical axis, x(t) and y(t) are simply cubic splines defined by
+initial and final positions, and zero initial and final velocities (a similar approach
+is used for the yaw of the foot). The vertical trajectory z(t) is a piecewise cubic
+splines with a taking off, a plateau (tuned to 30% of the duration) and a landing
+phase (see figure 4).
+
+                                                   x                             y                            z
+                             0.04
+              position [m]
+
+
+
+
+                             0.02
+                             0.00
+                                    0.0   0.1      0.2     0.3    0.0   0.1      0.2     0.3   0.0   0.1      0.2     0.3
+                                                time [s]                      time [s]                     time [s]
+
+
+Fig. 4: Cartesian trajectory of a swinging foot of 5cm along x axis and 5cm along
+y axis
+
+
+
+3.5   Whole body inverse kinematics
+
+The planning for the center of mass, along with the swing foot spline provides
+the following task-space trajectories to be followed by the robot:
+8         Rhoban Football Club
+
+ 1. Center of mass: output of the optimization problem from the previous
+    stage and a constant height h,
+ 2. Trunk orientation: constant pitch/roll (tuned to leaning 11.5deg forward),
+    and a yaw following the swing foot,
+ 3. Support foot: not moving in the world,
+ 4. Swing foot: following the spline described in the previous section and re-
+    maining parallel to the ground.
+
+    Kinematically, task 1. is a position task (3D), task 2. an orientation task (3D)
+and tasks 3. and 4. are frame tasks (6D). This results in assigning 18 degrees
+of freedom, which are exactly the degrees of the legs (12) plus the floating base
+(6).
+    To find the corresponding joint-space trajectories q(t), we need to solve the
+inverse kinematics problem. Formally, tasks can be written as errors e(q) that
+we want to take to zero. Since e(q) is highly non-linear, it is approximated by a
+first order Taylor expansion around the current state q0 : e(q) ≈ e(q0 ) + J(q0 )∆q
+where J(q0 ) is the Jacobian matrix of e at q0 . The problem is then to find ∆q
+such that e(q0 ) + J(q0 )∆q = 0. Again, we formulate this as a QP problem:
+
+                           X
+                     min        wi ∥Jis (q0 )∆q + esi (q0 )∥2 + ϵ∥∆q∥2
+                      ∆q
+                            i
+                       s.tJih (q0 )∆q + ehi (q0 ) = 0                            (2)
+                           qmin < q0 + ∆q < qmax
+                           − ∆t.q̇max < ∆q < ∆t.q̇max
+
+      Here:
+
+    – q0 is the current joint state of the (reference) robot, around which linear
+      approximation is made, and ∆q is the variation of the joint state that we
+      want to find,
+    – J h and eh are the hard tasks (equality constraints)
+    – J s and es are the soft tasks, ending up in the objective function to minimize
+    – wi are the weights of the soft tasks, that can be tuned to prioritize some
+      tasks over others,
+    – qmin and qmax are the joint limits,
+    – q̇max is the maximum joint velocity.
+
+   All the tasks are expressed in the world frame, and the Jacobian are computed
+locally for numerical stability. The jϵ∥∆q∥2 term is a regularization term that is
+used to ensure that the solution is not too far from the current state, and ensure
+that the problem is well-posed.
+   In practice, we also used eiquadprog [1] solver, relying on pinocchio [2] to
+compute efficiently the transformation matrices and Jacobians from the URDF
+model that is kept consistent with CAD updates tanks to Onshape-To-Robot[9].
+This optimization problem was solved at the control frequency (about 200Hz,
+∆t = 5ms), and takes approximately 100µs on the robot.
+                                 Title Suppressed Due to Excessive Length       9
+
+3.6   Open-source
+
+Efforts were made to get the previously mentioned optimization problems con-
+venient to formulate and solve from a software engineering point of view. Our
+mid-term objective is to document and open-source all the parts of the walk
+engine.
+
+
+3.7   Limitations
+
+The trajectories were not planned in accordance with the actuators limitations,
+which resulted in some of them reaching their velocity limit during the walk.
+This was especially true for the knee, and ankle actuators which are the ones
+that experience the more torque during the walk. This is illustrated in figure 5.
+
+
+
+
+Fig. 5: Planned velocities during the walk for the knee and ankle actuators. The
+red area represent the operational range of the actuators given by the ROBOTIS
+for MX-106 [10].
+
+    To avoid extra velocity solicitations of high torque-providing actuators, we
+decided to substitute the center of mass by the trunk position while resolving the
+whole-body kinematics. This ”trunk mode” (as opposed to the ”CoM mode”) is
+motivated by the fact that most of the mass is located in the trunk, and by the
+fact that the constant CoM height constraint is the source the targeted velocity
+solicitations. As a result, the target velocities of the support leg actuators are
+lower (cf. figure 6), which allows to stay in the operational range.
+
+
+
+
+Fig. 6: Comparison of the planned velocity for the knee actuator during the CoM-
+walk (blue) and the walk in trunk mode (orange).
+10      Rhoban Football Club
+
+    Taking in account the true ability of the actuators when planning and con-
+trolling is really important in a competitive scenario where the robot is pushed
+to its limits of operation.
+    The only feedback we currently use to ensure the stability of the robot is a
+detection of the support using the pressure sensors of the feet. In the case of
+a light instability, the robot will take more time to touch the ground with the
+swing foot. Thus, we delay the trajectory reading to ensure that the real state
+of the robot match the planned one. Another objective is thus to implement a
+proper model predictive control (MPC) to be resilient to greater instabilities.
+    Facing the limitations of the Sigmaban platform, in particular the difficulty
+to use the actuators with torque control, we are considering to move to a new
+architecture.
+
+
+4     Strategy and monitoring
+
+Even if those problems are actually intrinsically mixed and should be ideally
+solved together, we decided to split the game strategy into two main stages: the
+kick strategy which is used by a robot to decide what kick should be used
+and where it should be targeted, and the placement strategy which is used
+to decide which robot is going to perform the kick and where the other robots
+should be placed on the field.
+
+
+4.1   Kick strategy
+
+Four different kick motions are currently implemented in the robot: a forward
+kick (classic), a short forward kick (small ), a lateral kick (lateral ) and a diagonal
+one (diag). For all of them, we estimated the optimal relative positioning, and the
+distribution of kick length and angle. We also model the effect of kicking against
+the grass blades as a reduction of 70% of the kick length. We first formalize the
+problem as a Markov Decision Process where the state s is the position of the
+ball on the field, the action a the kick type and yaw, and the reward:
+                    
+                    −tk
+                                       if the ball is in the goal
+                                    ′
+                r = −tk − tw (s, s ) if the ball is on the field                    (3)
+                    
+                       −tp              if the ball is out of the field
+                    
+
+     Here, tk is the duration of a kick, tw is the time it takes to walk from s to
+s′ , and tp is a penalty duration. We first use the Value Iteration algorithm to
+(off-line) compute a baseline value for each state, that can be interpreted as the
+(negative) time it takes to score a goal from this state.
+     On-line, we perform a (one step) tree-search to find the best action to per-
+form, using an augmented reward plus the baseline value of the next state. At
+this stage, the uncertainty of each possible kick is still accounted for by sampling
+the kick length and angle from the estimated distribution. The following extra
+information are added to the reward:
+                                   Title Suppressed Due to Excessive Length       11
+
+ – If the kick would collide an ally or an opponent, we recursively compute
+   the reward for the two possible state using a collision probability,
+ – If we are not allowed to score (because of indirect free kick) and the kick
+   would score, we add extra penalty,
+ – Instead of tw (s, s′ ), we use the time it would take to the closest ally to
+   walk to the ball,
+ – We add extra penalty if the ball would reach a position where the opponents
+   are closer to the ball,
+ – We add extra penalty if the robot is targeting a position that obstructs
+   our goals to perform its kick.
+
+    We used a graphical drag-and-drop representation as depicted on figure 7
+to hand-tune the reward according to our preferences and across a playbook of
+multiple standard situations. The top 10% of those possible actions are then
+passed to the footsteps generator, which uses its value function (see section 3.1)
+in inference to estimate the number of steps required for each action and select
+the best one accordingly.
+
+
+
+
+Fig. 7: On the left: examples of situations for the kicking strategy problem. On
+the right: situations for the placement strategy problem.
+
+
+
+4.2   Placement strategy
+The robots are distributed autonomous agents that need to agree on a common
+team strategy. To simplify this problem, we leverage the WiFi communication
+between robots to elect a Captain that is responsible for computing and broad-
+casting a global team roles assignment. The captain listens to robots information
+such as estimated location on field, location of the ball and allies opponents detec-
+tion (Protobuf-encoded packets over UDP broadcast). Next, the captain applies
+clustering algorithm to aggreagate robots observations and infer common oppo-
+nents detection. A kicker is selected among robots using a simple scoring (bonus
+for previous kicker to avoid oscillation, distance to ball and robot orientation).
+The remaining robots are placed over a set of interesting positions (empirically
+selected).
+12      Rhoban Football Club
+
+4.3   Monitoring and replay
+We designed a new monitoring system written entirely in Python for conve-
+nience. It listens over the network for the Game Controller, robot communica-
+tion, records a video from an external webcam to keep a ground truth overview.
+Such a tool allows real time debugging during development phases, but also to
+replay a game and analyze the strategy (figure 8).
+
+
+
+
+                              Fig. 8: Monitoring system
+
+
+References
+ 1. Buondonno, G.: Github repository: stack-of-tasks/eiquadprog, https://github.
+    com/stack-of-tasks/eiquadprog
+ 2. Carpentier, J., Saurel, G., Buondonno, G., Mirabel, J., Lamiraux, F., Stasse, O.,
+    Mansard, N.: The pinocchio c++ library – a fast and flexible implementation of
+    rigid body dynamics algorithms and their analytical derivatives. In: IEEE Inter-
+    national Symposium on System Integrations (SII) (2019)
+ 3. Felis, M.L.: Rbdl: an efficient rigid-body dynamics library using recursive algo-
+    rithms. Autonomous Robots 41(2), 495–511 (2017)
+ 4. Fujimoto, S., Hoof, H., Meger, D.: Addressing function approximation error in
+    actor-critic methods. In: International conference on machine learning. pp. 1587–
+    1596. PMLR (2018)
+ 5. Gondry, L., Hofer, L., Laborde-Zubieta, P., Ly, O., Mathé, L., Passault, G., Pirrone,
+    A., Skuric, A.: Rhoban football club: Robocup humanoid kidsize 2019 champion
+    team paper. In: RoboCup 2019: Robot World Cup XXIII 23. pp. 491–503. Springer
+    (2019)
+ 6. Jocher, G., Chaurasia, A., Qiu, J.: YOLO by Ultralytics (Jan 2023), https://
+    github.com/ultralytics/ultralytics
+ 7. Kajita, S., Kanehiro, F., Kaneko, K., Fujiwara, K., Harada, K., Yokoi, K.,
+    Hirukawa, H.: Biped walking pattern generation by using preview control of zero-
+    moment point. In: 2003 IEEE international conference on robotics and automation
+    (Cat. No. 03CH37422). vol. 2, pp. 1620–1626. IEEE (2003)
+ 8. Raffin, A., Hill, A., Ernestus, M., Gleave, A., Kanervisto, A., Dormann, N.: Stable
+    baselines3 (2019)
+ 9. Rhoban: Github repository: rhoban/onshape-to-robot, https://github.com/
+    rhoban/onshape-to-robot
+10. ROBOTIS: ROBOTIS e-Manual, https://emanual.robotis.com/docs/en/dxl/
+    mx/mx-106-2/
+11. Tkachenko, M., Malyuk, M., Holmanyuk, A., Liubimov, N.: Label Studio: Data
+    labeling software (2020-2022), https://github.com/heartexlabs/label-studio,
+    open source software available from https://github.com/heartexlabs/label-studio
+

@@ -1,0 +1,256 @@
+  Berlin United – Team Description Paper 2026
+
+                  Heinrich Mellmann und Stella A. Schlotter
+
+            Adaptive Systems Group, Humboldt-Universität zu Berlin,
+                                Berlin, Germany
+                         https://berlin-united.org/
+                   berlin-united.informatik@lists.hu-berlin.de
+
+
+
+
+  Team Berlin United at the RoboCup 2025 in Salvador, Brazil. From left to right:
+      Anastasia Prisacaru, Heinrich Mellmann, Magdalena Yordanova, Anton
+         Gerstenhoefer, Stella Alice Schlotter, Philipp Strobel, Zhuo Liu.
+
+    The research group Berlin United (BU) is part of the research lab for Ad-
+aptive Systems at the Humboldt-Universität zu Berlin (HU). The team consists
+of students and researchers at diﬀerent career stages, including Bachelor, Mas-
+ter/Diploma, PhD, Postdoctoral researchers, as well as active alumni. Berlin
+United has successfully participated in nearly all RoboCup Standard Platform
+League (SPL) competitions since the ﬁrst SPL tournament in 2008, contributing
+both to competition performance and to scientiﬁc progress in humanoid robotics.
+Our research interests span a broad range of topics in cognitive and embodied
+robotics, including modular software architectures, bipedal locomotion, multi-
+modal perception, behavior generation, simulation, as well as the development
+of tools and datasets. Our contributions are regularly published, and our code,
+datasets, and scientiﬁc publications are made publicly available on our web-
+site. In addition to research and direct participation in RoboCup competitions,
+Berlin United is actively involved and contributes to university teaching, public
+outreach and scientiﬁc communication, and the continued development of the
+RoboCup community.
+2       Heinrich Mellmann und Stella A. Schlotter
+
+1   Research Focus and Contributions
+
+Our main focus for the RoboCup 2026 is the generalization and adaptation of
+our code base to the conditions of the new Humanoid Soccer League (HSL).
+We are also currently working on adapting our code to work with the robots
+Booster K1 and plan to complete the adaptation for the RoboCup 2026. In this
+section, we highlight a few noteworthy contributions and ongoing projects that
+are relevant for the RoboCup 2026. Examples of other noteworthy contributions
+from recent years that resulted in scientiﬁc publications, theses, and concrete
+implementations include [22,13,25,27,12,14,24,15,21,23,26].
+Behavior For individual decisions, our robots use internal simulation to predict
+the outcome of diﬀerent actions and to make decisions in highly complex and
+uncertain situations. For example, the robots predict the ball’s behavior (e.g., the
+movement of the ball and its collision with obstacles) for diﬀerent possible actions
+(e.g., kicks) and choose the action promising the best outcome. The decisions can
+be adapted easily to new actions by adding the appropriate internal simulator.
+This allows us to rapidly adapt the approach to the action primitives of the
+new robot platform Booster K1. This approach has been used in RoboCup SPL
+games and continuously studied and extended since 2015 [19,18,20,16,17].
+    For team coordination, our robots employ a highly dynamic team strategy,
+including role negotiations between players and assignment of locations on the
+ﬁeld. The role assignments depend on the importance of the roles and the situa-
+tion in the ﬁeld. The parameters for the team strategy were optimized based on
+a large number of simulated SPL games, which were transferred and successful-
+ly used in real RoboCup games [26]. For this, we adapted the oﬃcial physical
+simulator SimSpark of the Simulation 3D League (S3D) to the SPL [6].
+    The gradual limitations in team communication in the past years led to delays
+and to a signiﬁcant reduction in accuracy in role negotiations. To approach this
+challenge, we plan to extend the simulation-based decision approach described
+above. A robot can make a role decision by simulating and predicting the actions
+of other players, which reduces the necessity of the explicit communication. The
+theoretical work and initial experiments show promising results. We plan to
+employ a ﬁrst version at the RoboCup 2026. We also consider the adaptation of
+the new simulator of the S3D SimSparkMJ [7] to the HSL.
+Perception Our vision system is optimized for robots with limited computatio-
+nal resources and is based on a combination of sparse heuristic processing (e.g.,
+key point detection) and highly optimized neural networks (e.g., object classiﬁca-
+tion). We continuously experiment with diﬀerent approaches, such as Variational
+Autoencoders (VAE) [22]. To experiment and to train the networks, we build a
+ﬂexible training pipeline [25]. The pipeline is continuously being improved. We
+are now able to automatically annotate images from logs and immediately use
+them for training for the next game. Our system makes it easy to include only
+the data we want. For example, we can easily ﬁlter for robots, time of day, ﬁeld,
+and event. Currently, we are working on a new eﬃcient ball detection for the
+new ball in the HSL small division for the NAO robots.
+                              Berlin United – Team Description Paper 2026       3
+
+Motion and Behavior Primitives Our motion engine allows for seamless
+integration of dynamic and parameterizable in-walk kicks [13]. For RoboCup
+2026 we are developing a range of new kick actions that would allow the robot
+NAO to eﬀectively handle the new larger ball in the HSL small division. We
+are also working on a Reinforcement Learning (RL) approach for motion and
+behavior primitives for the robot Booster K1. We have trained a policy realizing
+a combined behavior able to approach and kick the ball in simulation. We plan
+to transfer this strategy to the real robot and use it at the RoboCup 2026.
+Data Driven Research in RoboCup Collecting rich, well-structured data
+from RoboCup games on a large scale can help us study and develop new ap-
+proaches and to track league progress, advancing the league and RoboCup as
+a whole. To approach this, we have developed a system to record and analyze
+synchronized RoboCup data including game videos and robot logs on a large sca-
+le. We deployed the recording system at the RoboCup competitions since 2019
+and collected numerous synchronized videos of games on all ﬁelds. The collected
+data and more information on that project can be found on the project website
+[1]. Our project gained signiﬁcant recognition – was supported through several
+RoboCup Federation Research Grants, cited in the landmark publication [11],
+became a part of the oﬃcial SPL league development strategy and was used as a
+basis for the Open Challenge at the RoboCup 2022 [8,3]. We continue upgrading
+the system and are also working on an integration of streaming and recording
+of RoboCup games in collaboration with the team Nao Devils.
+
+
+2   Impact and Other Contributions
+Our team is actively and continuously contributing to the RoboCup community.
+In the following, we outline a few highlights.
+Scientiﬁc Communication and RoboCup Organization We organize and
+actively contribute to various public and non-public RoboCup events, like RoHOW,
+Rodeo, Long Night of Science in Berlin [10], Berlin Radio Show [9], and many
+more. We regularly publish at the RoboCup Symposium. The members of our
+team are actively involved in organizing oﬃcial RoboCup events as OC, TC, and
+Local League Chairs.
+Impact on Our University and Community RoboCup is a great opportu-
+nity for our students to connect with other students and researchers on an inter-
+national level. RoboCup provides strong motivation to work on robotic problems
+and attracts a signiﬁcant number of students. Our team is actively participating
+in teaching activities at our university. We supervise thesis projects at all aca-
+demic levels and oﬀer classes focused on current RoboCup topics each semester.
+Our team is well known in the University and local campus and is often invited
+to local public events and interviews.
+RoboCup 1998 – 2026 The team Berlin United (BU) was founded at the end
+of 2007 under the name Nao Team Humboldt (NaoTH) at the lab for Artiﬁcial
+Intelligence at the Humboldt-Universität zu Berlin. NaoTH was founded as a
+4      Heinrich Mellmann und Stella A. Schlotter
+
+direct successor of the Aibo Team Humboldt, which was active in the Four-Legged
+League of the RoboCup as a part of the GermanTeam from 1998 until 2008.
+NaoTH has been a member of the SPL from the ﬁrst SPL competition in 2008
+in Suzhou, China, until the last competition in 2025 in Salvador, Brazil. In that
+time, we successfully and actively participated in nearly every RoboCup and
+German Open, as well as numerous other international and local competitions.
+In 2026, our team is oﬃcially joining the newly formed Humanoid Soccer League
+(HSL) and intends to compete in the small and middle divisions.
+
+Bridging the Community – SPL, HL and S3D In addition to our main
+focus on SPL, our team invested signiﬁcant energy in bridging between the SPL,
+the Humanoid League, and the Simulation 3D League.
+     - Bridging SPL and HL: In 2011, we formed a conjoint team Berlin United
+with the team FUmanoids from Berlin, which participated in the Humanoid
+KidSize League. In 2017, the team FUmanoids ceased to exist, and we continue
+to compete under the name Berlin United. The collaboration included extensive
+exchange of experience, development of a joint code base, joint games, and joint
+workshops. In this time, we actively contributed to narrowing the gap between
+the leagues, for example, to unifying the ﬁeld dimensions. Throughout years
+2011 – 2013, we organized a series of workshops known as RoboCup Berlin Open
+Workshop (RoBOW ) for teams from SPL and HL [4]. RoBOW grew into a
+regular series of RoboCup workshops organized by diﬀerent universities, most
+notably RoHOW, organized by the team HULKs [5] in Hamburg/Germany, and
+Rodeo [2], organized by the team Nao Devils in Dortmund/Germany.
+     - Bridging SPL and S3D: In 2010 and 2011, we competed in the 3D Simu-
+lation League (S3D) using the same code as for the SPL. We won the German
+Open and the AutCup competitions, and achieved 2nd place at the RoboCup
+World Championship 2010 in Singapore, only narrowly losing the ﬁnal match in
+overtime. We also extended and adapted the oﬃcial physical simulator SimSpark
+of the S3D to be used within the SPL and made it available to the community
+[6]. The simulator won 1st place in the Open Technical Challenge in the SPL at
+the RoboCup World Championship 2012 in Mexico.
+     - Bridging Within the SPL: We successfully competed at the SPL Mixed
+Team Competition. In 2017 and 2018, we achieved 2nd place as a joint team
+DoBerMan together with the team NaoDevils. In 2019, we won 1st place as part
+of the mixed team B&B together with B-Human.
+
+Selected Recent Results In 2019, we won all SPL Technical Challenges and
+the Mixed Team Competition as part of the Mixed Team B&B together with
+B-Human. During the COVID pandemic, in 2021, our team achieved 3rd place in
+the Obstacle Avoidance Challenge. After a break in 2022 caused by the pandemic,
+our team began its recovery and successfully participated at the RoboCup in
+Bordeaux in 2023. At the competitions in 2024 and 2025, our team continuously
+and signiﬁcantly improved our global Glico-Rating, reaching 6th place in the
+overall ranking (quarter-ﬁnals) after narrowly losing the quarter-ﬁnals in the
+last 20 seconds of the game at the RoboCup 2025 in Salvador, Brasil.
+                               Berlin United – Team Description Paper 2026          5
+
+Literatur
+
+ 1. Data Driven Approach to Research in RoboCup, https://robocup.tools/, (ac-
+    cess: 2026-02-01)
+ 2. Open Robotic Workshop in Dortmund (RoDEO), https://naodevils.de/rodeo,
+    (accessed: 2026-02-01)
+ 3. RoboCup 2022 Standard Platform League – Open Research Challenge – Video
+    Analysis / Statistics, https://spl.robocup.org/rc2022/#open-research-chall
+    enge, (accessed: 2026-02-01)
+ 4. RoboCup Berlin Open Workshop (RoBOW), http://robow.de, (accessed: 2026-
+    02-01)
+ 5. Robotic Hamburg Open Workshop (RoHOW), https://rohow.de, (accessed: 2026-
+    02-01)
+ 6. SimSpark-SPL: a Physical Simulator for the RoboCup Standard Platform League,
+    https://github.com/BerlinUnited/SimSpark-SPL, (accessed: 2026-02-01)
+ 7. The RoboCup Soccer Simulation Server MuJoCo Project, https://gitlab.com/r
+    obocup-sim/rcssservermj, (accessed: 2026-02-01)
+ 8. Rule Book of the RoboCup Standard Platform League 2022 (2022), https://spl.
+    robocup.org/wp-content/uploads/SPL-Rules-2022.pdf, (accessed: 2026-02-01)
+ 9. RoboCup at the Internationale Funkausstellung (IFA) (2025), https://www.ifa-b
+    erlin.com/programme/robocup-germany, a.k.a. ’Berlin Radio Show’ is one of the
+    oldest industrial exhibitions in Germany. (accessed: 2026-02-01)
+10. RoboCup at the Long Night of Science, Berlin (2025), https://www.adlersho
+    f.de/news/ein-viertel-jahrhundert-lange-nacht-der-wissenschaften, in
+    German. (accessed: 2026-02-01)
+11. Asada, M., von Stryk, O.: Scientiﬁc and technological challenges in robocup.
+    Annual Review of Control, Robotics, and Autonomous Systems 3(1) (2020).
+    https://doi.org/10.1146/annurev- control- 100719- 064806, https:
+    //doi.org/10.1146/annurev-control-100719-064806
+12. Dübel, J.: Akustische Ortung im Roboterfußball. Master’s thesis, Humboldt-
+    Universität zu Berlin (2022), (in German)
+13. Hartung, J.: Design and Empirical Analysis of Motion and Behavior Primitives
+    for Humanoid Soccer Robots. Bachelor’s thesis, Humboldt-Universität zu Berlin,
+    Department for Computer Science (2025)
+14. Kaden, S.: Wahrnehmung im Kontext des zweibeinigen Laufens humanoider Ro-
+    boter. Project thesis, Humboldt-Universität zu Berlin (2020), (in German)
+15. Kaden, S.: Zweibeiniges Laufen für Humanoide Roboter im RoboCup. Project
+    thesis, Humboldt-Universität zu Berlin (2020), https://www2.informatik.hu-b
+    erlin.de/~naoth/docs/theses/2020-studienarbeit-kaden.pdf, (in German)
+16. Mellmann, H.: Anticipation – an Approach to Complex Decision-Making under
+    Uncertainty in Artiﬁcial Physical Agents. Ph.D. thesis, Humboldt-Universität zu
+    Berlin, Department for Computer Science, Berlin, Germany (2024), (in press)
+17. Mellmann, H.: From global localization to contextual perception – a novel approach
+    to stable decisions in robot soccer. In: RoboCup 2025: Robot World Cup XXVIII.
+    Springer International Publishing (2025), (in press)
+18. Mellmann, H., Schlotter, S.A.: Advances on simulation based selection of actions
+    for a humanoid soccer-robot. In: Proceedings of the 12th Workshop on Humanoid
+    Soccer Robots, 17th IEEE-RAS International Conference on Humanoid Robots
+    (Humanoids), Madrid, Spain. (2017)
+6       Heinrich Mellmann und Stella A. Schlotter
+
+19. Mellmann, H., Schlotter, S.A., Blum, C.: Simulation based selection of actions for
+    a humanoid soccer-robot. In: RoboCup 2016: Robot Soccer World Cup XX (2016),
+    http://www.ais.uni-bonn.de/robocup.de/2016/papers/RoboCup_Symposium_
+    2016_Mellmann.pdf
+20. Mellmann, H., Schlotter, S.A., Musiolek, L., Hafner, V.V.: Anticipation as a
+    mechanism for complex behavior in artiﬁcial agents. Artiﬁcial Life Conference
+    Proceedings (32), 157–159 (2020). https://doi.org/10.1162/isal_a_00314,
+    https://www.mitpressjournals.org/doi/abs/10.1162/isal_a_00314
+21. Nguyen, A.T.: Realtime Object Detection on the NAO Robot. Project thesis,
+    Humboldt-Universität zu Berlin (2020), https://www2.informatik.hu-berli
+    n.de/~naoth/docs/theses/2020-studienarbeit-nguyen.pdf
+22. Patzelt, M.P.: Autoencoders for Object Classiﬁcation and Position Estimation in
+    Humanoid Soccer Robots. Master’s thesis, Humboldt-Universität zu Berlin, De-
+    partment for Computer Science (2024)
+23. Prisacaru, A.: Gretchen - a humanoid robot for research and education. Bachelor’s
+    thesis, Humboldt-Universität zu Berlin (2020), https://www2.informatik.hu-b
+    erlin.de/~naoth/docs/theses/2020-bachelorarbeit-prisacaru.pdf
+24. Schlotter, S.A.: Analyse von RoboCup Spielen - Erkennen und Lokalisieren von
+    Nao Robotern. Project thesis, Humboldt-Universität zu Berlin (2020), https:
+    //www2.informatik.hu-berlin.de/~naoth/docs/theses/2020-studienarbeit
+    -schlotter.pdf, (in German)
+25. Schlotter, S.A.: Objekterkennung im RoboCup Kontext. Master’s thesis,
+    Humboldt-Universität zu Berlin (2022), (in German)
+26. Strobel, P.: Teamstrategie und -koordination im Kontext des Roboterfußballs. Mas-
+    ter’s thesis, Humboldt-Universität zu Berlin (2020), https://www2.informatik.
+    hu-berlin.de/~naoth/docs/theses/2020-diplomarbeit-strobel.pdf, (in
+    German)
+27. Treßin, D.: Softwareframework für den humanoiden Roboter Gretchen. Bachelor’s
+    thesis, Humboldt-Universität zu Berlin (2022), (in German)
+

@@ -1,0 +1,183 @@
+    Khalifa University Robotics Athletes (KURA):
+     Team Description Paper for RoboCup 2026
+            Humanoid Adult Size League
+
+    Saif Dhafer Alameri1 , Ahmed Sultan Al Ali1 , Ahmed Albreiki1 , Dr.Hamad
+                            Karki1 , and KURA Team1
+
+                Khalifa University, Abu Dhabi, United Arab Emirates
+                 saif0dhafer@gmail.com or 100062645@ku.ac.ae
+
+
+
+        Abstract. Khalifa University Robotics Athletes (KURA) is a student
+        robotics team from Khalifa University, Abu Dhabi, UAE, competing
+        in the RoboCup Humanoid Soccer leagues and regional competitions.
+        The team focuses on advanced humanoid control, perception, and au-
+        tonomous decision-making in highly dynamic soccer environments. KURA
+        has achieved strong results in both Kid Size and Adult Size competitions,
+        including second place in RCAP 2025 (Adult Size 3v3 and Kid Size 4v4),
+        fourth place at WHROG 2025 (Beijing), and second place in RoboCup
+        2024 (Kid Size League).
+        This paper summarizes lessons learned from previous RoboCup partici-
+        pations and describes our current Adult Size system based on a ROS 2
+        software.
+
+        Keywords: Humanoid robotics · RoboCup · Behavior trees · Multi-
+        robot coordination
+
+
+1     Introduction
+Khalifa University Robotics Athletes (KURA) is a student robotics team rep-
+resenting Khalifa University, Abu Dhabi, UAE. The team conducts applied re-
+search in humanoid robotics and fieldable autonomous systems and uses RoboCup
+Humanoid Soccer as a benchmark for real-time decision-making,and perception.
+
+1.1    Recent Competition Results
+KURA has achieved the following results in recent years:
+ – 2nd Place – RCAP 2025 Abu Dhabi, Adult Size (3v3).
+ – 2nd Place – RCAP 2025 Abu Dhabi, Kid Size (4v4).
+ – 4th Place – WHROG 2025 (Beijing).
+ – 2nd Place – RoboCup 2024, Kid Size League.
+These results demonstrate a steady progression from Kid Size to Adult Size
+competitions and validate the underlying software and control architecture.
+2      S. D. Alameri et al.
+
+2     Lessons Learned from Previous RoboCup Competitions
+
+KURA has participated in RoboCup and related competitions since the Kid
+Size league in 2024. Transitioning these experiences to the Adult Size league has
+revealed several key lessons.
+
+
+2.1   Multi-Agent Coordination and Communication
+
+Another key lesson is that team coordination is often the decisive factor in 3v3
+matches. Without robust communication and shared state, players may chase the
+same ball, block each other, or leave the goal unprotected. Our experience led
+us to introduce dynamic role assignment for attacker, support, and goalkeeper.
+
+
+3     Adult Size System Overview
+
+Our current Adult Size system follows a modular hardware and software archi-
+tecture built around ROS 2 and a behavior-tree-based decision layer.
+
+
+3.1   Hardware Platform
+
+The Adult Size KURA robots comply with the Humanoid League Adult Size by
+using booster T1.
+
+
+3.2   Software Architecture
+
+The software stack is organized into multiple layers: perception, state estimation,
+motion control, and team behavior.
+
+
+Perception Perception is based on color and geometry-based detection com-
+bined with learning-based modules. The robots use a camera model calibrated to
+field dimensions. The system also includes automatic visual calibration routines
+for camera pitch, yaw, and height, which are parameterized and updated on-field
+through the shared blackboard.
+
+
+State Estimation and Localization The robot pose is estimated by fusing
+IMU data, odometry, and visual features. Line and goal-post detections update
+a localization module that runs continuously during matches. Ball position and
+velocity are tracked in both robot and field coordinates, enabling consistent
+coordination between robots.
+                              KURA: RoboCup 2026 Humanoid Adult Size           3
+
+4     Major Challenges and Planned Changes for RoboCup
+      2026
+
+4.1   Major Challenges
+
+Based on our experiences in RoboCup 2024, WHROG 2025, and RCAP 2026,
+we identify the following main challenges for RoboCup 2026:
+
+ – Attack path planning under congestion: The Adult Size field and 3v3
+   format lead to frequent congestion around the ball. We must plan collision-
+   free, efficient paths for attackers and supporters that account for opponents
+   and teammates.
+ – Dynamic role assignment in 3v3: Roles must adapt quickly to ball po-
+   sition, player availability, and GameController states without oscillations or
+   conflicts.
+ – Teammate and opponent differentiation: Robustly distinguishing team-
+   mates from opponents using vision and communication is necessary for pass-
+   ing, marking, and tactical positioning.
+
+
+4.2   Planned Major Changes
+
+To address these challenges, we plan several major developments for RoboCup
+2026.
+
+
+Path Planning for Attack We will extend the use of MoveToPoseOnField and
+related nodes with a dedicated attack path planner. This planner will generate
+paths that:
+
+ – minimize exposure to opponent defenders while preserving a clear shooting
+   lane;
+ – incorporate predicted ball motion and GameController phases
+
+
+Dynamic Role Assignment in 3v3 A refined dynamic role assignment mech-
+anism will score each robot for roles such as striker, supporter, defender, and
+goalkeeper using:
+
+ – distance and orientation to the ball;
+ – current GameController state and penalties;
+ – reliability of localization and communication for each robot.
+
+The scores will be shared through the blackboard and network messages, and
+the behavior tree will update player_role, attacker_id, and shadow_id ac-
+cordingly.
+4         S. D. Alameri et al.
+
+Teammate and Opponent Differentiation We will integrate camera-based
+jersey detection with communication signals (player IDs and roles) to reliably
+differentiate teammates and opponents. This will enable:
+    – safe and purposeful passing to identified teammates;
+    – marking and blocking strategies specifically targeting opponents;
+
+4.3     Implementation Status at Submission Time
+Table 1 summarizes the implementation status of the planned changes at the
+time of submission.
+
+               Table 1. Implementation status of major planned changes.
+
+Area            Planned change                    Status
+Attack planning Dedicated attack path planner     Design and simulation in progress
+Defense         Parallel goalkeeping behaviors    Basic blocking behavior implemented
+Roles           Dynamic 3v3 role assignment       Prototype based on blackboard entries
+Perception      Team/opponent differentiation     Color- and ID-based prototype on-robot
+Infrastructure Extended behavior tree (BrainTree) Used in RCAP 2026, being refined
+
+
+
+
+5      Impact on League and University/Community
+5.1     Impact on the Humanoid Soccer League
+KURA contributes to the Humanoid League in several ways:
+    – Advanced multi-agent strategies: Our work on dynamic role assignment,
+      attack path planning, and parallel goalkeeping provides concrete examples
+      of scalable multi-robot coordination.
+    – Regional development: Competing in RCAP 2026 Abu Dhabi with Adult
+      Size and Kid Size teams supports the growth of the RoboCup community in
+      the MENA region.
+
+5.2     Impact on Khalifa University and the Community
+Within Khalifa University, KURA serves as a platform for:
+    – Student training: Undergraduate and graduate students participate in per-
+      ception, control, software engineering, and embedded systems development
+      through project and thesis work.
+    – Curriculum integration: Course projects in robotics and AI use KURA
+      software components and data for hands-on assignments.
+    – Outreach: Demonstrations at university events and local schools use hu-
+      manoid soccer robots to promote interest in STEM disciplines across the
+      UAE.
+
