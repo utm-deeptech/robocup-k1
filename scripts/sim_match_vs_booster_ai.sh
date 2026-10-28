@@ -2,7 +2,7 @@
 # Local test fixture: 1v1 match of our brain (robot1, team 1) vs Booster's default 3v3 AI
 # (robot2, team 2) under Booster's official referee. Run on the HOST with Booster Studio open
 # and the K1 3D view showing (its camera renderer must be running).
-# Nothing here modifies Booster's referee or simulator; see the k1-soccer-strategy skill.
+# Nothing here modifies Booster's referee or simulator; see docs/k1-soccer-strategy.
 set -e
 C=${CONTAINER:-rxlma-k1}
 REPO=$(cd "$(dirname "$0")/.." && pwd)

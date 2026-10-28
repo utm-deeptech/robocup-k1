@@ -13,7 +13,7 @@ brain_node:
       depth_image_topic: /rgbd_camera/depth/image_raw
       depth_camera_info_topic: /rgbd_camera/depth/camera_info
     RLVisionKick:
-      # Kick policy walks up and shoots by itself once in soccer mode (k1-soccer-strategy skill).
+      # Kick policy walks up and shoots by itself once in soccer mode (docs/k1-soccer-strategy).
       # Booster's default AI hands over below 2.5 m with no angle gate.
       enableAutoVisualKick: true
       autoVisualKickEnableDistMax: 2.5

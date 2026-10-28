@@ -1,8 +1,3 @@
----
-name: k1-soccer-strategy
-description: Strategy playbook for the Booster K1 3v3 soccer competition (Booster Champion 3v3, Booster sim + automatic referee). Use whenever designing, changing, debugging or testing our robot's soccer behaviour in ~/robocup_demo — striker/kick/dribble decisions, role assignment, positioning, goalkeeper, set plays, or when we lose to Booster's default AI. Built from RoboCup champion papers (Rhoban 2023, HTWK 2025 K1 winners, NimbRo, KURA 3v3), the HTWK K1 firmware source, and the Booster default 3v3 AI that we play against.
----
-
 # K1 3v3 soccer strategy
 
 ## Hard rules (never break)
