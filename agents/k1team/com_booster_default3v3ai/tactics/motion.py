@@ -44,6 +44,23 @@ _ARRIVE_DISTANCE = 0.15
 _ARRIVE_ANGLE = 0.20  # Relaxed to ~11.5 deg to avoid repeated micro-adjustments near target.
 _TURN_THRESHOLD = 0.5
 _ANGULAR_SPEED_FLOOR = 0.25  # Lower floor to reduce overshoot for small angle errors.
+
+# k1team: Booster's visual kick sends the ball left of the requested direction. Measured in
+# sim with scripts/sim_kick_power_test.py (2026-10-17, 25 kicks from one spot): power 1.2
+# ~19 deg, 1.5 ~13 deg, 3-5 ~13 deg. Above 5 the direction is erratic, so no fixed correction.
+_KICK_DRIFT_DEG = ((1.2, 19.0), (1.5, 13.0), (5.0, 13.0))
+
+
+def kick_drift_rad(power: float) -> float:
+    """Expected leftward kick drift at ``power`` (linear between measured powers)."""
+
+    points = _KICK_DRIFT_DEG
+    if power <= points[0][0]:
+        return math.radians(points[0][1])
+    for (p0, d0), (p1, d1) in zip(points, points[1:]):
+        if power <= p1:
+            return math.radians(d0 + (d1 - d0) * (power - p0) / (p1 - p0))
+    return math.radians(points[-1][1])
 _ANGULAR_DEAD_ZONE = 0.15  # No floor below this angle error; pure proportional control.
 _LINEAR_SPEED_FLOOR = 0.3
 _LINEAR_GAIN = 0.9
@@ -129,18 +146,24 @@ class MotionController:
         context: PlayContext,
         kick_theta: float,
         reason: str,
+        power: float | None = None,
     ) -> RobotCommand:
-        """Generate a kick command and mark the player as kicking to trigger kick hysteresis."""
+        """Generate a kick command and mark the player as kicking to trigger kick hysteresis.
+
+        k1team: ``power`` overrides the config default, and the aim is turned against the
+        kick's measured leftward drift for that power (see :func:`kick_drift_rad`).
+        """
         ball = context.known_ball
         robot = context.teammates.get(player_id)
         if robot is None or robot.pose is None:
             return RobotCommand.stop(f"{reason}: waiting for pose")
         self._kicker.mark_kicking(player_id)
         rel_ball = field_to_relative(ball.x, ball.y, robot.pose)
+        power = power or self._config.strategy.soccer_kick_power
         return RobotCommand(
             intent=KickIntent(
-                direction=normalize_angle(kick_theta - robot.pose.theta),
-                power=self._config.strategy.soccer_kick_power,
+                direction=normalize_angle(kick_theta - kick_drift_rad(power) - robot.pose.theta),
+                power=power,
                 ball_x=rel_ball.x,
                 ball_y=rel_ball.y,
             ),

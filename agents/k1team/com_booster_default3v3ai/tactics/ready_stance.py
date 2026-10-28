@@ -17,6 +17,9 @@ from ..soccer_framework import (
 )
 from .geometry import TeamFieldFrame, clamp
 
+_KICKOFF_BEHIND_BALL_M = 0.5  # k1team: own kick-off wait spot, behind the centre spot
+_KICKOFF_CIRCLE_CLEARANCE_M = 0.3  # k1team: margin outside the centre circle on their kick-off
+
 
 class ReadyStance:
     """READY-stage target-position calculation.
@@ -84,6 +87,16 @@ class ReadyStance:
         """
         own_restart = game.is_restart_for_team(self.config.team_id)
         base_target = self.base_ready_target(slot, own_restart)
+        if slot == ReadySlot.CENTER and game.is_kickoff_for_team(self.config.team_id):
+            # k1team: wait right behind the centre spot so the kick-off touch is immediate.
+            # Legal: the kicking side may stand inside the centre circle in its own half.
+            return Pose2D(x=-_KICKOFF_BEHIND_BALL_M, y=0.0, theta=self.field.attack_theta())
+        if (slot == ReadySlot.CENTER and game.set_play == SetPlay.NONE
+                and game.has_kicking_team() and game.kicking_team != self.config.team_id):
+            # k1team: opponent kick-off - stand in the ball's path to our goal, just outside the
+            # centre circle (the non-kicking side may not be inside it before the ball is free).
+            return Pose2D(x=-(self.config.center_circle_radius + _KICKOFF_CIRCLE_CLEARANCE_M),
+                          y=0.0, theta=self.field.attack_theta())
         if game.set_play == SetPlay.NONE or ball is None:
             return base_target
         if own_restart:

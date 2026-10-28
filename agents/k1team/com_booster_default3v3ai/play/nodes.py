@@ -255,6 +255,7 @@ class KickAction(py_trees.behaviour.Behaviour):
             context,
             kick_theta,
             reason,
+            power=getattr(kt, "power", None),  # k1team: KickTarget carries its own power
         )
         self.blackboard.write(cmd_key(player_id), command)
         return py_trees.common.Status.SUCCESS

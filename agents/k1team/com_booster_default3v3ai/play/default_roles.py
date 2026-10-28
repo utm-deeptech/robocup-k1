@@ -16,6 +16,7 @@ import py_trees
 from ..soccer_framework import PlayContext, Pose2D, ReadySlot
 from .nodes import AttackSubtreeConfig, MoveToTarget, build_attack_subtree
 from .role import RoleStrategy
+from ..tactics.targeting import attack
 
 if TYPE_CHECKING:
     from ..runtime import SoccerKit
@@ -41,6 +42,10 @@ class ChaserRole(RoleStrategy):
         context: PlayContext,
     ) -> Pose2D:
         ball = context.known_ball
+        # k1team: get goal-side when the opponent will win the ball (see attack.cover_target).
+        cover = attack.cover_target(kit.config, kit.field, player_id, context)
+        if cover is not None:
+            return cover
         kt = self.kick_target(kit, player_id, context)
         kick_theta = math.atan2(kt.y - ball.y, kt.x - ball.x)
         return kit.motion.approach_target(
